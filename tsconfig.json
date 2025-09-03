@@ -29,6 +29,9 @@
       "@lib": [
         "./src/lib/index.ts"
       ],
+      "@i18n": [
+        "./src/i18n/index.ts"
+      ],
       "@/*": [
         "./src/*"
       ]
@@ -37,11 +40,9 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "next-env.d.ts",
     "./dist/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }
