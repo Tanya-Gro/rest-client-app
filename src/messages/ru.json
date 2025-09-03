@@ -1,5 +1,17 @@
 {
   "main": {
     "text": "Главная страница"
+  },
+  "login": {
+    "header": "Войти в аккаунт",
+    "header-description": "Введите Ваш email и пароль, чтобы войти в аккаунт",
+    "button": "Войти",
+    "password": "Пароль"
+  },
+  "registration": {
+    "header": "Регистрация",
+    "header-description": "Введите Ваш email и пароль для регистрации",
+    "button": "Войти",
+    "password": "Пароль"
   }
 }

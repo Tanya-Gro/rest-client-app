@@ -1,5 +1,19 @@
 {
   "main": {
     "text": "Main page"
+  },
+  "login": {
+    "authentication": {
+      "header": "Login to your account",
+      "header-description": "Enter your email and password to login to your account",
+      "button": "Login",
+      "password": "Password"
+    },
+    "registration": {
+      "header": "Registration",
+      "header-description": "Enter your email and password to register",
+      "button": "Registration",
+      "password": "Password"
+    }
   }
 }
