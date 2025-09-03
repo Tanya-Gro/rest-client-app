@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,9 +14,26 @@ import { Label } from '@/components/ui/label';
 import { ComponentProps } from 'react';
 import { useTranslations } from 'next-intl';
 
+import { getAuthSchema } from '@/lib/schemas/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { AUTH_PAGE } from '@/constant/enumAuthPage';
+
 export function AuthForm({ className, page, ...props }: AuthFormProps) {
   const text = useTranslations();
-  console.log(text(`${page}.header`));
+  const schema = getAuthSchema(text);
+  type FormData = z.infer<typeof schema>;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ email: string; password: string }>({
+    resolver: zodResolver(schema),
+  });
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+  };
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
@@ -25,22 +44,34 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
-                  type="email"
+                  type="text"
                   placeholder="m@example.com"
-                  required
+                  {...register('email')}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                )}
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">{text(`${page}.password`)}</Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  {...register('password')}
+                />
+                {errors.password && (
+                  <p className="text-sm text-red-500">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full">
@@ -56,10 +87,5 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
 }
 
 interface AuthFormProps extends ComponentProps<'div'> {
-  page: 'login' | 'registration';
-}
-
-export enum AuthPage {
-  Login = 'login',
-  Registration = 'registration',
+  page: typeof AUTH_PAGE.LOGIN | typeof AUTH_PAGE.REGISTARTION;
 }

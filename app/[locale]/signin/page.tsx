@@ -1,10 +1,11 @@
-import { AuthForm, AuthPage } from '@/components/auth-form/AuthForm';
+import { AuthForm } from '@/components/auth-form/AuthForm';
+import { AUTH_PAGE } from '@/constant/enumAuthPage';
 
-export default function SignIn() {
+export default async function SignIn() {
   return (
     <>
       <h1>Sign in</h1>
-      <AuthForm page={AuthPage.Login} />
+      <AuthForm page={AUTH_PAGE.LOGIN} />
     </>
   );
 }

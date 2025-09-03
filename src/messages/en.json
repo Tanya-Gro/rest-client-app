@@ -14,6 +14,14 @@
       "header-description": "Enter your email and password to register",
       "button": "Registration",
       "password": "Password"
+    },
+    "auth-schema": {
+      "email": "Email must be like: m@example.com",
+      "length": "Password must be at least 8 characters",
+      "uppercase": "Password must contain one uppercase letter",
+      "lowercase": "Password must contain one lowercase letter",
+      "number": "Password must contain one number",
+      "special-symbol": "Password must contain one special symbol"
     }
   }
 }
