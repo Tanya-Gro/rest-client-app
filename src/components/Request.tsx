@@ -20,8 +20,8 @@ const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 export const Request = () => {
   return (
-    <div className="flex flex-col justify-between">
-      <div className="flex justify-between gap-3">
+    <div className="flex flex-col gap-2 justify-between">
+      <section className="flex justify-between gap-3">
         <Select defaultValue="get">
           <SelectTrigger className="w-[130px]">
             <SelectValue placeholder="Method" />
@@ -38,36 +38,38 @@ export const Request = () => {
         </Select>
         <Input placeholder="Enter URL" />
         <Button type="submit">Send</Button>
-      </div>
+      </section>
 
-      <Tabs>
-        <TabsList>
-          <TabsTrigger value="header">Headers</TabsTrigger>
-          <TabsTrigger value="body">Body</TabsTrigger>
-          <TabsTrigger value="generated-code">Generated Code</TabsTrigger>
-        </TabsList>
-        <TabsContent
-          value="header"
-          forceMount
-          className="data-[state=inactive]:hidden"
-        >
-          <Headers />
-        </TabsContent>
-        <TabsContent
-          value="body"
-          forceMount
-          className="data-[state=inactive]:hidden"
-        >
-          <Body />
-        </TabsContent>
-        <TabsContent
-          value="generated-code"
-          forceMount
-          className="data-[state=inactive]:hidden"
-        >
-          <GeneratedCode />
-        </TabsContent>
-      </Tabs>
+      <section className="flex flex-col max-h-[50vh] overflow-auto">
+        <Tabs className="flex flex-col h-full">
+          <TabsList>
+            <TabsTrigger value="header">Headers</TabsTrigger>
+            <TabsTrigger value="body">Body</TabsTrigger>
+            <TabsTrigger value="generated-code">Generated Code</TabsTrigger>
+          </TabsList>
+          <TabsContent
+            value="header"
+            forceMount
+            className=" overflow-auto data-[state=inactive]:hidden"
+          >
+            <Headers />
+          </TabsContent>
+          <TabsContent
+            value="body"
+            forceMount
+            className="overflow-auto data-[state=inactive]:hidden"
+          >
+            <Body />
+          </TabsContent>
+          <TabsContent
+            value="generated-code"
+            forceMount
+            className="flex-1 overflow-auto data-[state=inactive]:hidden"
+          >
+            <GeneratedCode />
+          </TabsContent>
+        </Tabs>
+      </section>
     </div>
   );
 };
