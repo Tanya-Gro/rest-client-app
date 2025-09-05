@@ -1,7 +1,7 @@
 import { AuthForm } from '@/components/auth-form/AuthForm';
 import { AUTH_PAGE } from '@/constant/enumAuthPage';
 
-export default async function SignIn() {
+export default function SignIn() {
   return (
     <>
       <h1>Sign in</h1>

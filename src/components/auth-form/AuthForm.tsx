@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ComponentProps } from 'react';
+import { ComponentProps, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { getAuthSchema } from '@/lib/schemas/auth';
@@ -19,11 +19,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { AUTH_PAGE } from '@/constant/enumAuthPage';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { registerUser } from '../../../app/actions/register';
+import { DynamicServerError } from 'next/dist/client/components/hooks-server-context';
 
 export function AuthForm({ className, page, ...props }: AuthFormProps) {
   const text = useTranslations();
   const schema = getAuthSchema(text);
   type FormData = z.infer<typeof schema>;
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -31,9 +38,54 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
   } = useForm<{ email: string; password: string }>({
     resolver: zodResolver(schema),
   });
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+
+  const router = useRouter();
+
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
+    setServerError(null);
+
+    try {
+      if (page === AUTH_PAGE.REGISTRATION) {
+        const formData = new FormData();
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+
+        const result = await registerUser(formData);
+
+        if (result.error) {
+          setServerError(result.error);
+        } else {
+          const signInRes = await signIn('credentials', {
+            redirect: false,
+            email: data.email,
+            password: data.password,
+          });
+
+          if (signInRes?.ok) {
+            router.push('/');
+          }
+        }
+      } else {
+        const signInRes = await signIn('credentials', {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        });
+
+        if (signInRes?.ok) {
+          router.push('/dashboard');
+        } else {
+          setServerError('Неправильный email или пароль');
+        }
+      }
+    } catch (error) {
+      setServerError('Что-то пошло не так');
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
@@ -46,6 +98,12 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
+              {serverError && (
+                <div className="p-3 bg-destructive/15 border border-destructive/50 rounded-md">
+                  <p className="text-sm text-destructive">{serverError}</p>
+                </div>
+              )}
+
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -53,6 +111,7 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
                   type="text"
                   placeholder="m@example.com"
                   {...register('email')}
+                  disabled={isLoading}
                 />
                 {errors.email && (
                   <p className="text-sm text-red-500">{errors.email.message}</p>
@@ -66,6 +125,7 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
                   id="password"
                   type="password"
                   {...register('password')}
+                  disabled={isLoading}
                 />
                 {errors.password && (
                   <p className="text-sm text-red-500">
@@ -74,8 +134,8 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
                 )}
               </div>
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full">
-                  {text(`${page}.button`)}
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? 'Загрузка...' : text(`${page}.button`)}
                 </Button>
               </div>
             </div>
@@ -87,5 +147,5 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
 }
 
 interface AuthFormProps extends ComponentProps<'div'> {
-  page: typeof AUTH_PAGE.LOGIN | typeof AUTH_PAGE.REGISTARTION;
+  page: (typeof AUTH_PAGE)[keyof typeof AUTH_PAGE];
 }

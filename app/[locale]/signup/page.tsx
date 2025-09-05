@@ -5,7 +5,7 @@ export default function SignUp() {
   return (
     <>
       <h1>Sign up</h1>
-      <AuthForm page={AUTH_PAGE.REGISTARTION} />
+      <AuthForm page={AUTH_PAGE.REGISTRATION} />
     </>
   );
 }
