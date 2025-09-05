@@ -12,9 +12,9 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui';
-import { Headers } from '../Headers';
-import { Body } from '../Body';
-import { GeneratedCode } from '../GeneratedCode';
+import { Headers } from './Headers';
+import { Body } from './Body';
+import { GeneratedCode } from './GeneratedCode';
 
 const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 

@@ -9,7 +9,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui';
+} from './ui';
 import { useState } from 'react';
 
 const headers = [

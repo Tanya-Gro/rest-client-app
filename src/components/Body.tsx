@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from '../ui';
+} from './ui';
 
 type Props = {
   isReadonly?: boolean;

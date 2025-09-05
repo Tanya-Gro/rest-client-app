@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui';
-import { Textarea } from '../ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from './ui';
 
 const languages = [
   'curl',
