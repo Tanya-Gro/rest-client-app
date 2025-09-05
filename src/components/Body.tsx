@@ -10,6 +10,7 @@ import {
   SelectValue,
   Textarea,
 } from './ui';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   isReadonly?: boolean;
@@ -17,9 +18,10 @@ type Props = {
 
 export const Body = ({ isReadonly }: Props) => {
   const [mode, setMode] = useState<'json' | 'text'>('json');
+  const t = useTranslations('restful-client');
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <div className="flex gap-2">
         {!isReadonly ? (
           <Select
@@ -27,15 +29,17 @@ export const Body = ({ isReadonly }: Props) => {
             onValueChange={(val: 'json' | 'text') => setMode(val)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Mode" />
+              <SelectValue placeholder={t('mode')} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="json">JSON</SelectItem>
-              <SelectItem value="text">Text</SelectItem>
+              <SelectItem value="text">{t('modeText')}</SelectItem>
             </SelectContent>
           </Select>
         ) : null}
-        {mode === 'json' && !isReadonly ? <Button>Prettify</Button> : null}
+        {mode === 'json' && !isReadonly ? (
+          <Button>{t('prettify')}</Button>
+        ) : null}
       </div>
       <Textarea
         placeholder={mode === 'json' ? '{ "example": "value" }' : 'Enter text'}

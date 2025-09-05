@@ -1,5 +1,17 @@
 {
-  "main": {
-    "text": "Главная страница"
+  "restful-client": {
+      "headingRequest": "Запрос",
+      "headingResponse": "Ответ",
+      "methodPlaceholder": "Метод",
+      "urlPlaceholder": "Введите URL",
+      "btn": "Отправить",
+      "tabHeaders": "Заголовки",
+      "tabBody": "Тело",
+      "tabCode": "Сгенерированный код",
+      "mode": "Формат",
+      "modeText": "Текст",
+      "prettify": "Форматировать",
+      "header": "Заголовок",
+      "value": "Значение"
   }
 }

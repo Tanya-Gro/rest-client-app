@@ -1,5 +1,17 @@
 {
-  "main": {
-    "text": "Main page"
+  "restful-client": {
+      "headingRequest": "Request",
+      "headingResponse": "Response",
+      "methodPlaceholder": "Method",
+      "urlPlaceholder": "Enter URL",
+      "btn": "Send",
+      "tabHeaders": "Headers",
+      "tabBody": "Body",
+      "tabCode": "Generated Code",
+      "mode": "Mode",
+      "modeText": "Text",
+      "prettify": "Prettify",
+      "header": "Header",
+      "value": "Value"
   }
 }

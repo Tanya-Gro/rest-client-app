@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import {
   Button,
   Input,
@@ -34,6 +35,7 @@ type Header = {
 
 export const Headers = () => {
   const [headerRows, setHeaderRows] = useState<Header[]>([{ id: 1 }]);
+  const t = useTranslations('restful-client');
 
   return (
     <div className="flex flex-col gap-3">
@@ -61,7 +63,7 @@ export const Headers = () => {
         <div key={row.id} className="flex gap-2 items-center">
           <Select>
             <SelectTrigger>
-              <SelectValue placeholder="Header" />
+              <SelectValue placeholder={t('header')} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -76,7 +78,7 @@ export const Headers = () => {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Input placeholder="Value" />
+          <Input placeholder={t('value')} />
         </div>
       ))}
     </div>
