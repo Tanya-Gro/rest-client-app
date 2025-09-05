@@ -41,10 +41,10 @@ export default async function RootLayout({
     <html lang={locale}>
       <NextIntlClientProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col max-w-[1200px] px-4 min-h-screen`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col max-w-[1200px] px-4 min-h-screen mx-auto`}
         >
           <Header />
-          <main className="grow-1 min-h-176">{children}</main>
+          <main className="grow-1">{children}</main>
           <Footer />
         </body>
       </NextIntlClientProvider>

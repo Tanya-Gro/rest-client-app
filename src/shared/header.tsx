@@ -1,3 +1,8 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { cva } from 'class-variance-authority';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import {
@@ -11,14 +16,43 @@ import {
   SelectValue,
 } from '@components';
 
+const headerVariants = cva(
+  'sticky top-0 z-50 flex w-full items-center justify-between p-1 transition-all duration-300',
+  {
+    variants: {
+      isScrolled: {
+        true: 'bg-gray-400 py-2',
+        false: 'bg-gray-200 py-4',
+      },
+    },
+    defaultVariants: { isScrolled: false },
+  }
+);
+
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
+    <header className={headerVariants({ isScrolled })}>
       <Link href="/" className="flex max-w-6xl items-center justify-start px-1">
-        <img
+        <Image
           src="/logo.ico"
           alt="Logo"
-          className="inline-block size-10 rounded-full ring-2 ring-gray-900 outline -outline-offset-1 outline-white/10"
+          className="inline-block rounded-full ring-2 ring-gray-900 outline -outline-offset-1 outline-white/10"
+          height={40}
+          width={40}
         />
         <h1 className="text-2xl font-bold tracking-tight text-balance px-3 hidden sm:inline-block">
           REST API Client
@@ -26,7 +60,7 @@ export default function Header() {
       </Link>
       <div className="flex gap-1.5">
         <Select defaultValue="en">
-          <SelectTrigger>
+          <SelectTrigger className="border-gray-600">
             <SelectValue placeholder="Lang" />
           </SelectTrigger>
           <SelectContent>

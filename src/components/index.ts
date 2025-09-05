@@ -1,5 +1,5 @@
-export { Button } from './ui';
 export {
+  Button,
   Select,
   SelectTrigger,
   SelectValue,
@@ -7,6 +7,10 @@ export {
   SelectGroup,
   SelectLabel,
   SelectItem,
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
 } from './ui';
-export { Avatar, AvatarImage, AvatarFallback } from './ui';
-export { HoverCard, HoverCardContent, HoverCardTrigger } from './ui';
