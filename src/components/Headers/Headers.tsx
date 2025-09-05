@@ -26,8 +26,14 @@ const headers = [
   'X-Requested-With',
 ];
 
+type Header = {
+  id: number;
+  header?: string;
+  value?: string;
+};
+
 export const Headers = () => {
-  const [headerRows, setHeaderRows] = useState<string[]>(['header-1']);
+  const [headerRows, setHeaderRows] = useState<Header[]>([{ id: 1 }]);
 
   return (
     <div className="flex flex-col gap-3">
@@ -36,7 +42,7 @@ export const Headers = () => {
           variant="outline"
           size="sm"
           onClick={() =>
-            setHeaderRows([...headerRows, `header-${headerRows.length + 1}`])
+            setHeaderRows([...headerRows, { id: headerRows.length + 1 }])
           }
         >
           +
@@ -51,8 +57,8 @@ export const Headers = () => {
         </Button>
       </div>
 
-      {headerRows.map((rowKey) => (
-        <div key={rowKey} className="flex gap-2 items-center">
+      {headerRows.map((row) => (
+        <div key={row.id} className="flex gap-2 items-center">
           <Select>
             <SelectTrigger>
               <SelectValue placeholder="Header" />
