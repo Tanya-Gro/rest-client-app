@@ -14,6 +14,7 @@ import {
 } from '@/components/ui';
 import { Headers } from '../Headers';
 import { Body } from '../Body';
+import { GeneratedCode } from '../GeneratedCode';
 
 const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
@@ -43,6 +44,7 @@ export const Request = () => {
         <TabsList>
           <TabsTrigger value="header">Headers</TabsTrigger>
           <TabsTrigger value="body">Body</TabsTrigger>
+          <TabsTrigger value="generated-code">Generated Code</TabsTrigger>
         </TabsList>
         <TabsContent
           value="header"
@@ -57,6 +59,13 @@ export const Request = () => {
           className="data-[state=inactive]:hidden"
         >
           <Body />
+        </TabsContent>
+        <TabsContent
+          value="generated-code"
+          forceMount
+          className="data-[state=inactive]:hidden"
+        >
+          <GeneratedCode />
         </TabsContent>
       </Tabs>
     </div>
