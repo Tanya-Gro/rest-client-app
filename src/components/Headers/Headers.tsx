@@ -1,0 +1,78 @@
+'use client';
+
+import {
+  Button,
+  Input,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui';
+import { useState } from 'react';
+
+const headers = [
+  'Accept',
+  'Accept-Encoding',
+  'Accept-Language',
+  'Authorization',
+  'Cache-Control',
+  'Content-Type',
+  'Cookie',
+  'Origin',
+  'Referer',
+  'User-Agent',
+  'X-Requested-With',
+];
+
+export const Headers = () => {
+  const [headerRows, setHeaderRows] = useState<string[]>(['header-1']);
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex gap-2 items-center">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() =>
+            setHeaderRows([...headerRows, `header-${headerRows.length + 1}`])
+          }
+        >
+          +
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={headerRows.length === 1}
+          onClick={() => setHeaderRows(() => headerRows.slice(0, -1))}
+        >
+          –
+        </Button>
+      </div>
+
+      {headerRows.map((rowKey) => (
+        <div key={rowKey} className="flex gap-2 items-center">
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Header" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {headers.map((header) => (
+                  <SelectItem
+                    key={header.toLowerCase()}
+                    value={header.toLowerCase()}
+                  >
+                    {header}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Input placeholder="Value" />
+        </div>
+      ))}
+    </div>
+  );
+};

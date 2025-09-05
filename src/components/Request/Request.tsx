@@ -7,7 +7,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
 } from '@/components/ui';
+import { Headers } from '../Headers';
+
+const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 export const Request = () => {
   return (
@@ -19,19 +26,26 @@ export const Request = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="get">GET</SelectItem>
-              <SelectItem value="post">POST</SelectItem>
-              <SelectItem value="put">PUT</SelectItem>
-              <SelectItem value="patch">PATCH</SelectItem>
-              <SelectItem value="delete">DELETE</SelectItem>
-              <SelectItem value="head">HEAD</SelectItem>
-              <SelectItem value="options">OPTIONS</SelectItem>
+              {methods.map((method) => (
+                <SelectItem key={method} value={method}>
+                  {method.toUpperCase()}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>
         <Input placeholder="Enter URL" />
         <Button type="submit">Send</Button>
       </div>
+
+      <Tabs>
+        <TabsList>
+          <TabsTrigger value="header">Headers</TabsTrigger>
+        </TabsList>
+        <TabsContent value="header">
+          <Headers />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
