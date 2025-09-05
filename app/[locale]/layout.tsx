@@ -4,6 +4,7 @@ import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@i18n';
+import Header from '@/shared/header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -41,7 +42,7 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <header></header>
+          <Header />
           <main>{children}</main>
           <footer></footer>
         </body>
