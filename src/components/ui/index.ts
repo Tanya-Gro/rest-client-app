@@ -8,3 +8,5 @@ export {
   SelectLabel,
   SelectItem,
 } from './select';
+export { Avatar, AvatarImage, AvatarFallback } from './avatar';
+export { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card';
