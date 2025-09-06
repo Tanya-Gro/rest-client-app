@@ -34,13 +34,7 @@ const headerVariants = cva(
 export function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 1) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 1);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -82,14 +76,14 @@ export function Header() {
           </SelectContent>
         </Select>
         <Button className="cursor-pointer">
-          <Link href="/signin">{t('buttonSI')}</Link>
+          <Link href="/signin">{t('buttonSignIn')}</Link>
         </Button>
 
         <Button className="cursor-pointer">
-          <Link href="/signup">{t('buttonSU')}</Link>
+          <Link href="/signup">{t('buttonSignUp')}</Link>
         </Button>
 
-        <Button>{t('buttonSO')}</Button>
+        <Button>{t('buttonSignOut')}</Button>
       </div>
     </header>
   );

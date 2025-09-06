@@ -33,7 +33,7 @@ const GIT_LINKS: Record<string, GitInfo> = {
     image: '/github/victor.png',
   },
 };
-const YEAR = 2025;
+const DEVELOPMENT_YEAR = '2025';
 const RS_LINK = 'https://rs.school/courses/reactjs';
 
 export function Footer() {
@@ -75,7 +75,7 @@ export function Footer() {
         ))}
       </div>
 
-      <span>© {YEAR}</span>
+      <span>© {DEVELOPMENT_YEAR}</span>
 
       <Link
         href={RS_LINK}

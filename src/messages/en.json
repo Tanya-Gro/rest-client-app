@@ -3,9 +3,9 @@
     "text": "Main page"
   },
   "header": {
-    "buttonSI": "Sign In",
-    "buttonSU": "Sign Up",
-    "buttonSO": "Sign Out"
+    "buttonSignIn": "Sign In",
+    "buttonSignUp": "Sign Up",
+    "buttonSignOut": "Sign Out"
   },
   "footer": {
     "title": "Our team:",

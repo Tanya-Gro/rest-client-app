@@ -3,9 +3,9 @@
     "text": "Главная страница"
   },
   "header": {
-    "buttonSI": "Войти",
-    "buttonSU": "Регистрация",
-    "buttonSO": "Выйти"
+    "buttonSignIn": "Войти",
+    "buttonSignUp": "Регистрация",
+    "buttonSignOut": "Выйти"
   },
   "footer": {
     "title": "Наша команда:",
