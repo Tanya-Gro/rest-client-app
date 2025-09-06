@@ -6,7 +6,6 @@ import { prisma } from '@/lib/prisma/prisma';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  debug: true,
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -33,7 +32,6 @@ export const authOptions: NextAuthOptions = {
 
           return user;
         } catch (error) {
-          console.error('Authorize error:', error);
           return null;
         }
       },

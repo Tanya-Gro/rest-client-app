@@ -2,19 +2,20 @@
 
 import { prisma } from '@/lib/prisma/prisma';
 import bcrypt from 'bcryptjs';
+import { AUTH_API_ERROR } from '@/constant/authApiError';
 
 export async function registerUser(formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
   if (!email || !password) {
-    return { error: 'Email и пароль обязательны' };
+    return { error: AUTH_API_ERROR.NO_DATA };
   }
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return { error: 'Пользователь уже существует' };
+      return { error: AUTH_API_ERROR.EXISTS };
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -25,7 +26,6 @@ export async function registerUser(formData: FormData) {
 
     return { success: true, user: { id: user.id, email: user.email } };
   } catch (error) {
-    console.error('Registration error:', error);
-    return { error: 'Внутренняя ошибка сервера' };
+    return { error: AUTH_API_ERROR.SERVER_ERROR };
   }
 }

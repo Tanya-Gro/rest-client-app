@@ -6,13 +6,22 @@
     "header": "Войти в аккаунт",
     "header-description": "Введите Ваш email и пароль, чтобы войти в аккаунт",
     "button": "Войти",
-    "password": "Пароль"
+    "password": "Пароль",
+    "loading": "Загрузка...",
+    "invalid": "Неправильный email или пароль",
+    "server-error": "Ошибка сервера",
+    "some-error": "Something went wrong"
   },
   "registration": {
     "header": "Регистрация",
     "header-description": "Введите Ваш email и пароль для регистрации",
-    "button": "Войти",
-    "password": "Пароль"
+    "button": "Зарегистрироваться",
+    "password": "Пароль",
+    "loading": "Загрузка...",
+    "exists": "Пользователь уже существует",
+    "no-data": "Необходим пароль и email",
+    "server-error": "Ошибка сервера",
+    "some-error": "Что-то пошло не так"
   },
   "auth-schema": {
     "email": "Email должен быть вида: m@example.com",

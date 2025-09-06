@@ -18,19 +18,15 @@ import { getAuthSchema } from '@/lib/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { AUTH_PAGE } from '@/constant/enumAuthPage';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { registerUser } from '../../../app/actions/register';
-import { DynamicServerError } from 'next/dist/client/components/hooks-server-context';
 
-export function AuthForm({ className, page, ...props }: AuthFormProps) {
+export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
   const text = useTranslations();
   const schema = getAuthSchema(text);
   type FormData = z.infer<typeof schema>;
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-
   const {
     register,
     handleSubmit,
@@ -44,56 +40,30 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     setServerError(null);
-
     try {
-      if (page === AUTH_PAGE.REGISTRATION) {
-        const formData = new FormData();
-        formData.append('email', data.email);
-        formData.append('password', data.password);
+      const signInRes = await signIn('credentials', {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
 
-        const result = await registerUser(formData);
-
-        if (result.error) {
-          setServerError(result.error);
-        } else {
-          const signInRes = await signIn('credentials', {
-            redirect: false,
-            email: data.email,
-            password: data.password,
-          });
-
-          if (signInRes?.ok) {
-            router.push('/');
-          }
-        }
+      if (signInRes?.ok) {
+        router.push('/dashboard');
       } else {
-        const signInRes = await signIn('credentials', {
-          redirect: false,
-          email: data.email,
-          password: data.password,
-        });
-
-        if (signInRes?.ok) {
-          router.push('/dashboard');
-        } else {
-          setServerError('Неправильный email или пароль');
-        }
+        setServerError(text(`login.invalid`));
       }
     } catch (error) {
-      setServerError('Что-то пошло не так');
+      setServerError(text(`registration.some-error`));
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>{text(`${page}.header`)}</CardTitle>
-          <CardDescription>
-            {text(`${page}.header-description`)}
-          </CardDescription>
+          <CardTitle>{text(`login.header`)}</CardTitle>
+          <CardDescription>{text(`login.header-description`)}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -119,7 +89,7 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">{text(`${page}.password`)}</Label>
+                  <Label htmlFor="password">{text(`login.password`)}</Label>
                 </div>
                 <Input
                   id="password"
@@ -135,7 +105,7 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Загрузка...' : text(`${page}.button`)}
+                  {isLoading ? text(`login.loading`) : text(`login.button`)}
                 </Button>
               </div>
             </div>
@@ -144,8 +114,4 @@ export function AuthForm({ className, page, ...props }: AuthFormProps) {
       </Card>
     </div>
   );
-}
-
-interface AuthFormProps extends ComponentProps<'div'> {
-  page: (typeof AUTH_PAGE)[keyof typeof AUTH_PAGE];
 }
