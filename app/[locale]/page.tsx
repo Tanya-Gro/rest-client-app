@@ -1,3 +1,6 @@
+import { useTranslations } from 'next-intl';
+
 export default function Home() {
-  return <h1>Main page</h1>;
+  const t = useTranslations('main');
+  return <h1 className="max-w-[1200px] mx-auto">{t('text')}</h1>;
 }

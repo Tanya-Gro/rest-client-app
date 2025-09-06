@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { cva } from 'class-variance-authority';
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,7 +19,7 @@ import {
 } from '@components';
 
 const headerVariants = cva(
-  'sticky top-0 z-50 flex w-full items-center justify-between p-1 transition-all duration-300',
+  'sticky top-0 z-50 flex w-full max-w-[1200px] mx-auto items-center justify-between p-1 transition-all duration-300',
   {
     variants: {
       isScrolled: {
@@ -29,24 +31,32 @@ const headerVariants = cva(
   }
 );
 
-export default function Header() {
+export function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 1) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const t = useTranslations('header');
+
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleSwitchLocale = (lang: string) =>
+    router.push(pathname, { locale: lang });
+
   return (
     <header className={headerVariants({ isScrolled })}>
-      <Link href="/" className="flex max-w-6xl items-center justify-start px-1">
+      <Link href="/" className="flex w-max items-center justify-start px-1">
         <Image
           src="/logo.ico"
           alt="Logo"
@@ -59,9 +69,9 @@ export default function Header() {
         </h1>
       </Link>
       <div className="flex gap-1.5">
-        <Select defaultValue="en">
+        <Select defaultValue={locale} onValueChange={handleSwitchLocale}>
           <SelectTrigger className="border-gray-600">
-            <SelectValue placeholder="Lang" />
+            <SelectValue placeholder="Choose language" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -71,9 +81,15 @@ export default function Header() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Button>Sing In</Button>
-        <Button>Sing Up</Button>
-        <Button>Sing Out</Button>
+        <Button className="cursor-pointer">
+          <Link href="/signin">{t('buttonSI')}</Link>
+        </Button>
+
+        <Button className="cursor-pointer">
+          <Link href="/signup">{t('buttonSU')}</Link>
+        </Button>
+
+        <Button>{t('buttonSO')}</Button>
       </div>
     </header>
   );

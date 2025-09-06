@@ -6,6 +6,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@components';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -13,7 +14,6 @@ type GitInfo = {
   name: string;
   link: string;
   image: string;
-  description: string;
 };
 
 const GIT_LINKS: Record<string, GitInfo> = {
@@ -21,30 +21,29 @@ const GIT_LINKS: Record<string, GitInfo> = {
     name: 'Tatiana Grosul',
     link: 'https://github.com/Tanya-Gro',
     image: '/github/tanya.jpg',
-    description: 'Team Lead',
   },
   Mariya: {
     name: 'Mariya Lezhebokova',
     link: 'https://github.com/koonukaame',
     image: '/github/masha.jpg',
-    description: 'Technical Expert',
   },
   Victor: {
     name: 'Viktor Vonyarkha',
     link: 'https://github.com/Viktor1905',
     image: '/github/victor.png',
-    description: "Team's Booster",
   },
 };
 const YEAR = 2025;
 const RS_LINK = 'https://rs.school/courses/reactjs';
 
-export default function Footer() {
+export function Footer() {
+  const t = useTranslations('footer');
+
   return (
-    <footer className="mx-auto flex w-full items-center justify-between bg-gray-200 p-1">
+    <footer className="flex w-full items-center justify-between bg-gray-200 p-1 max-w-[1200px] mx-auto">
       <div className="flex gap-2 items-center">
-        <h4 className="text-xl font-semibold">Our team:</h4>
-        {Object.values(GIT_LINKS).map(({ name, link, image, description }) => (
+        <h4 className="text-xl font-semibold">{t('title')}</h4>
+        {Object.entries(GIT_LINKS).map(([key, { name, link, image }]) => (
           <HoverCard key={name}>
             <HoverCardTrigger asChild>
               <Link href={link} target="_blank" rel="noopener noreferrer">
@@ -65,7 +64,7 @@ export default function Footer() {
                 />
                 <div>
                   <p className="font-semibold">{name}</p>
-                  <p className="text-sm text-muted-foreground">{description}</p>
+                  <p className="text-sm text-muted-foreground">{t(key)}</p>
                   <a href={link} target="_blank" className="hover:underline">
                     GitHub
                   </a>
