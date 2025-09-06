@@ -1,5 +1,16 @@
 {
   "main": {
     "text": "Main page"
+  },
+  "header": {
+    "buttonSI": "Sign In",
+    "buttonSU": "Sign Up",
+    "buttonSO": "Sign Out"
+  },
+  "footer": {
+    "title": "Our team:",
+    "Tanya": "Team Lead",
+    "Mariya": "Architect",
+    "Victor": "Team Driver"
   }
 }

@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
+
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@i18n';
-import Header from '@/shared/header';
-import Footer from '@/shared/footer';
+
+import { Footer, Header } from '@/shared';
+
+import './globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -41,10 +43,10 @@ export default async function RootLayout({
     <html lang={locale}>
       <NextIntlClientProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col max-w-[1200px] px-4 min-h-screen mx-auto`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
         >
           <Header />
-          <main className="grow-1">{children}</main>
+          <main className="grow-1 max-w-[1200px] m-auto">{children}</main>
           <Footer />
         </body>
       </NextIntlClientProvider>
