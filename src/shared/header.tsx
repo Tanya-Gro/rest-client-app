@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { cva } from 'class-variance-authority';
-import { usePathname, useRouter } from '@/i18n/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@components';
+import { usePathname, useRouter } from '@i18n';
 
 const headerVariants = cva(
   'sticky top-0 z-50 flex w-full mx-auto items-center justify-between px-4 transition-all duration-300 border-b',
