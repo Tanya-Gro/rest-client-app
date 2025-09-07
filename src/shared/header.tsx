@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { cva } from 'class-variance-authority';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@i18n';
 
 import {
   Button,
