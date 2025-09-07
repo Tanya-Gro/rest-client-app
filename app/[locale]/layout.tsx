@@ -5,8 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@i18n';
 
-import { Footer } from '@/shared';
-import { Header } from '@/components';
+import { Header, Footer } from '@/components';
 
 import './globals.css';
 
