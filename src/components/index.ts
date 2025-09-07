@@ -14,3 +14,5 @@ export {
   HoverCardContent,
   HoverCardTrigger,
 } from './ui';
+
+export { Header } from './header';
