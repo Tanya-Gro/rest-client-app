@@ -1,7 +1,4 @@
 {
-  "main": {
-    "text": "Main page"
-  },
   "header": {
     "buttonSignIn": "Sign In",
     "buttonSignUp": "Sign Up",

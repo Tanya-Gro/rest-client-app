@@ -1,7 +1,4 @@
 {
-  "main": {
-    "text": "Главная страница"
-  },
   "header": {
     "buttonSignIn": "Войти",
     "buttonSignUp": "Регистрация",
