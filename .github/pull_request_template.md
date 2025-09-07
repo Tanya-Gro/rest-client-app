@@ -9,8 +9,5 @@
 - [x] No console errors and warnings
 - [x] No execution results console.log
 - [x] No commented code sections
+- [x] Internationalization is supported
 - [ ] New dependencies
-
-**🧪 How to test**
-
-<!-- Describe the steps you need to take to test your functionality -->
