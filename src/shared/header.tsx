@@ -19,12 +19,12 @@ import {
 } from '@components';
 
 const headerVariants = cva(
-  'sticky top-0 z-50 flex w-full max-w-[1200px] mx-auto items-center justify-between p-1 transition-all duration-300',
+  'sticky top-0 z-50 flex w-full mx-auto items-center justify-between px-4 transition-all duration-300 border-b',
   {
     variants: {
       isScrolled: {
-        true: 'bg-gray-400 py-2',
-        false: 'bg-gray-200 py-4',
+        true: 'bg-gray-200 py-2',
+        false: 'bg-white py-3.5',
       },
     },
     defaultVariants: { isScrolled: false },
