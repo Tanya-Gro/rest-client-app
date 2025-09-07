@@ -63,7 +63,7 @@ export const Headers = () => {
         <div key={row.id} className="flex gap-2 items-center">
           <Select>
             <SelectTrigger>
-              <SelectValue placeholder={t('header')} />
+              <SelectValue placeholder={t('headersHeader')} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>

@@ -1,13 +1,15 @@
 export { Textarea } from './textarea';
 export { Button } from './button';
 export { Input } from './input';
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 export {
   Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectItem,
 } from './select';
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+export { Avatar, AvatarImage, AvatarFallback } from './avatar';
+export { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card';

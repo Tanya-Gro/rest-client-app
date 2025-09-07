@@ -11,7 +11,18 @@
       "mode": "Mode",
       "modeText": "Text",
       "prettify": "Prettify",
-      "header": "Header",
+      "headersHeader": "Header",
       "value": "Value"
+  },
+  "header": {
+    "buttonSignIn": "Sign In",
+    "buttonSignUp": "Sign Up",
+    "buttonSignOut": "Sign Out"
+  },
+  "footer": {
+    "title": "Our team:",
+    "Tanya": "Team Lead",
+    "Mariya": "Architect",
+    "Victor": "Team Driver"
   }
 }

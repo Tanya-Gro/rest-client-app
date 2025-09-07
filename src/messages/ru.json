@@ -11,7 +11,18 @@
       "mode": "Формат",
       "modeText": "Текст",
       "prettify": "Форматировать",
-      "header": "Заголовок",
+      "headersHeader": "Заголовок",
       "value": "Значение"
+  },
+  "header": {
+    "buttonSignIn": "Войти",
+    "buttonSignUp": "Регистрация",
+    "buttonSignOut": "Выйти"
+  },
+  "footer": {
+    "title": "Наша команда:",
+    "Tanya": "Тимлид",
+    "Mariya": "Архитектор",
+    "Victor": "Двигатель команды"
   }
 }
