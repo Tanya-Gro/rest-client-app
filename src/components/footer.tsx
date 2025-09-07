@@ -40,7 +40,7 @@ export function Footer() {
   const t = useTranslations('footer');
 
   return (
-    <footer className="flex w-full items-center justify-between px-4 py-1 border-t">
+    <footer className="flex w-full items-center justify-between px-4 py-2 border-t">
       <div className="flex gap-2 items-center">
         <h4 className="text-xl font-semibold">{t('title')}</h4>
         {Object.entries(GIT_LINKS).map(([key, { name, link, image }]) => (
