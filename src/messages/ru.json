@@ -1,5 +1,13 @@
 {
-  "main": {
-    "text": "Главная страница"
+  "header": {
+    "buttonSignIn": "Войти",
+    "buttonSignUp": "Регистрация",
+    "buttonSignOut": "Выйти"
+  },
+  "footer": {
+    "title": "Наша команда:",
+    "Tanya": "Тимлид",
+    "Mariya": "Архитектор",
+    "Victor": "Двигатель команды"
   }
 }
