@@ -1,15 +1,6 @@
 'use client';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Input,
-  Button,
-  Label,
-} from '@/components/ui';
+import { Input, Button, Label } from '@/components/ui';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
@@ -61,72 +52,60 @@ export function SignUpForm() {
           router.push('/');
         }
       }
-    } catch (error) {
+    } catch {
       setServerError(text(`registration.some-error`));
     } finally {
       setIsLoading(false);
     }
   };
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{text(`registration.header`)}</CardTitle>
-        <CardDescription>
-          {text(`registration.header-description`)}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-6">
-            {serverError && (
-              <div className="p-3 bg-destructive/15 border border-destructive/50 rounded-md">
-                <p className="text-sm text-destructive">{serverError}</p>
-              </div>
-            )}
-
-            <div className="grid gap-3 mb-5 relative">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="text"
-                placeholder="m@example.com"
-                {...register('email')}
-                disabled={isLoading}
-              />
-              {errors.email && (
-                <p className="absolute -bottom-7 left-1 text-sm text-red-500">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-            <div className="grid gap-3 mb-5 relative">
-              <div className="flex items-center">
-                <Label htmlFor="password">
-                  {text(`registration.password`)}
-                </Label>
-              </div>
-              <Input
-                id="password"
-                type="password"
-                {...register('password')}
-                disabled={isLoading}
-              />
-              {errors.password && (
-                <p className="text-sm absolute -bottom-7 left-1 text-red-500">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
-            <div className="flex flex-col gap-3">
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading
-                  ? text(`registration.loading`)
-                  : text(`registration.button`)}
-              </Button>
-            </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex flex-col gap-6">
+        {serverError && (
+          <div className="p-3 bg-destructive/15 border border-destructive/50 rounded-md">
+            <p className="text-sm text-destructive">{serverError}</p>
           </div>
-        </form>
-      </CardContent>
-    </Card>
+        )}
+
+        <div className="grid gap-3 mb-5 relative">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="text"
+            placeholder="m@example.com"
+            {...register('email')}
+            disabled={isLoading}
+          />
+          {errors.email && (
+            <p className="absolute -bottom-7 left-1 text-sm text-red-500">
+              {errors.email.message}
+            </p>
+          )}
+        </div>
+        <div className="grid gap-3 mb-5 relative">
+          <div className="flex items-center">
+            <Label htmlFor="password">{text(`registration.password`)}</Label>
+          </div>
+          <Input
+            id="password"
+            type="password"
+            {...register('password')}
+            disabled={isLoading}
+          />
+          {errors.password && (
+            <p className="text-sm absolute -bottom-7 left-1 text-red-500">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
+        <div className="flex flex-col gap-3">
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading
+              ? text(`registration.loading`)
+              : text(`registration.button`)}
+          </Button>
+        </div>
+      </div>
+    </form>
   );
 }

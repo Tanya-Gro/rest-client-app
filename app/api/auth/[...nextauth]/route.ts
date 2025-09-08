@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
           if (!isValid) return null;
 
           return user;
-        } catch (error) {
+        } catch {
           return null;
         }
       },

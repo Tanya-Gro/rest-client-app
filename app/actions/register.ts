@@ -25,7 +25,7 @@ export async function registerUser(formData: FormData) {
     });
 
     return { success: true, user: { id: user.id, email: user.email } };
-  } catch (error) {
+  } catch {
     return { error: AUTH_API_ERROR.SERVER_ERROR };
   }
 }
