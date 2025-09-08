@@ -112,6 +112,7 @@ export const Request = () => {
                 <TabsTrigger value="body">{t('tabBody')}</TabsTrigger>
                 <TabsTrigger value="generated-code">{t('tabCode')}</TabsTrigger>
               </TabsList>
+
               <TabsContent
                 value="header"
                 forceMount
@@ -119,6 +120,7 @@ export const Request = () => {
               >
                 <Headers />
               </TabsContent>
+
               <TabsContent
                 value="body"
                 forceMount
@@ -126,6 +128,7 @@ export const Request = () => {
               >
                 <Body />
               </TabsContent>
+
               <TabsContent
                 value="generated-code"
                 forceMount

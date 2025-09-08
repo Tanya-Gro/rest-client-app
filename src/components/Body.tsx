@@ -66,6 +66,7 @@ export const Body = ({ isReadonly }: Props) => {
             )}
           />
         ) : null}
+
         {bodyType === 'json' ? (
           <Button
             onClick={() => {
@@ -84,6 +85,7 @@ export const Body = ({ isReadonly }: Props) => {
           </Button>
         ) : null}
       </div>
+
       <FormField
         name="body"
         render={({ field }) => (
