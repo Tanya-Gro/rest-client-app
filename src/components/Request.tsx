@@ -40,7 +40,7 @@ export const Request = () => {
       url: '',
       bodyType: 'json',
       body: '',
-      headers: [],
+      headers: [{ header: '', value: '' }],
     },
   });
 
@@ -91,7 +91,15 @@ export const Request = () => {
               )}
             />
 
-            <Button type="submit">{t('btn')}</Button>
+            <Button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                console.log(form.getValues());
+              }}
+            >
+              {t('btn')}
+            </Button>
           </section>
         </form>
 

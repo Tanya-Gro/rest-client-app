@@ -1,41 +1,15 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import {
-  Button,
-  Input,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui';
-import { useState } from 'react';
-
-const headers = [
-  'Accept',
-  'Accept-Encoding',
-  'Accept-Language',
-  'Authorization',
-  'Cache-Control',
-  'Content-Type',
-  'Cookie',
-  'Origin',
-  'Referer',
-  'User-Agent',
-  'X-Requested-With',
-];
-
-type Header = {
-  id: number;
-  header?: string;
-  value?: string;
-};
+import { Button, FormControl, FormField, FormItem, Input } from './ui';
+import { useFieldArray } from 'react-hook-form';
 
 export const Headers = () => {
-  const [headerRows, setHeaderRows] = useState<Header[]>([{ id: 1 }]);
   const t = useTranslations('restful-client');
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'headers',
+  });
 
   return (
     <div className="flex flex-col gap-3">
@@ -43,44 +17,50 @@ export const Headers = () => {
         <Button
           variant="outline"
           size="sm"
-          onClick={() =>
-            setHeaderRows([...headerRows, { id: headerRows.length + 1 }])
-          }
+          onClick={() => append({ header: '', value: '' })}
         >
           +
         </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={headerRows.length === 1}
-          onClick={() => setHeaderRows(() => headerRows.slice(0, -1))}
-        >
-          –
-        </Button>
       </div>
 
-      {headerRows.map((row) => (
-        <div key={row.id} className="flex gap-2 items-center">
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder={t('headersHeader')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {headers.map((header) => (
-                  <SelectItem
-                    key={header.toLowerCase()}
-                    value={header.toLowerCase()}
-                  >
-                    {header}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Input placeholder={t('value')} />
-        </div>
-      ))}
+      {fields.map((field, i) => {
+        return (
+          <div key={field.id} className="flex gap-2">
+            <FormField
+              name={`headers.${i}.header`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder={t('headersHeader')}
+                      {...field}
+                      value={field.value || ''}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name={`headers.${i}.value`}
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormControl>
+                    <Input
+                      placeholder={t('value')}
+                      {...field}
+                      value={field.value || ''}
+                    />
+                  </FormControl>
+                  <div className="min-h-[20px]"></div>
+                </FormItem>
+              )}
+            />
+
+            <Button onClick={() => remove(i)}>Remove</Button>
+          </div>
+        );
+      })}
     </div>
   );
 };
