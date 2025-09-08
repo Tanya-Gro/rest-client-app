@@ -13,7 +13,7 @@ export const Headers = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex gap-2 items-center">
+      <div>
         <Button
           variant="outline"
           size="sm"
@@ -44,7 +44,7 @@ export const Headers = () => {
             <FormField
               name={`headers.${i}.value`}
               render={({ field }) => (
-                <FormItem className="flex-1">
+                <FormItem>
                   <FormControl>
                     <Input
                       placeholder={t('value')}
@@ -52,7 +52,6 @@ export const Headers = () => {
                       value={field.value || ''}
                     />
                   </FormControl>
-                  <div className="min-h-[20px]"></div>
                 </FormItem>
               )}
             />

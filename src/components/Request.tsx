@@ -26,14 +26,17 @@ import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod';
 
 const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
 export const Request = () => {
-  const t = useTranslations('restful-client');
+  const t = useTranslations('client');
+
+  type Client = z.infer<ReturnType<typeof Client>>;
 
   const form = useForm<Client>({
-    resolver: zodResolver(Client),
+    resolver: zodResolver(Client(t)),
     mode: 'onChange',
     defaultValues: {
       method: 'get',
@@ -50,7 +53,11 @@ export const Request = () => {
         {t('headingRequest')}
       </h2>
       <Form {...form}>
-        <form>
+        <form
+          onSubmit={form.handleSubmit(() => {
+            console.log(form.getValues());
+          })}
+        >
           <section className="flex justify-between gap-3">
             <FormField
               name="method"
@@ -72,7 +79,6 @@ export const Request = () => {
                       </SelectContent>
                     </Select>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -91,48 +97,39 @@ export const Request = () => {
               )}
             />
 
-            <Button
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                console.log(form.getValues());
-              }}
-            >
-              {t('btn')}
-            </Button>
+            <Button type="submit">{t('btn')}</Button>
+          </section>
+          <section className="flex flex-col max-h-[50vh] overflow-auto">
+            <Tabs className="flex flex-col h-full">
+              <TabsList>
+                <TabsTrigger value="header">{t('tabHeaders')}</TabsTrigger>
+                <TabsTrigger value="body">{t('tabBody')}</TabsTrigger>
+                <TabsTrigger value="generated-code">{t('tabCode')}</TabsTrigger>
+              </TabsList>
+              <TabsContent
+                value="header"
+                forceMount
+                className=" overflow-auto data-[state=inactive]:hidden"
+              >
+                <Headers />
+              </TabsContent>
+              <TabsContent
+                value="body"
+                forceMount
+                className="overflow-auto data-[state=inactive]:hidden"
+              >
+                <Body />
+              </TabsContent>
+              <TabsContent
+                value="generated-code"
+                forceMount
+                className="flex-1 overflow-auto data-[state=inactive]:hidden"
+              >
+                <GeneratedCode />
+              </TabsContent>
+            </Tabs>
           </section>
         </form>
-
-        <section className="flex flex-col max-h-[50vh] overflow-auto">
-          <Tabs className="flex flex-col h-full">
-            <TabsList>
-              <TabsTrigger value="header">{t('tabHeaders')}</TabsTrigger>
-              <TabsTrigger value="body">{t('tabBody')}</TabsTrigger>
-              <TabsTrigger value="generated-code">{t('tabCode')}</TabsTrigger>
-            </TabsList>
-            <TabsContent
-              value="header"
-              forceMount
-              className=" overflow-auto data-[state=inactive]:hidden"
-            >
-              <Headers />
-            </TabsContent>
-            <TabsContent
-              value="body"
-              forceMount
-              className="overflow-auto data-[state=inactive]:hidden"
-            >
-              <Body />
-            </TabsContent>
-            <TabsContent
-              value="generated-code"
-              forceMount
-              className="flex-1 overflow-auto data-[state=inactive]:hidden"
-            >
-              <GeneratedCode />
-            </TabsContent>
-          </Tabs>
-        </section>
       </Form>
     </div>
   );
