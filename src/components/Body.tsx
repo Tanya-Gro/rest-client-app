@@ -66,7 +66,23 @@ export const Body = ({ isReadonly }: Props) => {
             )}
           />
         ) : null}
-        {bodyType === 'json' ? <Button>{t('prettify')}</Button> : null}
+        {bodyType === 'json' ? (
+          <Button
+            onClick={() => {
+              const json = form.getValues('body');
+              if (json) {
+                try {
+                  const parsed = JSON.parse(json);
+                  form.setValue('body', JSON.stringify(parsed, null, 2));
+                } catch {
+                  return;
+                }
+              }
+            }}
+          >
+            {t('prettify')}
+          </Button>
+        ) : null}
       </div>
       <FormField
         name="body"
