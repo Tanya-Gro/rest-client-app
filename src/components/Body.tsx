@@ -69,7 +69,8 @@ export const Body = ({ isReadonly }: Props) => {
 
         {bodyType === 'json' ? (
           <Button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               const json = form.getValues('body');
               if (json) {
                 try {

@@ -14,7 +14,13 @@ export const Headers = () => {
   return (
     <div className="flex flex-col gap-3 w-full">
       <div>
-        <Button size="sm" onClick={() => append({ header: '', value: '' })}>
+        <Button
+          size="sm"
+          onClick={(e) => {
+            e.preventDefault();
+            append({ header: '', value: '' });
+          }}
+        >
           Add
         </Button>
       </div>

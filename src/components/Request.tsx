@@ -37,7 +37,6 @@ export const Request = () => {
 
   const form = useForm<Client>({
     resolver: zodResolver(Client(t)),
-    mode: 'onChange',
     defaultValues: {
       method: 'get',
       url: '',
