@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const clientSchema = z
+export const Client = z
   .object({
     method: z.enum([
       'get',
@@ -12,7 +12,7 @@ export const clientSchema = z
       'options',
     ]),
     url: z.url('Enter correct URL'),
-    bodyType: z.enum(['json', 'text']).default('json'),
+    bodyType: z.enum(['json', 'text']),
     body: z.string().optional(),
     headers: z
       .array(
@@ -44,3 +44,5 @@ export const clientSchema = z
       path: ['body'],
     }
   );
+
+export type Client = z.infer<typeof Client>;

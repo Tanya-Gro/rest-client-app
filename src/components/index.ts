@@ -1,4 +1,5 @@
 export {
+  Input,
   Button,
   Select,
   SelectTrigger,
@@ -13,6 +14,15 @@ export {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Form,
+  FormItem,
+  FormControl,
+  FormMessage,
+  FormField,
 } from './ui';
 
 export { Header } from './header';

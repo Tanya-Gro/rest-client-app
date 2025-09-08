@@ -1,18 +1,18 @@
 {
   "restful-client": {
-      "headingRequest": "Request",
-      "headingResponse": "Response",
-      "methodPlaceholder": "Method",
-      "urlPlaceholder": "Enter URL",
-      "btn": "Send",
-      "tabHeaders": "Headers",
-      "tabBody": "Body",
-      "tabCode": "Generated Code",
-      "mode": "Mode",
-      "modeText": "Text",
-      "prettify": "Prettify",
-      "headersHeader": "Header",
-      "value": "Value"
+    "headingRequest": "Request",
+    "headingResponse": "Response",
+    "methodPlaceholder": "Method",
+    "urlPlaceholder": "Enter URL",
+    "btn": "Send",
+    "tabHeaders": "Headers",
+    "tabBody": "Body",
+    "tabCode": "Generated Code",
+    "mode": "Mode",
+    "modeText": "Text",
+    "prettify": "Prettify",
+    "headersHeader": "Header",
+    "value": "Value"
   },
   "header": {
     "buttonSignIn": "Sign In",
