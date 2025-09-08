@@ -1,27 +1,27 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ComponentProps, useState } from 'react';
+  Input,
+  Button,
+  Label,
+} from '@/components/ui';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { getAuthSchema } from '@/lib/schemas/auth';
+import { getAuthSchema } from '@/entities/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
 
-export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
+export function SignInForm() {
   const text = useTranslations();
   const schema = getAuthSchema(text);
   type FormData = z.infer<typeof schema>;
@@ -31,8 +31,9 @@ export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ email: string; password: string }>({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
+    mode: 'onChange',
   });
 
   const router = useRouter();
@@ -48,7 +49,7 @@ export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
       });
 
       if (signInRes?.ok) {
-        router.push('/dashboard');
+        router.push('/');
       } else {
         setServerError(text(`login.invalid`));
       }
@@ -59,7 +60,7 @@ export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
     }
   };
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('flex flex-col gap-6')}>
       <Card>
         <CardHeader>
           <CardTitle>{text(`login.header`)}</CardTitle>
@@ -74,7 +75,7 @@ export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
                 </div>
               )}
 
-              <div className="grid gap-3">
+              <div className="grid gap-3 mb-5 relative">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -84,10 +85,12 @@ export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
                   disabled={isLoading}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                  <p className="text-sm text-red-500 absolute -bottom-7 left-1">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-3 mb-5 relative">
                 <div className="flex items-center">
                   <Label htmlFor="password">{text(`login.password`)}</Label>
                 </div>
@@ -98,7 +101,7 @@ export function SignInForm({ className, ...props }: ComponentProps<'div'>) {
                   disabled={isLoading}
                 />
                 {errors.password && (
-                  <p className="text-sm text-red-500">
+                  <p className="text-sm text-red-500 absolute -bottom-7 left-1">
                     {errors.password.message}
                   </p>
                 )}
