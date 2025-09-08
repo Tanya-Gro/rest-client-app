@@ -9,5 +9,10 @@
     "Tanya": "Team Lead",
     "Mariya": "Architect",
     "Victor": "Team Driver"
+  },
+  "history": {
+    "titleNotFound": "You haven't executed any requests. Try",
+    "title": "History & Analytics",
+    "buttonREST": "REST Client"
   }
 }

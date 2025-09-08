@@ -13,6 +13,7 @@ export {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
+  Badge,
 } from './ui';
 
 export { Header } from './header';
