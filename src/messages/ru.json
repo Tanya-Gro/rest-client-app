@@ -4,6 +4,7 @@
     "headingResponse": "Ответ",
     "methodPlaceholder": "Метод",
     "urlPlaceholder": "Введите URL",
+    "bodyPlaceholder": "Содержимое JSON",
     "btn": "Отправить",
     "tabHeaders": "Заголовки",
     "tabBody": "Тело",

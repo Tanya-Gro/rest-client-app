@@ -31,7 +31,11 @@ export const Body = ({ isReadonly }: Props) => {
 
   if (!form && isReadonly) {
     return (
-      <Textarea placeholder="JSON Viewer" readOnly className="font-mono" />
+      <Textarea
+        placeholder={t('bodyPlaceholder')}
+        readOnly
+        className="font-mono"
+      />
     );
   }
 

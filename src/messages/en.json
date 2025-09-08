@@ -4,6 +4,7 @@
     "headingResponse": "Response",
     "methodPlaceholder": "Method",
     "urlPlaceholder": "Enter URL",
+    "bodyPlaceholder": "JSON Viewer",
     "btn": "Send",
     "tabHeaders": "Headers",
     "tabBody": "Body",
