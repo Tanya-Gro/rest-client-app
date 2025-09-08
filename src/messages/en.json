@@ -1,5 +1,5 @@
 {
-  "restful-client": {
+  "client": {
     "headingRequest": "Request",
     "headingResponse": "Response",
     "methodPlaceholder": "Method",
@@ -12,7 +12,9 @@
     "modeText": "Text",
     "prettify": "Prettify",
     "headersHeader": "Header",
-    "value": "Value"
+    "value": "Value",
+    "jsonError": "Incorrect JSON format",
+    "urlError": "Incorrect URL format"
   },
   "header": {
     "buttonSignIn": "Sign In",

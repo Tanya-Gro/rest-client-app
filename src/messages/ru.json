@@ -1,5 +1,5 @@
 {
-  "restful-client": {
+  "client": {
     "headingRequest": "Запрос",
     "headingResponse": "Ответ",
     "methodPlaceholder": "Метод",
@@ -12,7 +12,9 @@
     "modeText": "Текст",
     "prettify": "Форматировать",
     "headersHeader": "Заголовок",
-    "value": "Значение"
+    "value": "Значение",
+    "jsonError": "Неверный формат JSON",
+    "urlError": "Неверный формат URL"
   },
   "header": {
     "buttonSignIn": "Войти",
