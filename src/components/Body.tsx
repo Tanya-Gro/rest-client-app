@@ -34,7 +34,7 @@ export const Body = ({ isReadonly }: Props) => {
       <Textarea
         placeholder={t('bodyPlaceholder')}
         readOnly
-        className="font-mono"
+        className="font-mono resize-none"
       />
     );
   }

@@ -3,9 +3,13 @@ import { Response } from '@components';
 
 export default function RestClient() {
   return (
-    <div>
-      <Request />
-      <Response />
+    <div className="flex flex-col flex-1">
+      <div className="flex flex-1">
+        <Request />
+      </div>
+      <div>
+        <Response />
+      </div>
     </div>
   );
 }

@@ -48,7 +48,7 @@ export const Request = () => {
   });
 
   return (
-    <div className="flex flex-col gap-2 justify-between">
+    <div className="flex flex-col gap-3 w-full">
       <h2 className="text-2xl font-semibold tracking-tight">
         {t('headingRequest')}
       </h2>
@@ -57,8 +57,9 @@ export const Request = () => {
           onSubmit={form.handleSubmit(() => {
             console.log(form.getValues());
           })}
+          className="flex flex-col gap-1"
         >
-          <section className="flex justify-between gap-3">
+          <section className="flex w-full gap-2">
             <FormField
               name="method"
               render={({ field }) => (
@@ -86,9 +87,13 @@ export const Request = () => {
             <FormField
               name="url"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex-1">
                   <FormControl>
-                    <Input placeholder={t('urlPlaceholder')} {...field} />
+                    <Input
+                      className="w-full"
+                      placeholder={t('urlPlaceholder')}
+                      {...field}
+                    />
                   </FormControl>
                   <div className="min-h-5">
                     <FormMessage />
@@ -99,8 +104,9 @@ export const Request = () => {
 
             <Button type="submit">{t('btn')}</Button>
           </section>
-          <section className="flex flex-col max-h-[50vh] overflow-auto">
-            <Tabs className="flex flex-col h-full">
+
+          <section>
+            <Tabs>
               <TabsList>
                 <TabsTrigger value="header">{t('tabHeaders')}</TabsTrigger>
                 <TabsTrigger value="body">{t('tabBody')}</TabsTrigger>
@@ -109,14 +115,14 @@ export const Request = () => {
               <TabsContent
                 value="header"
                 forceMount
-                className=" overflow-auto data-[state=inactive]:hidden"
+                className=" flex-1 overflow-auto data-[state=inactive]:hidden"
               >
                 <Headers />
               </TabsContent>
               <TabsContent
                 value="body"
                 forceMount
-                className="overflow-auto data-[state=inactive]:hidden"
+                className="flex-1 overflow-auto data-[state=inactive]:hidden"
               >
                 <Body />
               </TabsContent>
