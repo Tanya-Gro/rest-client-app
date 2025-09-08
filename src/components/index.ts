@@ -27,5 +27,5 @@ export {
 
 export { Header } from './header';
 export { Footer } from './footer';
-export { Request } from './Request';
-export { Response } from './Response';
+export { Request } from './request';
+export { Response } from './response';

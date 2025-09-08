@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Body } from './Body';
+import { Body } from './body';
 
 export const Response = () => {
   const t = useTranslations('client');

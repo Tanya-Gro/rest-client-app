@@ -19,9 +19,9 @@ import {
   TabsList,
   TabsTrigger,
 } from '@components';
-import { Headers } from './Headers';
-import { Body } from './Body';
-import { GeneratedCode } from './GeneratedCode';
+import { Headers } from './headers';
+import { Body } from './body';
+import { GeneratedCode } from './generatedCode';
 import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
 import { useForm } from 'react-hook-form';
