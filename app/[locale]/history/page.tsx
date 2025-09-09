@@ -1,29 +1,18 @@
 import { Badge, Button } from '@components';
 import { useTranslations } from 'next-intl';
 import { Link } from '@i18n';
-import { cva } from 'class-variance-authority';
 
-const statusVariants = cva('text-sm h-auto my-auto', {
-  variants: {
-    code: {
-      success: 'text-green-600',
-      error: 'text-red-600',
-      neutral: 'text-gray-600',
-    },
-  },
-  defaultVariants: {
-    code: 'neutral',
-  },
-});
+import { getStatusColor } from '@helpers';
 
+const commonBadgeClasses = 'bg-transparent text-sm';
 const badgeVariants: Record<string, string> = {
-  GET: 'bg-white text-sm text-lime-600',
-  POST: 'bg-white text-sm text-amber-600',
-  PUT: 'bg-white text-sm text-sky-600',
-  PATCH: 'bg-white text-sm text-indigo-600',
-  DELETE: 'bg-white text-sm text-red-600',
-  HEAD: 'bg-white text-sm text-emerald-600',
-  OPTIONS: 'bg-white text-sm text-fuchsia-600',
+  GET: `${commonBadgeClasses} text-lime-600`,
+  POST: `${commonBadgeClasses} text-amber-600`,
+  PUT: `${commonBadgeClasses} text-sky-600`,
+  PATCH: `${commonBadgeClasses} text-indigo-600`,
+  DELETE: `${commonBadgeClasses} text-red-600`,
+  HEAD: `${commonBadgeClasses} text-emerald-600`,
+  OPTIONS: `${commonBadgeClasses} text-fuchsia-600`,
 };
 
 const mockResponseHistory = [
@@ -131,11 +120,11 @@ export default function History() {
 
   return (
     <div className="flex flex-col justify-center w-full">
-      <h2 className="text-3xl font-semibold tracking-tight first:mt-0 pb-8">
+      <h2 className="text-2xl font-semibold tracking-tight first:mt-0 pb-8">
         {t('title')}
       </h2>
       <div className="grid gap-y-0.5">
-        <div className="grid grid-cols-[90px_1fr_90px_90px_0.6fr_90px_105px_1fr] border-t border-b pb-0.5 font-semibold justify-items-center items-center text-center">
+        <div className="grid grid-cols-[90px_1fr_90px_90px_0.6fr_100px_105px_1fr] border-t border-b pb-0.5 font-semibold justify-items-center items-center text-center select-none">
           <p>{t('method')}</p>
           <p>{t('url')}</p>
           <p>{t('status')}</p>
@@ -158,35 +147,23 @@ export default function History() {
             responseSize,
             error,
           }) => (
-            <div
+            <Link
+              href={full_url}
+              className="hover:bg-gray-100 grid grid-cols-[90px_1fr_90px_90px_0.6fr_100px_105px_1fr] border-b pb-0.5 justify-items-center"
               key={idHistory}
-              className="grid grid-cols-[90px_1fr_90px_90px_0.6fr_90px_105px_1fr] border-b pb-0.5 justify-items-center"
             >
               <Badge className={badgeVariants[method]}>{method}</Badge>
-              <Link href={full_url} className="hover:underline">
-                {url}
-              </Link>
-              {Status(status)}
+              <p className="w-full">{url}</p>
+              <p className={getStatusColor(status)}>{status}</p>
               <p>{latency}</p>
               <p className="text-sm h-auto my-auto">{timestamp}</p>
               <p>{requestSize}</p>
               <p>{responseSize}</p>
               <p>{error ?? '-'}</p>
-            </div>
+            </Link>
           )
         )}
       </div>
     </div>
   );
 }
-
-const Status = (status: number): React.ReactNode => {
-  const code =
-    status >= 200 && status < 300
-      ? 'success'
-      : status >= 400
-        ? 'error'
-        : 'neutral';
-
-  return <p className={statusVariants({ code })}>{status}</p>;
-};
