@@ -2,20 +2,23 @@ import { Badge, Button } from '@components';
 import { useTranslations } from 'next-intl';
 import { Link } from '@i18n';
 
-import { getStatusColor } from '@helpers';
+import { getMethodColor, getStatusColor } from '@helpers';
+import { Method } from '@/shared';
 
-const commonBadgeClasses = 'bg-transparent text-sm';
-const badgeVariants: Record<string, string> = {
-  GET: `${commonBadgeClasses} text-lime-600`,
-  POST: `${commonBadgeClasses} text-amber-600`,
-  PUT: `${commonBadgeClasses} text-sky-600`,
-  PATCH: `${commonBadgeClasses} text-indigo-600`,
-  DELETE: `${commonBadgeClasses} text-red-600`,
-  HEAD: `${commonBadgeClasses} text-emerald-600`,
-  OPTIONS: `${commonBadgeClasses} text-fuchsia-600`,
+type mockResponseHistory = {
+  idHistory: string;
+  method: Method;
+  full_url: string;
+  url: string;
+  latency: string;
+  status: number;
+  timestamp: string;
+  requestSize: string;
+  responseSize: string;
+  error: null | string;
 };
 
-const mockResponseHistory = [
+const mockResponseHistory: mockResponseHistory[] = [
   {
     idHistory: '1',
     method: 'GET',
@@ -152,7 +155,11 @@ export default function History() {
               className="hover:bg-gray-100 grid grid-cols-[90px_1fr_90px_90px_0.6fr_100px_105px_1fr] border-b pb-0.5 justify-items-center"
               key={idHistory}
             >
-              <Badge className={badgeVariants[method]}>{method}</Badge>
+              <Badge
+                className={`bg-transparent text-sm ${getMethodColor(method)}`}
+              >
+                {method}
+              </Badge>
               <p className="w-full">{url}</p>
               <p className={getStatusColor(status)}>{status}</p>
               <p>{latency}</p>

@@ -26,6 +26,7 @@
       "@entities": ["./src/entities/index.ts"],
       "@constants": ["./src/constants/index.ts"],
       "@helpers": ["./src/helpers/index.ts"],
+      "@/shared": ["./src/shared/index.ts"],
       "@/*": ["./src/*"]
     }
   },

@@ -1,1 +1,1 @@
-export { getStatusColor } from './getStatusColor';
+export { getStatusColor, getMethodColor } from './getStatusColor';
