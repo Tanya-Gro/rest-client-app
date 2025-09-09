@@ -17,6 +17,38 @@
     "jsonError": "Incorrect JSON format",
     "urlError": "Incorrect URL format"
   },
+  "main": {
+    "text": "Main page"
+  },
+  "login": {
+    "header": "Login to your account",
+    "header-description": "Enter your email and password to login to your account",
+    "button": "Login",
+    "password": "Password",
+    "loading": "Loading...",
+    "invalid": "Invalid email or password",
+    "server-error": "Server error",
+    "some-error": "Something went wrong"
+  },
+  "registration": {
+    "header": "Registration",
+    "header-description": "Enter your email and password to register",
+    "button": "Registration",
+    "password": "Password",
+    "loading": "Loading...",
+    "exists": "User already exists",
+    "no-data": "Need a password and an email address",
+    "server-error": "Server error",
+    "some-error": "Something went wrong"
+  },
+  "auth-schema": {
+    "email": "Email must be like: m@example.com",
+    "length": "Password must be at least 8 characters",
+    "uppercase": "Password must contain one uppercase letter",
+    "lowercase": "Password must contain one lowercase letter",
+    "number": "Password must contain one number",
+    "special-symbol": "Password must contain one special symbol"
+  },
   "header": {
     "buttonSignIn": "Sign In",
     "buttonSignUp": "Sign Up",

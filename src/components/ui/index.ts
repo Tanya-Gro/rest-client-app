@@ -3,6 +3,14 @@ export { Button } from './button';
 export { Input } from './input';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 export {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from './card';
+export { Label } from './label';
+export {
   Select,
   SelectTrigger,
   SelectValue,
