@@ -1,3 +1,24 @@
+import { SignInForm } from '@/components/auth/signInForm';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui';
+import { useTranslations } from 'next-intl';
+
 export default function SignIn() {
-  return <h1>Sign in</h1>;
+  const text = useTranslations();
+  return (
+    <Card className="w-2xl">
+      <CardHeader>
+        <CardTitle>{text(`login.header`)}</CardTitle>
+        <CardDescription>{text(`login.header-description`)}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <SignInForm />
+      </CardContent>
+    </Card>
+  );
 }
