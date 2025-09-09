@@ -1,4 +1,4 @@
-import { Method } from '@/shared';
+import { Method } from '@shared';
 import { METHOD_COLORS, STATUS_COLORS } from '@constants';
 
 export const getStatusColor = (status: number) => {
