@@ -61,7 +61,7 @@
     "Victor": "Team Driver"
   },
   "history": {
-    "titleNotFound": "You haven't executed any requests. Try",
+    "titleNotFound": "You haven't executed any requests. Try sending your first one",
     "title": "History & Analytics",
     "buttonREST": "REST Client",
     "method": "Method",
