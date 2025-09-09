@@ -42,7 +42,7 @@
   --color-status-3: var(--status-3);
   --color-status-4: var(--status-4);
   --color-status-5: var(--status-5);
-  --color-status-fallback: var(--status-fallback);  
+  --color-status-fallback: var(--status-fallback);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

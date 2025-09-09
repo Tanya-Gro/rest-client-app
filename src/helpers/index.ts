@@ -1,0 +1,1 @@
+export { getStatusColor } from './getStatusColor';

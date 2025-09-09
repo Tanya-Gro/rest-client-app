@@ -24,6 +24,8 @@
       "@lib": ["./src/lib/index.ts"],
       "@i18n": ["./src/i18n/index.ts"],
       "@entities": ["./src/entities/index.ts"],
+      "@constants": ["./src/constants/index.ts"],
+      "@helpers": ["./src/helpers/index.ts"],
       "@/*": ["./src/*"]
     }
   },
