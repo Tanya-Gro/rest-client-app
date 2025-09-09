@@ -13,6 +13,14 @@
   "history": {
     "titleNotFound": "You haven't executed any requests. Try",
     "title": "History & Analytics",
-    "buttonREST": "REST Client"
+    "buttonREST": "REST Client",
+    "method": "Method",
+    "url": "Endpoint / URL",
+    "status": "Status code",
+    "latency": "Latency",
+    "timestamp": "Timestamp",
+    "requestSize": "Request size",
+    "responseSize": "Response size",
+    "error": "Error details"
   }
 }

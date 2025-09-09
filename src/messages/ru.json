@@ -13,6 +13,14 @@
   "history": {
     "titleNotFound": "Вы не выполнили ни одного запроса. Попробуйте",
     "title": "История и Аналитика",
-    "buttonREST": "REST Клиент"
+    "buttonREST": "REST Клиент",
+    "method": "Метод",
+    "url": "Эндпоинт / URL",
+    "status": "Статус код",
+    "latency": "Задержка",
+    "timestamp": "Время",
+    "requestSize": "Размер запроса",
+    "responseSize": "Размер ответа",
+    "error": "Детали ошибок"
   }
 }
