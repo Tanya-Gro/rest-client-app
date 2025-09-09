@@ -9,7 +9,7 @@ export {
   CardHeader,
   CardTitle,
 } from './card';
-export { Label } from './label';
+export { Label } from '@/components/ui/label';
 export {
   Select,
   SelectTrigger,
