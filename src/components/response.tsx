@@ -9,7 +9,7 @@ export const Response = () => {
         {t('headingResponse')}
       </h2>
       <span className="text-lg font-semibold">200 OK</span>
-      <Body isReadonly />
+      <Body />
     </section>
   );
 };

@@ -18,18 +18,14 @@ import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
 import z from 'zod';
 
-type Props = {
-  isReadonly?: boolean;
-};
-
-export const Body = ({ isReadonly }: Props) => {
+export const Body = () => {
   const t = useTranslations('client');
 
   type Client = z.infer<ReturnType<typeof Client>>;
 
   const form = useFormContext<Client>();
 
-  if (!form && isReadonly) {
+  if (!form) {
     return (
       <Textarea
         placeholder={t('bodyPlaceholder')}
@@ -39,33 +35,29 @@ export const Body = ({ isReadonly }: Props) => {
     );
   }
 
-  if (!form) return null;
-
   const bodyType = form.watch('bodyType');
 
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2">
-        {!isReadonly ? (
-          <FormField
-            name="bodyType"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('mode')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="json">JSON</SelectItem>
-                      <SelectItem value="text">{t('modeText')}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        ) : null}
+        <FormField
+          name="bodyType"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('mode')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="json">JSON</SelectItem>
+                    <SelectItem value="text">{t('modeText')}</SelectItem>
+                  </SelectContent>
+                </Select>
+              </FormControl>
+            </FormItem>
+          )}
+        />
 
         {bodyType === 'json' ? (
           <Button
