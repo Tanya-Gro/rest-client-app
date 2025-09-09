@@ -15,6 +15,7 @@ export const Headers = () => {
     <div className="flex flex-col gap-3 w-full">
       <div>
         <Button
+          className="cursor-pointer"
           size="sm"
           onClick={(e) => {
             e.preventDefault();
@@ -58,7 +59,9 @@ export const Headers = () => {
               )}
             />
 
-            <Button onClick={() => remove(i)}>Remove</Button>
+            <Button onClick={() => remove(i)} className="cursor-pointer">
+              Remove
+            </Button>
           </div>
         );
       })}

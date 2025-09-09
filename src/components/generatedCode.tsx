@@ -32,7 +32,7 @@ export const GeneratedCode = () => {
     <Tabs value={lang} onValueChange={setLang}>
       <TabsList>
         {languages.map((lang) => (
-          <TabsTrigger key={lang} value={lang}>
+          <TabsTrigger key={lang} value={lang} className="cursor-pointer">
             {lang}
           </TabsTrigger>
         ))}
@@ -43,7 +43,7 @@ export const GeneratedCode = () => {
           <Textarea
             value={placeholderCode[lang]}
             readOnly
-            className="font-mono"
+            className="font-mono cursor-default resize-none"
           />
         </TabsContent>
       ))}

@@ -65,13 +65,17 @@ export const Request = () => {
                 <FormItem>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-[130px]">
+                      <SelectTrigger className="w-[130px] cursor-pointer">
                         <SelectValue placeholder={t('methodPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           {methods.map((method) => (
-                            <SelectItem key={method} value={method}>
+                            <SelectItem
+                              key={method}
+                              value={method}
+                              className="cursor-pointer"
+                            >
                               {method.toUpperCase()}
                             </SelectItem>
                           ))}
@@ -101,15 +105,23 @@ export const Request = () => {
               )}
             />
 
-            <Button type="submit">{t('btn')}</Button>
+            <Button type="submit" className="cursor-pointer">
+              {t('btn')}
+            </Button>
           </section>
 
           <section>
             <Tabs>
               <TabsList>
-                <TabsTrigger value="header">{t('tabHeaders')}</TabsTrigger>
-                <TabsTrigger value="body">{t('tabBody')}</TabsTrigger>
-                <TabsTrigger value="generated-code">{t('tabCode')}</TabsTrigger>
+                <TabsTrigger value="header" className="cursor-pointer">
+                  {t('tabHeaders')}
+                </TabsTrigger>
+                <TabsTrigger value="body" className="cursor-pointer">
+                  {t('tabBody')}
+                </TabsTrigger>
+                <TabsTrigger value="generated-code" className="cursor-pointer">
+                  {t('tabCode')}
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent

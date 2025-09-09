@@ -30,7 +30,7 @@ export const Body = () => {
       <Textarea
         placeholder={t('bodyPlaceholder')}
         readOnly
-        className="font-mono resize-none"
+        className="font-mono resize-none cursor-default"
       />
     );
   }
@@ -46,12 +46,16 @@ export const Body = () => {
             <FormItem>
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger>
+                  <SelectTrigger className="cursor-pointer">
                     <SelectValue placeholder={t('mode')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="json">JSON</SelectItem>
-                    <SelectItem value="text">{t('modeText')}</SelectItem>
+                    <SelectItem value="json" className="cursor-pointer">
+                      JSON
+                    </SelectItem>
+                    <SelectItem value="text" className="cursor-pointer">
+                      {t('modeText')}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </FormControl>
@@ -61,6 +65,7 @@ export const Body = () => {
 
         {bodyType === 'json' ? (
           <Button
+            className="cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
               const json = form.getValues('body');
