@@ -59,5 +59,19 @@
     "Tanya": "Team Lead",
     "Mariya": "Architect",
     "Victor": "Team Driver"
+  },
+  "history": {
+    "titleNotFound": "You haven't executed any requests. Try sending your first one",
+    "title": "History & Analytics",
+    "buttonREST": "REST Client",
+    "method": "Method",
+    "url": "Endpoint / URL",
+    "link": "Link",
+    "status": "Status code",
+    "latency": "Latency",
+    "timestamp": "Timestamp",
+    "requestSize": "Request size",
+    "responseSize": "Response size",
+    "error": "Error details"
   }
 }

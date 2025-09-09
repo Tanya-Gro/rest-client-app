@@ -43,6 +43,13 @@
   --color-status-4: var(--status-4);
   --color-status-5: var(--status-5);
   --color-status-fallback: var(--status-fallback);
+  --color-method-GET: var(--method-GET);
+  --color-method-POST: var(--method-POST);
+  --color-method-PUT: var(--method-PUT);
+  --color-method-PATCH: var(--method-PATCH);
+  --color-method-DELETE: var(--method-DELETE);
+  --color-method-HEAD: var(--method-HEAD);
+  --color-method-OPTIONS: var(--method-OPTIONS);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -87,6 +94,13 @@
   --status-3: oklch(0.681 0.162 75.834);
   --status-4: oklch(64.6% 0.222 41.116);
   --status-5: oklch(57.7% 0.245 27.325);
+  --method-GET: oklch(71.11% 0.201 142.495);
+  --method-POST: oklch(72.3% 0.219 83.235);
+  --method-PUT: oklch(66.95% 0.171 230.518);
+  --method-PATCH: oklch(53.48% 0.198 276.935);
+  --method-DELETE: oklch(62.84% 0.246 27.325);
+  --method-HEAD: oklch(63.9% 0.179 163.225);
+  --method-OPTIONS: oklch(71.58% 0.232 319.025);
   --status-fallback: oklch(43.9% 0 0);
 }
 
@@ -127,6 +141,13 @@
   --status-3: oklch(90.5% 0.182 98.111);
   --status-4: oklch(70.5% 0.213 47.604);
   --status-5: oklch(57.7% 0.245 27.325);
+  --method-GET: oklch(83.19% 0.199 142.495);
+  --method-POST: oklch(86.71% 0.184 83.235);
+  --method-PUT: oklch(78.22% 0.153 230.518);
+  --method-PATCH: oklch(69.14% 0.158 276.935);
+  --method-DELETE: oklch(74.94% 0.214 27.325);
+  --method-HEAD: oklch(77.34% 0.151 163.225);
+  --method-OPTIONS: oklch(83.5% 0.202 319.025);
   --status-fallback: oklch(70.9% 0.01 56.259);
 }
 

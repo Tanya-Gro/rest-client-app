@@ -14,6 +14,7 @@ export {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
+  Badge,
   Tabs,
   TabsContent,
   TabsList,
@@ -23,6 +24,14 @@ export {
   FormControl,
   FormMessage,
   FormField,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
 } from './ui';
 
 export { Header } from './header';
