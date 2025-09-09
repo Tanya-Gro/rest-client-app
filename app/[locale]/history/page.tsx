@@ -11,9 +11,9 @@ import {
 import { useTranslations } from 'next-intl';
 import { Link } from '@i18n';
 import { getMethodColor, getStatusColor } from '@helpers';
-import { Method } from '@/shared';
+import { Method } from '@shared';
 
-type mockResponseHistory = {
+type MockResponseHistory = {
   idHistory: string;
   method: Method;
   full_url: string;
@@ -26,7 +26,7 @@ type mockResponseHistory = {
   error: null | string;
 };
 
-const mockResponseHistory: mockResponseHistory[] = [
+const mockResponseHistory: MockResponseHistory[] = [
   {
     idHistory: '1',
     method: 'GET',
@@ -113,19 +113,20 @@ const mockResponseHistory: mockResponseHistory[] = [
   },
 ];
 
+const HEADERS = [
+  'method',
+  'url',
+  'link',
+  'status',
+  'latency',
+  'timestamp',
+  'requestSize',
+  'responseSize',
+  'error',
+];
+
 export default function History() {
   const t = useTranslations('history');
-  const HEADERS = [
-    t('method'),
-    t('url'),
-    t('link'),
-    t('status'),
-    t('latency'),
-    t('timestamp'),
-    t('requestSize'),
-    t('responseSize'),
-    t('error'),
-  ];
 
   if (!mockResponseHistory.length) {
     return (
@@ -148,9 +149,9 @@ export default function History() {
       <Table>
         <TableHeader>
           <TableRow>
-            {HEADERS.map((head, index) => (
+            {HEADERS.map((key, index) => (
               <TableHead className="w-[100px]" key={index}>
-                {head}
+                {t(key)}
               </TableHead>
             ))}
           </TableRow>
