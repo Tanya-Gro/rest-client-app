@@ -24,6 +24,14 @@ export {
   FormControl,
   FormMessage,
   FormField,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
 } from './ui';
 
 export { Header } from './header';

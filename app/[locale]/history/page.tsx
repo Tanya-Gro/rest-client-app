@@ -1,7 +1,15 @@
-import { Badge, Button } from '@components';
+import {
+  Badge,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@components';
 import { useTranslations } from 'next-intl';
 import { Link } from '@i18n';
-
 import { getMethodColor, getStatusColor } from '@helpers';
 import { Method } from '@/shared';
 
@@ -107,6 +115,17 @@ const mockResponseHistory: mockResponseHistory[] = [
 
 export default function History() {
   const t = useTranslations('history');
+  const HEADERS = [
+    t('method'),
+    t('url'),
+    t('link'),
+    t('status'),
+    t('latency'),
+    t('timestamp'),
+    t('requestSize'),
+    t('responseSize'),
+    t('error'),
+  ];
 
   if (!mockResponseHistory.length) {
     return (
@@ -126,51 +145,55 @@ export default function History() {
       <h2 className="text-2xl font-semibold tracking-tight first:mt-0 pb-8">
         {t('title')}
       </h2>
-      <div className="grid gap-y-0.5">
-        <div className="grid grid-cols-[90px_1fr_90px_90px_0.6fr_100px_105px_1fr] border-t border-b pb-0.5 font-semibold justify-items-center items-center text-center select-none">
-          <p>{t('method')}</p>
-          <p>{t('url')}</p>
-          <p>{t('status')}</p>
-          <p>{t('latency')}</p>
-          <p>{t('timestamp')}</p>
-          <p>{t('requestSize')}</p>
-          <p>{t('responseSize')}</p>
-          <p>{t('error')}</p>
-        </div>
-        {mockResponseHistory.map(
-          ({
-            idHistory,
-            method,
-            full_url,
-            url,
-            status,
-            latency,
-            timestamp,
-            requestSize,
-            responseSize,
-            error,
-          }) => (
-            <Link
-              href={full_url}
-              className="hover:bg-gray-100 grid grid-cols-[90px_1fr_90px_90px_0.6fr_100px_105px_1fr] border-b pb-0.5 justify-items-center"
-              key={idHistory}
-            >
-              <Badge
-                className={`bg-transparent text-sm ${getMethodColor(method)}`}
-              >
-                {method}
-              </Badge>
-              <p className="w-full">{url}</p>
-              <p className={getStatusColor(status)}>{status}</p>
-              <p>{latency}</p>
-              <p className="text-sm h-auto my-auto">{timestamp}</p>
-              <p>{requestSize}</p>
-              <p>{responseSize}</p>
-              <p>{error ?? '-'}</p>
-            </Link>
-          )
-        )}
-      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {HEADERS.map((head, index) => (
+              <TableHead className="w-[100px]" key={index}>
+                {head}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {mockResponseHistory.map(
+            ({
+              idHistory,
+              method,
+              full_url,
+              url,
+              status,
+              latency,
+              timestamp,
+              requestSize,
+              responseSize,
+              error,
+            }) => (
+              <TableRow className="hover:bg-gray-100" key={idHistory}>
+                <TableCell>
+                  <Badge
+                    className={`bg-transparent text-sm ${getMethodColor(method)}`}
+                  >
+                    {method}
+                  </Badge>
+                </TableCell>
+                <TableCell>{url}</TableCell>
+                <TableCell>
+                  <Link href={full_url}>{full_url}</Link>
+                </TableCell>
+                <TableCell className={getStatusColor(status)}>
+                  {status}
+                </TableCell>
+                <TableCell>{latency}</TableCell>
+                <TableCell>{timestamp}</TableCell>
+                <TableCell>{requestSize}</TableCell>
+                <TableCell>{responseSize}</TableCell>
+                <TableCell>{error ?? '-'}</TableCell>
+              </TableRow>
+            )
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 }

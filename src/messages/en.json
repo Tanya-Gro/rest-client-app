@@ -66,6 +66,7 @@
     "buttonREST": "REST Client",
     "method": "Method",
     "url": "Endpoint / URL",
+    "link": "Link",
     "status": "Status code",
     "latency": "Latency",
     "timestamp": "Timestamp",
