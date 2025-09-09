@@ -30,5 +30,15 @@
     "lowercase": "Password must contain one lowercase letter",
     "number": "Password must contain one number",
     "special-symbol": "Password must contain one special symbol"
+  "header": {
+    "buttonSignIn": "Sign In",
+    "buttonSignUp": "Sign Up",
+    "buttonSignOut": "Sign Out"
+  },
+  "footer": {
+    "title": "Our team:",
+    "Tanya": "Team Lead",
+    "Mariya": "Architect",
+    "Victor": "Team Driver"
   }
 }
