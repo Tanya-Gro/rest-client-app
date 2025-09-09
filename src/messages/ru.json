@@ -1,4 +1,22 @@
 {
+  "client": {
+    "headingRequest": "Запрос",
+    "headingResponse": "Ответ",
+    "methodPlaceholder": "Метод",
+    "urlPlaceholder": "Введите URL",
+    "bodyPlaceholder": "Содержимое JSON",
+    "btn": "Отправить",
+    "tabHeaders": "Заголовки",
+    "tabBody": "Тело",
+    "tabCode": "Сгенерированный код",
+    "mode": "Формат",
+    "modeText": "Текст",
+    "prettify": "Форматировать",
+    "headersHeader": "Заголовок",
+    "value": "Значение",
+    "jsonError": "Неверный формат JSON",
+    "urlError": "Неверный формат URL"
+  },
   "main": {
     "text": "Главная страница"
   },
@@ -30,6 +48,7 @@
     "lowercase": "Пароль должен содержать не менее одной строчной буквы",
     "number": "Пароль должен содержать не менее одной цифры",
     "special-symbol": "Пароль должен содержать не менее одного специального символа"
+  },
   "header": {
     "buttonSignIn": "Войти",
     "buttonSignUp": "Регистрация",

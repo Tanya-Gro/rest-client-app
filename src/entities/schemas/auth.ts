@@ -12,6 +12,7 @@ export function getAuthSchema(text: TranslationFunction) {
       .regex(/[!@#$%^&*]/u, text('auth-schema.special-symbol')),
   });
 }
+
 type TranslationFunction = {
   (key: string): string;
 };

@@ -1,4 +1,22 @@
 {
+  "client": {
+    "headingRequest": "Request",
+    "headingResponse": "Response",
+    "methodPlaceholder": "Method",
+    "urlPlaceholder": "Enter URL",
+    "bodyPlaceholder": "JSON Viewer",
+    "btn": "Send",
+    "tabHeaders": "Headers",
+    "tabBody": "Body",
+    "tabCode": "Generated Code",
+    "mode": "Mode",
+    "modeText": "Text",
+    "prettify": "Prettify",
+    "headersHeader": "Header",
+    "value": "Value",
+    "jsonError": "Incorrect JSON format",
+    "urlError": "Incorrect URL format"
+  },
   "main": {
     "text": "Main page"
   },
@@ -30,6 +48,7 @@
     "lowercase": "Password must contain one lowercase letter",
     "number": "Password must contain one number",
     "special-symbol": "Password must contain one special symbol"
+  },
   "header": {
     "buttonSignIn": "Sign In",
     "buttonSignUp": "Sign Up",

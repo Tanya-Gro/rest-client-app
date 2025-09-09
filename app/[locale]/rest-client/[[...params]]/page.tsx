@@ -1,3 +1,15 @@
+import { Request } from '@components';
+import { Response } from '@components';
+
 export default function RestClient() {
-  return <h1>REST Client (private, lazy-loaded)</h1>;
+  return (
+    <div className="flex flex-col flex-1">
+      <div className="flex flex-1">
+        <Request />
+      </div>
+      <div>
+        <Response />
+      </div>
+    </div>
+  );
 }
