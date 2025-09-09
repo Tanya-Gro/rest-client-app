@@ -1,4 +1,4 @@
-import { Method } from '@shared';
+import { Method } from '@/types';
 
 export const AUTH_API_ERROR = {
   EXISTS: 'exists',

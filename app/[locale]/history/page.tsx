@@ -11,7 +11,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { Link } from '@i18n';
 import { getMethodColor, getStatusColor } from '@helpers';
-import { Method } from '@shared';
+import { Method } from '@/types';
 
 type MockResponseHistory = {
   idHistory: string;
