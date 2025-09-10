@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from '@components';
 import { usePathname, useRouter } from '@i18n';
+import { signOut } from 'next-auth/react';
 
 const headerVariants = cva(
   'sticky top-0 z-50 flex w-full mx-auto items-center justify-between px-4 transition-all duration-300 border-b',
@@ -83,7 +84,7 @@ export function Header() {
           <Link href="/signup">{t('buttonSignUp')}</Link>
         </Button>
 
-        <Button>{t('buttonSignOut')}</Button>
+        <Button onClick={() => signOut()}>{t('buttonSignOut')}</Button>
       </div>
     </header>
   );
