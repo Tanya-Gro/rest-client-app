@@ -7,7 +7,7 @@ const buttons = [
   { href: '/signup', text: 'buttonSignUp' },
 ];
 
-export default async function GuestHome() {
+export default async function Welcome() {
   const t = await getTranslations();
 
   return (

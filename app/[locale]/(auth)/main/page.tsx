@@ -8,7 +8,7 @@ const buttons = [
   { href: '/variables', text: 'main.variablesBtn' },
 ];
 
-export default async function MainHome() {
+export default async function Main() {
   const t = await getTranslations();
 
   return (
