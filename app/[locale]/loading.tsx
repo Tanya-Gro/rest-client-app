@@ -45,7 +45,7 @@ export default function Loading() {
           </div>
         </div>
         <Skeleton className="h-[24px] w-[53px]" />
-        <Skeleton className="h-[40px] w-[40px]" />
+        <Skeleton className="h-[40px] w-[40px] rounded-md" />
       </div>
     </div>
   );
