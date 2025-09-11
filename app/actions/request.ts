@@ -3,18 +3,42 @@
 import { Client } from '@entities';
 import z from 'zod';
 
-export async function builder(form: z.infer<ReturnType<typeof Client>>) {
+export async function handleRequest(form: z.infer<ReturnType<typeof Client>>) {
+  const date = new Date(Date.now());
   const requestObject = bodyBuilder(form);
+  const requestSize = new TextEncoder().encode(
+    JSON.stringify(requestObject)
+  ).length;
+  const start = performance.now();
   const promise = fetch(form.url, requestObject);
   const result = await promise;
+  const timestamp = ((performance.now() - start) / 1000).toFixed(2);
   if (!result.ok) {
     return {
       status: result.status,
       statusText: result.statusText,
     };
   }
+  const responseSize = new TextEncoder().encode(JSON.stringify(result)).length;
+  const isJson =
+    result.headers.get('content-type')?.includes('application/json') || false;
+  if (!isJson) {
+    return {
+      statusText: 'Response is not in JSON format',
+    };
+  }
+  console.log({
+    date,
+    requestSize,
+    timestamp,
+    responseSize,
+  });
   const data = await result.json();
-  return data;
+  return {
+    status: result.status,
+    statusText: result.statusText,
+    data,
+  };
 }
 
 function bodyBuilder(form: z.infer<ReturnType<typeof Client>>) {

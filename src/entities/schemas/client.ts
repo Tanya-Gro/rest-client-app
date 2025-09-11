@@ -18,8 +18,8 @@ export const Client = (t: (arg: string) => string) =>
       headers: z
         .array(
           z.object({
-            header: z.string().optional(),
-            value: z.string().optional(),
+            header: z.string(),
+            value: z.string(),
           })
         )
         .optional(),
