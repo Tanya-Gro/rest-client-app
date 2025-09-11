@@ -93,6 +93,17 @@ export function VariablesContent({ userEmail }: Props) {
           onSubmit={form.handleSubmit(() => {})}
           className="flex flex-col gap-1"
         >
+          <Button
+            type="button"
+            className="cursor-pointer w-[185px]"
+            onClick={(e) => {
+              e.preventDefault();
+              append({ key: '', value: '' });
+            }}
+          >
+            {t('append')}
+          </Button>
+
           {fields.map((field, i) => (
             <div key={field.id} className="flex gap-2 w-full">
               <FormField
@@ -140,7 +151,7 @@ export function VariablesContent({ userEmail }: Props) {
                   <X
                     size={36}
                     type="button"
-                    className="cursor-pointer hover:bg-gray-200 transition-colors duration-200 hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.6)_inset]"
+                    className="cursor-pointer hover:bg-gray-200 transition-colors duration-200 hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.6)_inset] p-1.5"
                     onClick={() => remove(i)}
                   />
                 </TooltipTrigger>
@@ -148,17 +159,6 @@ export function VariablesContent({ userEmail }: Props) {
               </Tooltip>
             </div>
           ))}
-
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              append({ key: '', value: '' });
-            }}
-            type="button"
-            className="cursor-pointer w-[185px]"
-          >
-            {t('append')}
-          </Button>
         </form>
       </Form>
       {isError && showErrorMessage(isError)}
