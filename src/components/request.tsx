@@ -27,6 +27,7 @@ import { Client } from '@entities';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
+import { builder } from '../../app/actions/request';
 
 const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
@@ -54,7 +55,8 @@ export const Request = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(() => {
-            console.log(form.getValues());
+            const formValues: Client = form.getValues();
+            console.log(builder(formValues));
           })}
           className="flex flex-col gap-1"
         >

@@ -77,7 +77,7 @@ export function SignUpForm() {
             disabled={isLoading}
           />
           {errors.email && (
-            <p className="absolute -bottom-7 left-1 text-sm text-red-500">
+            <p className="absolute -bottom-10 left-1 text-sm text-red-500">
               {errors.email.message}
             </p>
           )}
@@ -93,7 +93,7 @@ export function SignUpForm() {
             disabled={isLoading}
           />
           {errors.password && (
-            <p className="text-sm absolute -bottom-7 left-1 text-red-500">
+            <p className="text-sm absolute -bottom-10 left-1 text-red-500">
               {errors.password.message}
             </p>
           )}

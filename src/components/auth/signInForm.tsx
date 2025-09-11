@@ -68,7 +68,7 @@ export function SignInForm() {
             disabled={isLoading}
           />
           {errors.email && (
-            <p className="text-sm text-red-500 absolute -bottom-7 left-1">
+            <p className="text-sm text-red-500 absolute -bottom-10 left-1">
               {errors.email.message}
             </p>
           )}
@@ -84,7 +84,7 @@ export function SignInForm() {
             disabled={isLoading}
           />
           {errors.password && (
-            <p className="text-sm text-red-500 absolute -bottom-7 left-1">
+            <p className="text-sm text-red-500 absolute -bottom-10 left-1">
               {errors.password.message}
             </p>
           )}
