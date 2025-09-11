@@ -8,13 +8,13 @@ export default async function RootPage() {
   const locale = await getLocale();
 
   if (session) {
-    return redirect({
+    redirect({
       href: '/main',
       locale,
     });
   }
 
-  return redirect({
+  redirect({
     href: '/welcome',
     locale,
   });

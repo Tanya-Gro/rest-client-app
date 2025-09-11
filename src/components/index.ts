@@ -32,6 +32,7 @@ export {
   TableRow,
   TableCell,
   TableCaption,
+  Skeleton,
 } from './ui';
 
 export { Header } from './header';

@@ -81,7 +81,10 @@ export function Header({ status }: Props) {
           </SelectContent>
         </Select>
         {status === 'user' ? (
-          <Button onClick={() => signOut({ callbackUrl: '/welcome' })}>
+          <Button
+            className="cursor-pointer"
+            onClick={() => signOut({ callbackUrl: '/welcome' })}
+          >
             {t('header.buttonSignOut')}
           </Button>
         ) : (
