@@ -32,6 +32,9 @@ export {
   TableRow,
   TableCell,
   TableCaption,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
 } from './ui';
 
 export { Header } from './header';
