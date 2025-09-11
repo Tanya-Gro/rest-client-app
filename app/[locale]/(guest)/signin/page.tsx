@@ -9,7 +9,7 @@ import {
 import { redirect } from '@i18n';
 import { getServerSession } from 'next-auth';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '../../../api/auth/[...nextauth]/route';
 
 export default async function SignIn() {
   const text = await getTranslations();

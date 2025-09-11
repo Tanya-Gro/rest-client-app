@@ -12,7 +12,7 @@ import { Link, redirect } from '@i18n';
 import { getMethodColor, getStatusColor } from '@helpers';
 import { Method } from '@/types';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '../../../api/auth/[...nextauth]/route';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 type MockResponseHistory = {

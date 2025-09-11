@@ -17,7 +17,11 @@ import {
   SelectValue,
 } from '@components';
 import { usePathname, useRouter } from '@i18n';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
+
+type Props = {
+  status: 'guest' | 'user';
+};
 
 const headerVariants = cva(
   'sticky top-0 z-50 flex w-full mx-auto items-center justify-between px-4 transition-all duration-300 border-b',
@@ -32,7 +36,7 @@ const headerVariants = cva(
   }
 );
 
-export function Header() {
+export function Header({ status }: Props) {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 1);
@@ -45,7 +49,6 @@ export function Header() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const { status } = useSession();
 
   const handleSwitchLocale = (lang: string) =>
     router.push(pathname, { locale: lang });
@@ -77,14 +80,15 @@ export function Header() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        {status === 'authenticated' ? (
-          <Button onClick={() => signOut()}>{t('header.buttonSignOut')}</Button>
+        {status === 'user' ? (
+          <Button onClick={() => signOut({ callbackUrl: '/welcome' })}>
+            {t('header.buttonSignOut')}
+          </Button>
         ) : (
           <>
             <Button className="cursor-pointer">
               <Link href="/signin">{t('buttonSignIn')}</Link>
             </Button>
-
             <Button className="cursor-pointer">
               <Link href="/signup">{t('buttonSignUp')}</Link>
             </Button>

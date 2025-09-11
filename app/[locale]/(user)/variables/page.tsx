@@ -1,7 +1,7 @@
 import { redirect } from '@i18n';
 import { getServerSession } from 'next-auth';
 import { getLocale } from 'next-intl/server';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '../../../api/auth/[...nextauth]/route';
 
 export default async function Variables() {
   const session = await getServerSession(authOptions);

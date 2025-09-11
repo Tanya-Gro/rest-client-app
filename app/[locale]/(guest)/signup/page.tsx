@@ -9,7 +9,7 @@ import { SignUpForm } from '@/components/auth/signUpForm';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@i18n';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '../../../api/auth/[...nextauth]/route';
 
 export default async function SignUp() {
   const text = await getTranslations();
