@@ -41,3 +41,4 @@ export { Header } from './header';
 export { Footer } from './footer';
 export { Request } from './request';
 export { Response } from './response';
+export { VariablesContent } from './variablesContent';
