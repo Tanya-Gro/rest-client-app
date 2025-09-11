@@ -76,6 +76,10 @@
     "responseSize": "Размер ответа",
     "error": "Детали ошибок"
   },
+  "notFound": {
+    "page": "Страница не найдена",
+    "button": "На главную"
+  },
   "buttonSignIn": "Войти",
   "buttonSignUp": "Регистрация"
 }

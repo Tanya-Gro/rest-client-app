@@ -7,7 +7,7 @@ import { routing } from '@i18n';
 import { Suspense } from 'react';
 import Loading from './loading';
 
-import './globals.css';
+import '../globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

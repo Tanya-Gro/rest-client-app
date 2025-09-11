@@ -76,6 +76,10 @@
     "responseSize": "Response size",
     "error": "Error details"
   },
+  "notFound": {
+    "page": "Page not found",
+    "button": "Back to Main page"
+  },
   "buttonSignIn": "Sign In",
   "buttonSignUp": "Sign Up"
 }
