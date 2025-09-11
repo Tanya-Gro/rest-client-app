@@ -54,7 +54,8 @@
     "special-symbol": "Password must contain one special symbol"
   },
   "header": {
-    "buttonSignOut": "Sign Out"
+    "buttonSignOut": "Sign Out",
+    "buttonMain": "Main"
   },
   "footer": {
     "title": "Our team:",

@@ -45,6 +45,10 @@ type HeaderButton = {
 const buttons: Record<'notAuth' | 'auth', HeaderButton[]> = {
   auth: [
     {
+      text: 'header.buttonMain',
+      link: '/main',
+    },
+    {
       text: 'header.buttonSignOut',
       onClick: () => signOut({ callbackUrl: '/welcome' }),
     },

@@ -54,7 +54,8 @@
     "special-symbol": "Пароль должен содержать не менее одного специального символа"
   },
   "header": {
-    "buttonSignOut": "Выйти"
+    "buttonSignOut": "Выйти",
+    "buttonMain": "Главная"
   },
   "footer": {
     "title": "Наша команда:",
