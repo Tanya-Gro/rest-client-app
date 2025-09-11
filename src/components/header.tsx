@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from '@components';
 import { usePathname, useRouter } from '@i18n';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 const headerVariants = cva(
   'sticky top-0 z-50 flex w-full mx-auto items-center justify-between px-4 transition-all duration-300 border-b',
@@ -40,11 +40,12 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const t = useTranslations('header');
+  const t = useTranslations();
 
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const { status } = useSession();
 
   const handleSwitchLocale = (lang: string) =>
     router.push(pathname, { locale: lang });
@@ -76,15 +77,19 @@ export function Header() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Button className="cursor-pointer">
-          <Link href="/signin">{t('buttonSignIn')}</Link>
-        </Button>
+        {status === 'authenticated' ? (
+          <Button onClick={() => signOut()}>{t('header.buttonSignOut')}</Button>
+        ) : (
+          <>
+            <Button className="cursor-pointer">
+              <Link href="/signin">{t('buttonSignIn')}</Link>
+            </Button>
 
-        <Button className="cursor-pointer">
-          <Link href="/signup">{t('buttonSignUp')}</Link>
-        </Button>
-
-        <Button onClick={() => signOut()}>{t('buttonSignOut')}</Button>
+            <Button className="cursor-pointer">
+              <Link href="/signup">{t('buttonSignUp')}</Link>
+            </Button>
+          </>
+        )}
       </div>
     </header>
   );

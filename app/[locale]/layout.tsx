@@ -5,9 +5,11 @@ import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@i18n';
 
-import { Header, Footer } from '@/components';
+import { Header, Footer, AuthProvider } from '@/components';
 
 import './globals.css';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]/route';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,6 +38,7 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+  const session = await getServerSession(authOptions);
 
   setRequestLocale(locale);
 
@@ -45,7 +48,10 @@ export default async function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
         >
-          <Header />
+          <AuthProvider session={session}>
+            <Header />
+          </AuthProvider>
+
           <main className="flex flex-1 px-4 py-2 justify-center">
             {children}
           </main>

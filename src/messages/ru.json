@@ -18,7 +18,11 @@
     "urlError": "Неверный формат URL"
   },
   "main": {
-    "text": "Главная страница"
+    "textNotAuthorized": "Добро пожаловать!",
+    "textAuthorized": "С возвращением!",
+    "clientBtn": "REST Клиент",
+    "historyBtn": "История",
+    "variablesBtn": "Переменные"
   },
   "login": {
     "header": "Войти в аккаунт",
@@ -50,8 +54,6 @@
     "special-symbol": "Пароль должен содержать не менее одного специального символа"
   },
   "header": {
-    "buttonSignIn": "Войти",
-    "buttonSignUp": "Регистрация",
     "buttonSignOut": "Выйти"
   },
   "footer": {
@@ -73,5 +75,7 @@
     "requestSize": "Размер запроса",
     "responseSize": "Размер ответа",
     "error": "Детали ошибок"
-  }
+  },
+  "buttonSignIn": "Войти",
+  "buttonSignUp": "Регистрация"
 }

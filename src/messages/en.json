@@ -18,7 +18,11 @@
     "urlError": "Incorrect URL format"
   },
   "main": {
-    "text": "Main page"
+    "textNotAuthorized": "Welcome!",
+    "textAuthorized": "Welcome back!",
+    "clientBtn": "REST Client",
+    "historyBtn": "History",
+    "variablesBtn": "Variables"
   },
   "login": {
     "header": "Login to your account",
@@ -50,8 +54,6 @@
     "special-symbol": "Password must contain one special symbol"
   },
   "header": {
-    "buttonSignIn": "Sign In",
-    "buttonSignUp": "Sign Up",
     "buttonSignOut": "Sign Out"
   },
   "footer": {
@@ -73,5 +75,7 @@
     "requestSize": "Request size",
     "responseSize": "Response size",
     "error": "Error details"
-  }
+  },
+  "buttonSignIn": "Sign In",
+  "buttonSignUp": "Sign Up"
 }
