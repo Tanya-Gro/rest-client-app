@@ -4,12 +4,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@i18n';
-
-import { Footer } from '@/components';
-
-import './globals.css';
 import { Suspense } from 'react';
 import Loading from './loading';
+
+import './globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

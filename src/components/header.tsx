@@ -20,7 +20,7 @@ import { usePathname, useRouter } from '@i18n';
 import { signOut } from 'next-auth/react';
 
 type Props = {
-  status: 'guest' | 'user';
+  status: 'notAuth' | 'auth';
 };
 
 const headerVariants = cva(
@@ -35,6 +35,25 @@ const headerVariants = cva(
     defaultVariants: { isScrolled: false },
   }
 );
+
+type HeaderButton = {
+  text: string;
+  onClick?: () => void;
+  link?: string;
+};
+
+const buttons: Record<'notAuth' | 'auth', HeaderButton[]> = {
+  auth: [
+    {
+      text: 'header.buttonSignOut',
+      onClick: () => signOut({ callbackUrl: '/welcome' }),
+    },
+  ],
+  notAuth: [
+    { text: 'buttonSignIn', link: '/signin' },
+    { text: 'buttonSignUp', link: '/signup' },
+  ],
+};
 
 export function Header({ status }: Props) {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -80,22 +99,16 @@ export function Header({ status }: Props) {
             </SelectGroup>
           </SelectContent>
         </Select>
-        {status === 'user' ? (
-          <Button
-            className="cursor-pointer"
-            onClick={() => signOut({ callbackUrl: '/welcome' })}
-          >
-            {t('header.buttonSignOut')}
-          </Button>
-        ) : (
-          <>
-            <Button className="cursor-pointer">
-              <Link href="/signin">{t('buttonSignIn')}</Link>
+        {buttons[status].map(({ text, link, onClick }) =>
+          link ? (
+            <Button key={link} className="cursor-pointer" asChild>
+              <Link href={link}>{t(text)}</Link>
             </Button>
-            <Button className="cursor-pointer">
-              <Link href="/signup">{t('buttonSignUp')}</Link>
+          ) : (
+            <Button key={text} className="cursor-pointer" onClick={onClick}>
+              {t(text)}
             </Button>
-          </>
+          )
         )}
       </div>
     </header>

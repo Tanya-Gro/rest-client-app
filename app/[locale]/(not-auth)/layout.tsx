@@ -7,7 +7,7 @@ export default async function MainLayout({
 }>) {
   return (
     <>
-      <Header status="guest" />
+      <Header status="notAuth" />
       <main className="flex flex-1 px-4 py-2 justify-center">{children}</main>
       <Footer />
     </>
