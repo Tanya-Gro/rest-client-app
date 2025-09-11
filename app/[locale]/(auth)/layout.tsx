@@ -4,7 +4,7 @@ import { authOptions } from '../../api/auth/[...nextauth]/route';
 import { redirect } from '@i18n';
 import { getLocale } from 'next-intl/server';
 
-export default async function MainLayout({
+export default async function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
