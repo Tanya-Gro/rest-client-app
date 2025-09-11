@@ -3,9 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Button } from '@components';
 import Link from 'next/link';
-import { MoveLeft } from 'lucide-react';
-import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
-import { NextIntlClientProvider, useLocale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
