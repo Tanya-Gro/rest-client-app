@@ -73,5 +73,13 @@
     "requestSize": "Request size",
     "responseSize": "Response size",
     "error": "Error details"
+  },
+  "variables": {
+    "title": "Variables",
+    "key": "Key",
+    "value": "Value",
+    "removeTooltip": "Delete key and its value",
+    "copyTooltip": "Copy key",
+    "append": "Add variable"
   }
 }
