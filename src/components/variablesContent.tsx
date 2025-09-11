@@ -53,7 +53,7 @@ export function VariablesContent({ userEmail }: Props) {
       try {
         form.reset(JSON.parse(saved));
       } catch {
-        setIsError('Invalid saved variables');
+        setIsError(t('errorRestore'));
         localStorage.removeItem(userEmail);
       }
     }
@@ -75,7 +75,7 @@ export function VariablesContent({ userEmail }: Props) {
             localStorage.removeItem(userEmail);
           }
         } catch (err) {
-          setIsError('Error saving variables');
+          setIsError(t('errorSaving'));
         }
       }
     });

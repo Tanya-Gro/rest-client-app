@@ -80,6 +80,8 @@
     "value": "Value",
     "removeTooltip": "Delete key and its value",
     "copyTooltip": "Copy key",
+    "errorSaving": "Error saving variables",
+    "errorRestore": "Invalid saved variables",
     "append": "Add variable"
   }
 }
