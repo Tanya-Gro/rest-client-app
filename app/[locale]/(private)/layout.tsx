@@ -1,10 +1,10 @@
 import { Footer, Header } from '@/components';
-import { redirect } from '@i18n';
 import { getServerSession } from 'next-auth';
-import { getLocale } from 'next-intl/server';
 import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { redirect } from '@i18n';
+import { getLocale } from 'next-intl/server';
 
-export default async function NotAuthLayout({
+export default async function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -12,16 +12,16 @@ export default async function NotAuthLayout({
   const session = await getServerSession(authOptions);
   const locale = await getLocale();
 
-  if (session) {
+  if (!session) {
     redirect({
-      href: '/main',
+      href: '/welcome',
       locale,
     });
   }
 
   return (
     <>
-      <Header status="notAuth" />
+      <Header status="private" />
       <main className="flex flex-1 px-4 py-2 justify-center">{children}</main>
       <Footer />
     </>

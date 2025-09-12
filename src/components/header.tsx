@@ -20,7 +20,7 @@ import { usePathname, useRouter } from '@i18n';
 import { signOut } from 'next-auth/react';
 
 type Props = {
-  status: 'notAuth' | 'auth';
+  status: 'public' | 'private';
 };
 
 const headerVariants = cva(
@@ -42,8 +42,12 @@ type HeaderButton = {
   link?: string;
 };
 
-const buttons: Record<'notAuth' | 'auth', HeaderButton[]> = {
-  auth: [
+const buttons: Record<'public' | 'private', HeaderButton[]> = {
+  public: [
+    { text: 'buttonSignIn', link: '/signin' },
+    { text: 'buttonSignUp', link: '/signup' },
+  ],
+  private: [
     {
       text: 'header.buttonMain',
       link: '/main',
@@ -52,10 +56,6 @@ const buttons: Record<'notAuth' | 'auth', HeaderButton[]> = {
       text: 'header.buttonSignOut',
       onClick: () => signOut({ callbackUrl: '/welcome' }),
     },
-  ],
-  notAuth: [
-    { text: 'buttonSignIn', link: '/signin' },
-    { text: 'buttonSignUp', link: '/signup' },
   ],
 };
 
