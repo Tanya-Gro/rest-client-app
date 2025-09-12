@@ -6,6 +6,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormMessage,
   Input,
   Tooltip,
   TooltipContent,
@@ -24,7 +25,22 @@ const VariablesSchema = z.object({
       key: z.string().trim().min(1, 'Key is required'),
       value: z.string(),
     })
-  ),
+  )
+  .superRefine((variables, ctx) => {
+    const seen = new Set<string>();
+
+    variables.forEach((v, index) => {
+      const key = v.key.trim();
+      if (seen.has(key)) {
+        ctx.addIssue({
+          code: "custom",
+          message: "Key must be unique",
+          path: [index, "key"],
+        });
+      }
+      seen.add(key);
+    });
+  })
 });
 
 type Variables = z.infer<typeof VariablesSchema>;
@@ -68,7 +84,8 @@ export function VariablesContent({ userEmail }: Props) {
             key: v?.key?.trim(),
             value: v?.value?.trim(),
           }))
-          .filter((v) => v.key !== ''),
+          .filter((v) => v.key !== '')
+          .filter((v, index, self) =>index === self.findIndex((x) => x.key === v.key)),
       };
 
       if (filtered.variables.length > 0) {
@@ -144,6 +161,7 @@ function VariableRow({ index, form, remove, t }: any) {
             <FormControl>
               <Input placeholder={`{{${t('key')}}}`} {...field} />
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />
