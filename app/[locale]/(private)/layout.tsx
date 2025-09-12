@@ -9,7 +9,7 @@ type Props = {
   children: ReactNode;
 };
 
-export default async function AuthLayout({ children }: Readonly<Props>) {
+export default async function PrivateLayout({ children }: Readonly<Props>) {
   const session = await getServerSession(authOptions);
   const locale = await getLocale();
 
