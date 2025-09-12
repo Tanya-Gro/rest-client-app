@@ -3,12 +3,13 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../../api/auth/[...nextauth]/route';
 import { redirect } from '@i18n';
 import { getLocale } from 'next-intl/server';
+import { ReactNode } from 'react';
 
-export default async function AuthLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+type Props = {
+  children: ReactNode;
+};
+
+export default async function AuthLayout({ children }: Readonly<Props>) {
   const session = await getServerSession(authOptions);
   const locale = await getLocale();
 

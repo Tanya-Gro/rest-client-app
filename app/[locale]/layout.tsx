@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@i18n';
-import { Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 import Loading from './loading';
 
 import '../globals.css';
@@ -28,13 +28,15 @@ export const metadata: Metadata = {
   },
 };
 
+type Props = {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+};
+
 export default async function MainLayout({
   children,
   params,
-}: Readonly<{
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}>) {
+}: Readonly<Props>) {
   const { locale } = await params;
 
   setRequestLocale(locale);
