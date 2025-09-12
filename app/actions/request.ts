@@ -12,7 +12,7 @@ export async function handleRequest(form: z.infer<ReturnType<typeof Client>>) {
   const start = performance.now();
   const promise = fetch(form.url, requestObject);
   const result = await promise;
-  const timestamp = +((performance.now() - start) / 1000).toFixed(2);
+  const timestamp = +(performance.now() - start).toFixed(2);
   if (!result.ok) {
     return {
       status: result.status,
@@ -41,13 +41,19 @@ function bodyBuilder(form: z.infer<ReturnType<typeof Client>>) {
       form.headers.map((item) => [item.header, item.value])
     );
   }
+
   let requestObject: RequestObject;
   if (
     (form.method === 'post' && headers) ||
-    (form.method === 'put' && headers)
+    (form.method === 'put' && headers) ||
+    (form.method === 'patch' && headers)
   ) {
     requestObject = { method: form.method, headers: headers, body: form.body };
-  } else if (form.method === 'post' || form.method === 'put') {
+  } else if (
+    form.method === 'post' ||
+    form.method === 'put' ||
+    form.method === 'patch'
+  ) {
     requestObject = { method: form.method, body: form.body };
   } else if (headers) {
     requestObject = { method: form.method, headers: headers };
