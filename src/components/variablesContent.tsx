@@ -77,7 +77,7 @@ export function VariablesContent({ userEmail }: Props) {
 
   useEffect(() => {
     const subscription = form.watch((values) => {
-      if (!values.variables || values.variables.length === 0) { return;}
+      if (!values.variables) {return}
       const filtered = {
         variables: values.variables
           .map((v) => ({
