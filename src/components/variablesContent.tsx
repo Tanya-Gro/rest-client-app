@@ -14,15 +14,15 @@ import {
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { Copy, X } from 'lucide-react';
+import { Copy, X, CirclePlus } from 'lucide-react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const VariablesSchema = z.object({
   variables: z.array(
     z.object({
-      key: z.string().min(1, 'Key is required'),
-      value: z.string().min(1, 'Value is required'),
+      key: z.string().trim().min(1, 'Key is required'),
+      value: z.string(),
     })
   ),
 });
@@ -61,24 +61,27 @@ export function VariablesContent({ userEmail }: Props) {
 
   useEffect(() => {
     const subscription = form.watch((values) => {
-      if (values?.variables && values.variables.length > 0) {
-        try {
-          const filtered = {
-            variables: values.variables?.filter(
-              (v) => v && v.key && v.key.trim() !== ''
-            ),
-          };
+      if (!values.variables || values.variables.length === 0) { return;}
+      const filtered = {
+        variables: values.variables
+          .map((v) => ({
+            key: v?.key?.trim(),
+            value: v?.value?.trim(),
+          }))
+          .filter((v) => v.key !== ''),
+      };
 
-          if (filtered.variables.length > 0) {
-            localStorage.setItem(userEmail, JSON.stringify(filtered));
-          } else {
-            localStorage.removeItem(userEmail);
-          }
-        } catch (err) {
+      if (filtered.variables.length > 0) {
+        try {
+          localStorage.setItem(userEmail, JSON.stringify(filtered));
+        } catch {
           setIsError(t('errorSaving'));
         }
+      } else {
+        localStorage.removeItem(userEmail);
       }
     });
+
     return () => subscription.unsubscribe();
   }, [form]);
 
@@ -91,85 +94,103 @@ export function VariablesContent({ userEmail }: Props) {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(() => {})}
-          className="flex flex-col gap-1"
+          className="flex flex-col gap-1 grow-1"
         >
-          <Button
-            type="button"
-            className="cursor-pointer w-[185px]"
-            onClick={(e) => {
-              e.preventDefault();
-              append({ key: '', value: '' });
-            }}
-          >
-            {t('append')}
-          </Button>
+          {ButtonWithTooltip(
+            () => append({ key: '', value: '' }),
+            <CirclePlus size={20} />,
+            t('append')
+          )}
 
           {fields.map((field, i) => (
-            <div key={field.id} className="flex gap-2 w-full">
-              <FormField
-                control={form.control}
-                name={`variables.${i}.key`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input placeholder={`{{${t('key')}}}`} {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Copy
-                    type="button"
-                    size={36}
-                    className="cursor-pointer hover:bg-gray-200 p-2 mr-2 transition-colors duration-200 hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.6)_inset]"
-                    onClick={() => {
-                      if (field.key) {
-                        navigator.clipboard.writeText(`{{${field.key}}}`);
-                      }
-                    }}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>{t('copyTooltip')}</TooltipContent>
-              </Tooltip>
-
-              <FormField
-                control={form.control}
-                name={`variables.${i}.value`}
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormControl>
-                      <Input placeholder={t('value')} {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <X
-                    size={36}
-                    type="button"
-                    className="cursor-pointer hover:bg-gray-200 transition-colors duration-200 hover:shadow-[0_0_10px_2px_rgba(255,255,255,0.6)_inset] p-1.5"
-                    onClick={() => remove(i)}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>{t('removeTooltip')}</TooltipContent>
-              </Tooltip>
-            </div>
+            <VariableRow
+              key={field.id}
+              index={i}
+              form={form}
+              remove={remove}
+              t={t}
+            />
           ))}
         </form>
       </Form>
-      {isError && showErrorMessage(isError)}
+
+      {isError && (
+        <div className="absolute bottom-10 right-15 p-3 bg-destructive/15 border border-destructive/50 rounded-md w-auto">
+          <p className="text-sm text-destructive">{isError}</p>
+        </div>
+      )}
     </div>
   );
 }
 
-const showErrorMessage = (isError: string) => {
+function VariableRow({ index, form, remove, t }: any) {
+  const keyPath = `variables.${index}.key` as const;
+  const valuePath = `variables.${index}.value` as const;
+
+  const copyHandler = () => {
+    const keyValue = form.getValues(keyPath)?.trim();
+    if (keyValue) {
+      navigator.clipboard.writeText(`{{${keyValue}}}`);
+    }
+  };
+
   return (
-    <div className=" absolute bottom-10 right-15 p-3 bg-destructive/15 border border-destructive/50 rounded-md w-auto">
-      <p className="text-sm text-destructive">{isError}</p>
+    <div className="flex gap-2 w-full items-start">
+      <FormField
+        control={form.control}
+        name={keyPath}
+        render={({ field }) => (
+          <FormItem className='gap-y-0'>
+            <FormControl>
+              <Input placeholder={`{{${t('key')}}}`} {...field} />
+            </FormControl>
+          </FormItem>
+        )}
+      />
+
+      {ButtonWithTooltip(
+        copyHandler,
+        <Copy size={20} />,
+        t('copyTooltip')
+      )}
+
+      <FormField
+        control={form.control}
+        name={valuePath}
+        render={({ field }) => (
+          <FormItem className="flex-1">
+            <FormControl>
+              <Input placeholder={t('value')} {...field} />
+            </FormControl>
+          </FormItem>
+        )}
+      />
+
+      {ButtonWithTooltip(
+        () => remove(index),
+        <X size={20}/>,
+        t('removeTooltip')
+      )}
     </div>
   );
-};
+}
+
+const ButtonWithTooltip = (
+  handleClick: ()=> void,
+  children: React.ReactNode,
+  tooltip: string
+): React.ReactNode => {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          onClick={handleClick}
+          className="cursor-pointer p-1.5 rounded mr-auto"
+        >
+          {children}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>{tooltip}</TooltipContent>
+    </Tooltip>
+  )
+}
