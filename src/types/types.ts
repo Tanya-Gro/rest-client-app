@@ -1,3 +1,6 @@
+import { VariablesSchema } from '@entities';
+import z from 'zod';
+
 export type Method =
   | 'GET'
   | 'POST'
@@ -6,3 +9,5 @@ export type Method =
   | 'DELETE'
   | 'HEAD'
   | 'OPTIONS';
+
+export type Variables = z.infer<typeof VariablesSchema>;

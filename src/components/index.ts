@@ -1,4 +1,3 @@
-import { ButtonWithTooltip } from './buttonWithTooltip';
 export {
   Input,
   Button,
@@ -44,3 +43,4 @@ export { Request } from './request';
 export { Response } from './response';
 export { VariablesContent } from './variablesContent';
 export { ButtonWithTooltip } from './buttonWithTooltip';
+export { VariableRow } from './variableRow';
