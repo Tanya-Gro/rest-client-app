@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 export default function SignUp() {
   const text = useTranslations();
   return (
-    <Card>
+    <Card className="w-2xl">
       <CardHeader>
         <CardTitle>{text(`registration.header`)}</CardTitle>
         <CardDescription>

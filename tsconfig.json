@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,26 +20,16 @@
       }
     ],
     "paths": {
-      "@components": [
-        "./src/components/index.ts"
-      ],
-      "@lib": [
-        "./src/lib/index.ts"
-      ],
-      "@i18n": [
-        "./src/i18n/index.ts"
-      ],
-      "@/*": [
-        "./src/*"
-      ]
+      "@components": ["./src/components/index.ts"],
+      "@lib": ["./src/lib/index.ts"],
+      "@i18n": ["./src/i18n/index.ts"],
+      "@entities": ["./src/entities/index.ts"],
+      "@constants": ["./src/constants/index.ts"],
+      "@helpers": ["./src/helpers/index.ts"],
+      "@types": ["./src/types/index.ts"],
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "./dist/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "./dist/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
