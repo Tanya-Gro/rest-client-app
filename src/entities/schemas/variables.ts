@@ -11,8 +11,8 @@ export const VariablesSchema = z.object({
     .superRefine((variables, ctx) => {
       const seen = new Set<string>();
 
-      variables.forEach((v, index) => {
-        const key = v.key.trim();
+      variables.forEach((variable, index) => {
+        const key = variable.key.trim();
         if (seen.has(key)) {
           ctx.addIssue({
             code: 'custom',

@@ -46,14 +46,19 @@ export function VariablesContent({ userEmail }: Props) {
       }
       const filtered = {
         variables: values.variables
-          .map((v) => ({
-            key: v?.key?.trim(),
-            value: v?.value?.trim(),
+          .map((variable) => ({
+            key: variable?.key?.trim(),
+            value: variable?.value?.trim(),
           }))
-          .filter((v) => v.key !== '')
-          .filter(
-            (v, index, self) => index === self.findIndex((x) => x.key === v.key)
-          ),
+          .filter((variable) => variable.key !== '')
+          .filter((currentVariable, index, array) => {
+            return (
+              index ===
+              array.findIndex(
+                (entriesVariable) => entriesVariable.key === currentVariable.key
+              )
+            );
+          }),
       };
 
       if (filtered.variables.length > 0) {
