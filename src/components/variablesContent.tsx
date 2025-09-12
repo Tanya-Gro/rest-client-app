@@ -15,7 +15,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { Copy, X, CirclePlus } from 'lucide-react';
+import { Copy, X, SquarePlus } from 'lucide-react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { VariablesSchema } from '@entities';
@@ -92,7 +92,7 @@ export function VariablesContent({ userEmail }: Props) {
         >
           {ButtonWithTooltip(
             () => append({ key: '', value: '' }),
-            <CirclePlus size={20} />,
+            <SquarePlus size={20} />,
             t('append')
           )}
 

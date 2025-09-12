@@ -8,12 +8,13 @@ export default async function Variables() {
   const session = await getServerSession(authOptions);
   const locale = await getLocale();
 
-  if (!session) {
+  if (!session || !session.user.email) {
     redirect({
       href: '/signin',
       locale,
     });
+    return;
   }
 
-  return <VariablesContent userEmail={session?.user?.email ?? 'as@as.as'} />;
+  return <VariablesContent userEmail={session.user.email} />;
 }
