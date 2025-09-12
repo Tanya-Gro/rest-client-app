@@ -1,20 +1,23 @@
 'use client';
 
 import {
-  Button,
+  ButtonWithTooltip,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
   Input,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
 } from '@components';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Key, useEffect, useState } from 'react';
+import {
+  useFieldArray,
+  UseFieldArrayRemove,
+  useForm,
+  UseFormProps,
+  UseFormReturn,
+} from 'react-hook-form';
 import { Copy, X, SquarePlus } from 'lucide-react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -50,11 +53,13 @@ export function VariablesContent({ userEmail }: Props) {
         localStorage.removeItem(userEmail);
       }
     }
-  }, [form]);
+  }, [form, userEmail, t]);
 
   useEffect(() => {
     const subscription = form.watch((values) => {
-      if (!values.variables) {return}
+      if (!values.variables) {
+        return;
+      }
       const filtered = {
         variables: values.variables
           .map((v) => ({
@@ -62,7 +67,9 @@ export function VariablesContent({ userEmail }: Props) {
             value: v?.value?.trim(),
           }))
           .filter((v) => v.key !== '')
-          .filter((v, index, self) =>index === self.findIndex((x) => x.key === v.key)),
+          .filter(
+            (v, index, self) => index === self.findIndex((x) => x.key === v.key)
+          ),
       };
 
       if (filtered.variables.length > 0) {
@@ -77,7 +84,7 @@ export function VariablesContent({ userEmail }: Props) {
     });
 
     return () => subscription.unsubscribe();
-  }, [form]);
+  }, [form, userEmail, t]);
 
   return (
     <div className="flex flex-col justify-center w-full">
@@ -97,13 +104,7 @@ export function VariablesContent({ userEmail }: Props) {
           )}
 
           {fields.map((field, i) => (
-            <VariableRow
-              key={field.id}
-              index={i}
-              form={form}
-              remove={remove}
-              t={t}
-            />
+            <VariableRow key={field.id} index={i} form={form} remove={remove} />
           ))}
         </form>
       </Form>
@@ -117,7 +118,15 @@ export function VariablesContent({ userEmail }: Props) {
   );
 }
 
-function VariableRow({ index, form, remove, t }: any) {
+type VariableRowProps = {
+  index: number;
+  form: UseFormReturn<Variables>;
+  remove: (index: number) => void;
+};
+
+function VariableRow({ index, form, remove }: VariableRowProps) {
+  const t = useTranslations('variables');
+
   const keyPath = `variables.${index}.key` as const;
   const valuePath = `variables.${index}.value` as const;
 
@@ -134,7 +143,7 @@ function VariableRow({ index, form, remove, t }: any) {
         control={form.control}
         name={keyPath}
         render={({ field }) => (
-          <FormItem className='gap-y-0'>
+          <FormItem className="gap-y-0">
             <FormControl>
               <Input placeholder={`{{${t('key')}}}`} {...field} />
             </FormControl>
@@ -143,11 +152,7 @@ function VariableRow({ index, form, remove, t }: any) {
         )}
       />
 
-      {ButtonWithTooltip(
-        copyHandler,
-        <Copy size={20} />,
-        t('copyTooltip')
-      )}
+      {ButtonWithTooltip(copyHandler, <Copy size={20} />, t('copyTooltip'))}
 
       <FormField
         control={form.control}
@@ -163,29 +168,9 @@ function VariableRow({ index, form, remove, t }: any) {
 
       {ButtonWithTooltip(
         () => remove(index),
-        <X size={20}/>,
+        <X size={20} />,
         t('removeTooltip')
       )}
     </div>
   );
-}
-
-const ButtonWithTooltip = (
-  handleClick: ()=> void,
-  children: React.ReactNode,
-  tooltip: string
-): React.ReactNode => {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          onClick={handleClick}
-          className="cursor-pointer p-1.5 rounded mr-auto"
-        >
-          {children}
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>{tooltip}</TooltipContent>
-    </Tooltip>
-  )
 }

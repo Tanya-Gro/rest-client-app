@@ -1,3 +1,4 @@
+import { ButtonWithTooltip } from './buttonWithTooltip';
 export {
   Input,
   Button,
@@ -42,3 +43,4 @@ export { Footer } from './footer';
 export { Request } from './request';
 export { Response } from './response';
 export { VariablesContent } from './variablesContent';
+export { ButtonWithTooltip } from './buttonWithTooltip';
