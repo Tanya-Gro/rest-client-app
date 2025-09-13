@@ -3,7 +3,7 @@
 import { Client } from '@entities';
 import z from 'zod';
 
-export async function handleRequest(form: z.infer<ReturnType<typeof Client>>) {
+export async function handleRequest(form: Form) {
   const date = new Date(Date.now());
   const requestObject = bodyBuilder(form);
   const requestSize = new TextEncoder().encode(
@@ -12,7 +12,7 @@ export async function handleRequest(form: z.infer<ReturnType<typeof Client>>) {
   const start = performance.now();
   const promise = fetch(form.url, requestObject);
   const result = await promise;
-  const timestamp = +(performance.now() - start).toFixed(2);
+  const timestamp = Number(performance.now() - start).toFixed(2);
   if (!result.ok) {
     return {
       status: result.status,
@@ -34,37 +34,24 @@ export async function handleRequest(form: z.infer<ReturnType<typeof Client>>) {
   };
 }
 
-function bodyBuilder(form: z.infer<ReturnType<typeof Client>>) {
-  let headers;
-  if (form.headers?.length && form.headers?.[0].header) {
-    headers = Object.fromEntries(
-      form.headers.map((item) => [item.header, item.value])
-    );
-  }
+function bodyBuilder(form: Form) {
+  const headers =
+    form.headers?.length && form.headers[0].header
+      ? Object.fromEntries(
+          form.headers
+            .filter(({ header }) => !/[а-яА-ЯёЁ]/.test(header))
+            .map(({ header, value }) => [header, value])
+        )
+      : undefined;
 
-  let requestObject: RequestObject;
-  if (
-    (form.method === 'post' && headers) ||
-    (form.method === 'put' && headers) ||
-    (form.method === 'patch' && headers)
-  ) {
-    requestObject = { method: form.method, headers: headers, body: form.body };
-  } else if (
-    form.method === 'post' ||
-    form.method === 'put' ||
-    form.method === 'patch'
-  ) {
-    requestObject = { method: form.method, body: form.body };
-  } else if (headers) {
-    requestObject = { method: form.method, headers: headers };
-  } else {
-    requestObject = { method: form.method };
-  }
-  return requestObject;
+  const methodsWithBody = ['post', 'put', 'patch'];
+  const canHaveBody = methodsWithBody.includes(form.method);
+
+  return {
+    method: form.method,
+    ...(headers && { headers }),
+    ...(canHaveBody && { body: form.body }),
+  };
 }
 
-type RequestObject = {
-  method: string;
-  headers?: Record<string, string>;
-  body?: string | undefined;
-};
+type Form = z.infer<ReturnType<typeof Client>>;
