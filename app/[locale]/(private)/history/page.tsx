@@ -8,12 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from '@components';
-import { Link, redirect } from '@i18n';
+import { Link } from '@i18n';
 import { getMethodColor, getStatusColor } from '@helpers';
 import { Method } from '@/types';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../api/auth/[...nextauth]/route';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 type MockResponseHistory = {
   idHistory: string;
@@ -129,15 +127,6 @@ const HEADERS = [
 
 export default async function History() {
   const t = await getTranslations('history');
-  const locale = await getLocale();
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect({
-      href: '/signin',
-      locale,
-    });
-  }
 
   if (!mockResponseHistory.length) {
     return (
