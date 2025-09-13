@@ -35,21 +35,24 @@ export async function handleRequest(form: Form) {
 }
 
 function bodyBuilder(form: Form) {
-  const headers =
+  const filteredHeaders =
     form.headers?.length && form.headers[0].header
-      ? Object.fromEntries(
-          form.headers
-            .filter(({ header }) => !/[а-яА-ЯёЁ]/.test(header))
-            .map(({ header, value }) => [header, value])
-        )
+      ? form.headers
+          .filter(({ header, value }) => {
+            return !/[а-яА-ЯёЁ]/.test(header) && !/[а-яА-ЯёЁ]/.test(value);
+          })
+          .map(({ header, value }) => [header, value])
+      : [];
+  const headers =
+    filteredHeaders?.length > 0
+      ? Object.fromEntries(filteredHeaders)
       : undefined;
-
   const methodsWithBody = ['post', 'put', 'patch'];
   const canHaveBody = methodsWithBody.includes(form.method);
 
   return {
     method: form.method,
-    ...(headers && { headers }),
+    ...(headers ? { headers } : {}),
     ...(canHaveBody && { body: form.body }),
   };
 }
