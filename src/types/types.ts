@@ -10,4 +10,4 @@ export type Method =
   | 'HEAD'
   | 'OPTIONS';
 
-export type Variables = z.infer<typeof VariablesSchema>;
+export type Variables = z.infer<ReturnType<typeof VariablesSchema>>;

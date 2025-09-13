@@ -15,10 +15,10 @@ type Props = {
 
 export function VariablesContent({ userEmail }: Props) {
   const t = useTranslations('variables');
-  const [isError, setIsError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const form = useForm<Variables>({
-    resolver: zodResolver(VariablesSchema),
+    resolver: zodResolver(VariablesSchema(t)),
     defaultValues: { variables: [{ key: '', value: '' }] },
   });
 
@@ -28,12 +28,12 @@ export function VariablesContent({ userEmail }: Props) {
   });
 
   useEffect(() => {
-    const saved = localStorage.getItem(userEmail);
-    if (saved) {
+    const savedVariables = localStorage.getItem(userEmail);
+    if (savedVariables) {
       try {
-        form.reset(JSON.parse(saved));
+        form.reset(JSON.parse(savedVariables));
       } catch {
-        setIsError(t('errorRestore'));
+        setErrorMessage(t('errorRestore'));
         localStorage.removeItem(userEmail);
       }
     }
@@ -65,7 +65,7 @@ export function VariablesContent({ userEmail }: Props) {
         try {
           localStorage.setItem(userEmail, JSON.stringify(filtered));
         } catch {
-          setIsError(t('errorSaving'));
+          setErrorMessage(t('errorSaving'));
         }
       } else {
         localStorage.removeItem(userEmail);
@@ -98,9 +98,9 @@ export function VariablesContent({ userEmail }: Props) {
         </form>
       </Form>
 
-      {isError && (
+      {errorMessage && (
         <div className="absolute bottom-10 right-15 p-3 bg-destructive/15 border border-destructive/50 rounded-md w-auto">
-          <p className="text-sm text-destructive">{isError}</p>
+          <p className="text-sm text-destructive">{errorMessage}</p>
         </div>
       )}
     </div>

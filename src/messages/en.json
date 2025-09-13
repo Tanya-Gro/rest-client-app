@@ -82,6 +82,8 @@
     "copyTooltip": "Copy key",
     "errorSaving": "Error saving variables",
     "errorRestore": "Invalid saved variables",
+    "uniqueKey": "Key must be unique",
+    "requiredKey": "Key is required",
     "append": "Add variable"
   }
 }
