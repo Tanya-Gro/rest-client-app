@@ -3,8 +3,9 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/prisma/prisma';
+import { Method } from '@types';
 
-export async function createHistoryPost(endpoint: string, method: string) {
+export async function createHistoryPost(endpoint: string, method: Method) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.email) throw new Error('Not authorized');
 
