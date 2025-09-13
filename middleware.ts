@@ -5,6 +5,13 @@ import { NextFetchEvent, NextRequest } from 'next/server';
 
 const privateRoutes = ['/history', '/main', '/variables', '/rest-client'];
 
+  const privatePathnameRegex = RegExp(
+    `^(/(${routing.locales.join('|')}))?(${privateRoutes
+      .flatMap((path) => (path === '/' ? ['', '/'] : path))
+      .join('|')})/?$`,
+    'i'
+  );
+
 const intlMiddleware = createMiddleware(routing);
 
 const authMiddleware = withAuth(
@@ -22,13 +29,6 @@ const authMiddleware = withAuth(
 );
 
 export default function middleware(req: NextRequest, event: NextFetchEvent) {
-  const privatePathnameRegex = RegExp(
-    `^(/(${routing.locales.join('|')}))?(${privateRoutes
-      .flatMap((path) => (path === '/' ? ['', '/'] : path))
-      .join('|')})/?$`,
-    'i'
-  );
-
   const pathname = req.nextUrl.pathname;
   const isPrivatePage = privatePathnameRegex.test(pathname);
 
