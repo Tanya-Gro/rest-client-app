@@ -33,3 +33,10 @@ export {
   TableCell,
   TableCaption,
 } from './table';
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from './tooltip';
