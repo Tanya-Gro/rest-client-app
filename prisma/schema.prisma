@@ -24,11 +24,17 @@ model Session {
 }
 
 model History {
-  id     String   @id @default(cuid())
+  id     String @id @default(cuid())
   userId String
   user   User     @relation(fields: [userId], references: [id])
-  endpoint String
+  responseCode Int
+  requestDuration Int
   method String
+  requestSize Int
+  responseSize Int
+  errorDetails String?
+  endpoint String
   createdAt DateTime @default(now())
-  date   DateTime @default(now())
+  date String
+  fullUrl String
 }

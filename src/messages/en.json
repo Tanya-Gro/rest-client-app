@@ -49,6 +49,9 @@
     "number": "Password must contain one number",
     "special-symbol": "Password must contain one special symbol"
   },
+  "request": {
+    "russian-header": "The title should not contain Cyrillic characters"
+  },
   "header": {
     "buttonSignIn": "Sign In",
     "buttonSignUp": "Sign Up",

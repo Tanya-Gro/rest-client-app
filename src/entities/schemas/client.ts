@@ -18,8 +18,12 @@ export const Client = (t: (arg: string) => string) =>
       headers: z
         .array(
           z.object({
-            header: z.string(),
-            value: z.string(),
+            header: z
+              .string()
+              .regex(/[а-яА-Я]/u, text('auth-schema.russian-header')),
+            value: z
+              .string()
+              .regex(/[а-яА-Я]/u, text('auth-schema.russian-header')),
           })
         )
         .optional(),
