@@ -28,6 +28,7 @@ model History {
   userId String
   user   User     @relation(fields: [userId], references: [id])
   responseCode Int
+  responseStatus String
   requestDuration Int
   method String
   requestSize Int

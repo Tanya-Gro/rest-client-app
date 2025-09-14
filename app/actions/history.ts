@@ -5,9 +5,24 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/prisma/prisma';
 import { Method } from '@types';
 
-export async function createHistoryPost(endpoint: string, method: Method) {
+export async function createHistoryPost({
+  responseCode,
+  responseStatus,
+  requestDuration,
+  method,
+  requestSize,
+  responseSize,
+  endpoint,
+  fullUrl,
+  date,
+  errorDetails,
+}: HistoryPostType) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user?.email) throw new Error('Not authorized');
+  if (!session || !session.user?.email)
+    return {
+      status: 403,
+      statusText: 'Not Authorized',
+    };
 
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
@@ -16,8 +31,16 @@ export async function createHistoryPost(endpoint: string, method: Method) {
 
   return prisma.history.create({
     data: {
-      endpoint,
+      responseCode,
+      responseStatus,
+      requestDuration,
       method,
+      requestSize,
+      responseSize,
+      endpoint,
+      fullUrl,
+      date,
+      errorDetails,
       userId: user.id,
     },
   });
@@ -37,3 +60,16 @@ export async function getHistoryPosts() {
     orderBy: { createdAt: 'desc' },
   });
 }
+
+type HistoryPostType = {
+  responseCode: number;
+  responseStatus: string;
+  requestDuration: number;
+  method: Method;
+  requestSize: number;
+  responseSize: number;
+  endpoint: string;
+  fullUrl: string;
+  date: string;
+  errorDetails?: string;
+};

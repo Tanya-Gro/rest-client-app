@@ -29,7 +29,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { handleRequest } from '../../app/actions/request';
 
-const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
+const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
 export const Request = () => {
   const t = useTranslations('client');
@@ -39,7 +39,7 @@ export const Request = () => {
   const form = useForm<Client>({
     resolver: zodResolver(Client(t)),
     defaultValues: {
-      method: 'get',
+      method: 'GET',
       url: '',
       bodyType: 'json',
       body: '',
@@ -78,7 +78,7 @@ export const Request = () => {
                               value={method}
                               className="cursor-pointer"
                             >
-                              {method.toUpperCase()}
+                              {method}
                             </SelectItem>
                           ))}
                         </SelectGroup>

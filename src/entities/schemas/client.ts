@@ -4,13 +4,13 @@ export const Client = (t: (arg: string) => string) =>
   z
     .object({
       method: z.enum([
-        'get',
-        'post',
-        'put',
-        'patch',
-        'delete',
-        'head',
-        'options',
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'HEAD',
+        'OPTIONS',
       ]),
       url: z.url(t('urlError')),
       bodyType: z.enum(['json', 'text']),
@@ -18,12 +18,8 @@ export const Client = (t: (arg: string) => string) =>
       headers: z
         .array(
           z.object({
-            header: z
-              .string()
-              .regex(/[а-яА-Я]/u, text('auth-schema.russian-header')),
-            value: z
-              .string()
-              .regex(/[а-яА-Я]/u, text('auth-schema.russian-header')),
+            header: z.string(),
+            value: z.string(),
           })
         )
         .optional(),

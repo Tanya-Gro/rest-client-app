@@ -19,6 +19,7 @@ CREATE TABLE "History" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
     "responseCode" INTEGER NOT NULL,
+    "responseStatus" TEXT NOT NULL,
     "requestDuration" INTEGER NOT NULL,
     "method" TEXT NOT NULL,
     "requestSize" INTEGER NOT NULL,
