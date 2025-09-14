@@ -32,6 +32,7 @@ export {
   TableRow,
   TableCell,
   TableCaption,
+  Skeleton,
   Tooltip,
   TooltipTrigger,
   TooltipContent,

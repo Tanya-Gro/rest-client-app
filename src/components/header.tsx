@@ -17,6 +17,11 @@ import {
   SelectValue,
 } from '@components';
 import { usePathname, useRouter } from '@i18n';
+import { signOut } from 'next-auth/react';
+
+type Props = {
+  status: 'public' | 'private';
+};
 
 const headerVariants = cva(
   'sticky top-0 z-50 flex w-full mx-auto items-center justify-between px-4 transition-all duration-300 border-b',
@@ -31,7 +36,30 @@ const headerVariants = cva(
   }
 );
 
-export function Header() {
+type HeaderButton = {
+  text: string;
+  onClick?: () => void;
+  link?: string;
+};
+
+const buttons: Record<'public' | 'private', HeaderButton[]> = {
+  public: [
+    { text: 'buttonSignIn', link: '/signin' },
+    { text: 'buttonSignUp', link: '/signup' },
+  ],
+  private: [
+    {
+      text: 'header.buttonMain',
+      link: '/main',
+    },
+    {
+      text: 'header.buttonSignOut',
+      onClick: () => signOut({ callbackUrl: '/welcome' }),
+    },
+  ],
+};
+
+export function Header({ status }: Props) {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 1);
@@ -39,7 +67,7 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const t = useTranslations('header');
+  const t = useTranslations();
 
   const locale = useLocale();
   const router = useRouter();
@@ -75,15 +103,17 @@ export function Header() {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Button className="cursor-pointer">
-          <Link href="/signin">{t('buttonSignIn')}</Link>
-        </Button>
-
-        <Button className="cursor-pointer">
-          <Link href="/signup">{t('buttonSignUp')}</Link>
-        </Button>
-
-        <Button>{t('buttonSignOut')}</Button>
+        {buttons[status].map(({ text, link, onClick }) =>
+          link ? (
+            <Button key={link} className="cursor-pointer" asChild>
+              <Link href={link}>{t(text)}</Link>
+            </Button>
+          ) : (
+            <Button key={text} className="cursor-pointer" onClick={onClick}>
+              {t(text)}
+            </Button>
+          )
+        )}
       </div>
     </header>
   );

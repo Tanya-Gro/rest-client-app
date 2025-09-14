@@ -6,10 +6,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { SignUpForm } from '@/components/auth/signUpForm';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-export default function SignUp() {
-  const text = useTranslations();
+export default async function SignUp() {
+  const text = await getTranslations();
+
   return (
     <Card className="w-2xl">
       <CardHeader>

@@ -8,10 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from '@components';
-import { useTranslations } from 'next-intl';
 import { Link } from '@i18n';
 import { getMethodColor, getStatusColor } from '@helpers';
 import { Method } from '@/types';
+import { getTranslations } from 'next-intl/server';
 
 type MockResponseHistory = {
   idHistory: string;
@@ -125,8 +125,8 @@ const HEADERS = [
   'error',
 ];
 
-export default function History() {
-  const t = useTranslations('history');
+export default async function History() {
+  const t = await getTranslations('history');
 
   if (!mockResponseHistory.length) {
     return (
@@ -149,7 +149,7 @@ export default function History() {
       <Table>
         <TableHeader>
           <TableRow>
-            {HEADERS.map((key, index) => (
+            {HEADERS.map(async (key, index) => (
               <TableHead className="w-[100px]" key={index}>
                 {t(key)}
               </TableHead>
