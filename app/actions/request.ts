@@ -15,10 +15,11 @@ export async function handleRequest(form: Form) {
   ).length;
 
   const start = performance.now();
-  const promise = fetch(form.url, requestObject);
-  const result = await promise;
+  const result = await fetch(form.url, requestObject);
   const timestamp = Number((performance.now() - start).toFixed(2));
-  const responseSize = new TextEncoder().encode(JSON.stringify(result)).length;
+  const responseText = await result.text();
+  const responseSize = new TextEncoder().encode(responseText).length;
+  console.log(responseSize);
   if (!result.ok) {
     const historyPost = {
       responseCode: result.status,
@@ -49,7 +50,7 @@ export async function handleRequest(form: Form) {
     fullUrl: fullUrl,
   };
   createHistoryPost(historyPost);
-  const data = await result.text();
+  const data = responseText;
   return {
     status: result.status,
     statusText: result.statusText,

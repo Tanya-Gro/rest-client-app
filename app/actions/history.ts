@@ -3,7 +3,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/prisma/prisma';
-import { Method } from '@types';
+import { HistoryPostType } from '@/types';
 
 export async function createHistoryPost({
   responseCode,
@@ -60,16 +60,3 @@ export async function getHistoryPosts() {
     orderBy: { createdAt: 'desc' },
   });
 }
-
-type HistoryPostType = {
-  responseCode: number;
-  responseStatus: string;
-  requestDuration: number;
-  method: Method;
-  requestSize: number;
-  responseSize: number;
-  endpoint: string;
-  fullUrl: string;
-  date: string;
-  errorDetails?: string;
-};

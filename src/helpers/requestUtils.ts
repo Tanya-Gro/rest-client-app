@@ -29,12 +29,12 @@ export async function getFullUrl(form: Form): Promise<string> {
   const body = form.body ? encodeRequestData(form.body) : '';
   const headers = filterHeaders(form.headers);
 
-  return `${method}/${url}${body}${headers}`;
+  return `${method}/${url}${body}${headers ? headers : ''}`;
 }
 
 function filterHeaders(
   headers: { header: string; value: string }[] | undefined
-): string[] | undefined {
+): HeadersInit | undefined {
   const filteredHeaders =
     headers?.length && headers[0].header
       ? headers
