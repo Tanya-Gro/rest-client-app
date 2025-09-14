@@ -5,12 +5,12 @@ import { NextFetchEvent, NextRequest } from 'next/server';
 
 const privateRoutes = ['/history', '/main', '/variables', '/rest-client'];
 
-  const privatePathnameRegex = RegExp(
-    `^(/(${routing.locales.join('|')}))?(${privateRoutes
-      .flatMap((path) => (path === '/' ? ['', '/'] : path))
-      .join('|')})/?$`,
-    'i'
-  );
+const privatePathnameRegex = RegExp(
+  `^(/(${routing.locales.join('|')}))?(${privateRoutes
+    .flatMap((path) => (path === '/' ? ['', '/'] : path))
+    .join('|')})/?$`,
+  'i'
+);
 
 const intlMiddleware = createMiddleware(routing);
 

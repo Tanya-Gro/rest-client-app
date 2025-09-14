@@ -1,1 +1,1 @@
-export { Client, getAuthSchema } from './schemas';
+export { Client, getAuthSchema, VariablesSchema } from './schemas';

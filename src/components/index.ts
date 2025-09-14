@@ -33,9 +33,15 @@ export {
   TableCell,
   TableCaption,
   Skeleton,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
 } from './ui';
 
 export { Header } from './header';
 export { Footer } from './footer';
 export { Request } from './request';
 export { Response } from './response';
+export { VariablesContent } from './variablesContent';
+export { ButtonWithTooltip } from './buttonWithTooltip';
+export { VariableRow } from './variableRow';
