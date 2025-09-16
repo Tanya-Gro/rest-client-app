@@ -6,10 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-export default function SignIn() {
-  const text = useTranslations();
+export default async function SignIn() {
+  const text = await getTranslations();
+
   return (
     <Card className="w-2xl">
       <CardHeader>

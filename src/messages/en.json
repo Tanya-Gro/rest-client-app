@@ -18,7 +18,11 @@
     "urlError": "Incorrect URL format"
   },
   "main": {
-    "text": "Main page"
+    "textNotAuthorized": "Welcome!",
+    "textAuthorized": "Welcome back!",
+    "clientBtn": "REST Client",
+    "historyBtn": "History",
+    "variablesBtn": "Variables"
   },
   "login": {
     "header": "Login to your account",
@@ -53,9 +57,8 @@
     "russian-header": "The title should not contain Cyrillic characters"
   },
   "header": {
-    "buttonSignIn": "Sign In",
-    "buttonSignUp": "Sign Up",
-    "buttonSignOut": "Sign Out"
+    "buttonSignOut": "Sign Out",
+    "buttonMain": "Main"
   },
   "footer": {
     "title": "Our team:",
@@ -77,6 +80,10 @@
     "responseSize": "Response size",
     "error": "Error details"
   },
+  "notFound": {
+    "page": "Page not found",
+    "button": "Back to Main page"
+  },
   "variables": {
     "title": "Variables",
     "key": "Key",
@@ -88,5 +95,7 @@
     "uniqueKey": "Key must be unique",
     "requiredKey": "Key is required",
     "append": "Add variable"
-  }
+  },
+  "buttonSignIn": "Sign In",
+  "buttonSignUp": "Sign Up"
 }

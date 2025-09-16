@@ -18,7 +18,11 @@
     "urlError": "Неверный формат URL"
   },
   "main": {
-    "text": "Главная страница"
+    "textNotAuthorized": "Добро пожаловать!",
+    "textAuthorized": "С возвращением!",
+    "clientBtn": "REST Клиент",
+    "historyBtn": "История",
+    "variablesBtn": "Переменные"
   },
   "login": {
     "header": "Войти в аккаунт",
@@ -53,9 +57,8 @@
     "russian-header": "Заголовок не должен содержать кириллических символов"
   },
   "header": {
-    "buttonSignIn": "Войти",
-    "buttonSignUp": "Регистрация",
-    "buttonSignOut": "Выйти"
+    "buttonSignOut": "Выйти",
+    "buttonMain": "Главная"
   },
   "footer": {
     "title": "Наша команда:",
@@ -77,6 +80,10 @@
     "responseSize": "Размер ответа",
     "error": "Детали ошибок"
   },
+  "notFound": {
+    "page": "Страница не найдена",
+    "button": "На главную"
+  },
   "variables": {
     "title": "Переменные",
     "key": "Ключ",
@@ -88,5 +95,7 @@
     "uniqueKey": "Ключ не уникален",
     "requiredKey": "Требуется ключ",
     "append": "Добавить переменную"
-  }
+  },
+  "buttonSignIn": "Войти",
+  "buttonSignUp": "Регистрация"
 }
