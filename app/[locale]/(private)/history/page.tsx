@@ -10,20 +10,11 @@ import {
 } from '@components';
 import { Link } from '@i18n';
 import { getMethodColor, getStatusColor } from '@helpers';
-import { Method } from '@/types';
-
-type MockResponseHistory = {
-  idHistory: string;
-  method: Method;
-  full_url: string;
-  url: string;
-  latency: string;
-  status: number;
-  timestamp: string;
-  requestSize: string;
-  responseSize: string;
-  error: null | string;
-};
+import { HistoryPostType } from '@/types';
+import { getHistoryPosts } from '../../../actions/history';
+import { createTranslator } from 'use-intl';
+import enMessages from '@/messages/en.json';
+import ruMessages from '@/messages/ru.json';
 
 const HEADERS: (keyof typeof enMessages.history)[] = [
   'method',
@@ -37,10 +28,12 @@ const HEADERS: (keyof typeof enMessages.history)[] = [
   'error',
 ];
 
-export default function History() {
-  const t = useTranslations('history');
-
-  if (!mockResponseHistory.length) {
+export default async function History({ params }: HistoryProps) {
+  const locale = params.locale;
+  const messages = messagesMap[locale as Locale] || enMessages;
+  const t = createTranslator({ locale, messages });
+  const historyDB: HistoryPostType[] = await getHistoryPosts();
+  if (!historyDB.length) {
     return (
       <div className="flex flex-col justify-center mx-auto">
         <p className="text-xl font-semibold tracking-tight pb-10">
