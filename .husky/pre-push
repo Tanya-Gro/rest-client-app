@@ -1,0 +1,2 @@
+echo 'Pre-push hook runs tests...'
+npm run test
