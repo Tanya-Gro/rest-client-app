@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import Page from './page'
+import Page from './testpage'
  
 test('Page', () => {
   render(<Page />)
