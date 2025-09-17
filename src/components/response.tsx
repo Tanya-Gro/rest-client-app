@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Body } from './body';
+import { Body } from '@components';
 import { getStatusColor } from '@helpers';
 
 type Props = {

@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Body,
   Button,
   Form,
   FormControl,
@@ -20,7 +21,6 @@ import {
   TabsTrigger,
 } from '@components';
 import { Headers } from './headers';
-import { Body } from './body';
 import { GeneratedCode } from './generatedCode';
 import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
