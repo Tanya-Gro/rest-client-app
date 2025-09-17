@@ -1,5 +1,3 @@
-/// <reference types="vitest" />
-
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -28,6 +26,14 @@ export default defineConfig({
           lines: 50,
         },
       },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@components': '/src/components',
+      'next/navigation': 'next/navigation',
+      'next-intl/navigation': 'next-intl/navigation',
     },
   },
 });
