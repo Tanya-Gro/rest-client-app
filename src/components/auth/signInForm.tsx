@@ -1,9 +1,9 @@
 'use client';
 
-import { Input, Button, Label } from '@/components/ui';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
+import { Input, Button, Label } from '@/components';
 import { getAuthSchema } from '@/entities/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';

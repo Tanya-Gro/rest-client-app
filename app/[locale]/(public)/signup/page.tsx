@@ -4,8 +4,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { SignUpForm } from '@/components/auth/signUpForm';
+} from '@/components';
+import { SignUpForm } from '@auth';
 import { getTranslations } from 'next-intl/server';
 
 export default async function SignUp() {
