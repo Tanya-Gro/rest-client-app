@@ -13,7 +13,7 @@ export type Method =
 export type Variables = z.infer<ReturnType<typeof VariablesSchema>>;
 
 export type ResponseData = {
-  status: number;
+  status?: number;
   statusText: string;
   body?: string;
 };

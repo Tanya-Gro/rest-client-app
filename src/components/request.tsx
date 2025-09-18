@@ -53,7 +53,7 @@ export const Request = ({ onResponse }: Props) => {
   const handleSubmit = async (form: Client) => {
     const result = await handleRequest(form);
 
-    if (result.status === 0) {
+    if (!result.status) {
       toast.error(result.statusText);
     }
 

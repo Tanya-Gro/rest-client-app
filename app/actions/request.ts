@@ -9,7 +9,7 @@ export async function handleRequest(form: Client) {
     const requestObject = buildRequest(form);
 
     const requestSize = requestObject.body
-      ? new TextEncoder().encode(JSON.stringify(requestObject.body)).length
+      ? new TextEncoder().encode(requestObject.body).length
       : 0;
 
     const start = performance.now();
@@ -25,7 +25,7 @@ export async function handleRequest(form: Client) {
 
     const body = await result.text();
 
-    const responseSize = new TextEncoder().encode(JSON.stringify(body)).length;
+    const responseSize = new TextEncoder().encode(body).length;
 
     console.log({ date, requestSize, timestamp, responseSize });
 
@@ -37,13 +37,11 @@ export async function handleRequest(form: Client) {
   } catch (error) {
     if (error instanceof Error) {
       return {
-        status: 0,
         statusText: error.message,
       };
     }
 
     return {
-      status: 0,
       statusText: 'Unknown Error',
     };
   }
