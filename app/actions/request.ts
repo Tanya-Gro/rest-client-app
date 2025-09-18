@@ -1,60 +1,50 @@
 'use server';
 
 import { Client } from '@entities';
-import z from 'zod';
+import { buildRequest } from '@helpers';
 
-export async function handleRequest(form: Form) {
-  const date = new Date(Date.now());
-  const requestObject = bodyBuilder(form);
-  const requestSize = new TextEncoder().encode(
-    JSON.stringify(requestObject)
-  ).length;
-  const start = performance.now();
-  const promise = fetch(form.url, requestObject);
-  const result = await promise;
-  const timestamp = Number(performance.now() - start).toFixed(2);
-  if (!result.ok) {
+export async function handleRequest(form: Client) {
+  try {
+    const date = new Date();
+    const requestObject = buildRequest(form);
+
+    const requestSize = requestObject.body
+      ? new TextEncoder().encode(JSON.stringify(requestObject.body)).length
+      : 0;
+
+    const start = performance.now();
+    const result = await fetch(form.url, requestObject);
+    const timestamp = Number(performance.now() - start).toFixed(2);
+
+    if (!result.ok) {
+      return {
+        status: result.status,
+        statusText: result.statusText,
+      };
+    }
+
+    const body = await result.text();
+
+    const responseSize = new TextEncoder().encode(JSON.stringify(body)).length;
+
+    console.log({ date, requestSize, timestamp, responseSize });
+
     return {
       status: result.status,
       statusText: result.statusText,
+      body,
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        status: 0,
+        statusText: error.message,
+      };
+    }
+
+    return {
+      status: 0,
+      statusText: 'Unknown Error',
     };
   }
-  const responseSize = new TextEncoder().encode(JSON.stringify(result)).length;
-  console.log({
-    date,
-    requestSize,
-    timestamp,
-    responseSize,
-  });
-  const data = await result.text();
-  return {
-    status: result.status,
-    statusText: result.statusText,
-    data,
-  };
 }
-
-function bodyBuilder(form: Form) {
-  const filteredHeaders =
-    form.headers?.length && form.headers[0].header
-      ? form.headers
-          .filter(({ header, value }) => {
-            return !/[а-яА-ЯёЁ]/.test(header) && !/[а-яА-ЯёЁ]/.test(value);
-          })
-          .map(({ header, value }) => [header, value])
-      : [];
-  const headers =
-    filteredHeaders?.length > 0
-      ? Object.fromEntries(filteredHeaders)
-      : undefined;
-  const methodsWithBody = ['post', 'put', 'patch'];
-  const canHaveBody = methodsWithBody.includes(form.method);
-
-  return {
-    method: form.method,
-    ...(headers ? { headers } : {}),
-    ...(canHaveBody && { body: form.body }),
-  };
-}
-
-type Form = z.infer<ReturnType<typeof Client>>;
