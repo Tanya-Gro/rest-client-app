@@ -11,3 +11,9 @@ export type Method =
   | 'OPTIONS';
 
 export type Variables = z.infer<ReturnType<typeof VariablesSchema>>;
+
+export type ResponseData = {
+  status: number;
+  statusText: string;
+  body?: string;
+};

@@ -26,15 +26,18 @@ import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import z from 'zod';
 import { handleRequest } from '../../app/actions/request';
+import { ResponseData } from '@/types/types';
+import { toast, Toaster } from 'sonner';
 
 const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
 
-export const Request = () => {
-  const t = useTranslations('client');
+type Props = {
+  onResponse: (data: ResponseData) => void;
+};
 
-  type Client = z.infer<ReturnType<typeof Client>>;
+export const Request = ({ onResponse }: Props) => {
+  const t = useTranslations('client');
 
   const form = useForm<Client>({
     resolver: zodResolver(Client(t)),
@@ -47,17 +50,25 @@ export const Request = () => {
     },
   });
 
+  const handleSubmit = async (form: Client) => {
+    const result = await handleRequest(form);
+
+    if (result.status === 0) {
+      toast.error(result.statusText);
+    }
+
+    onResponse(result);
+  };
+
   return (
     <div className="flex flex-col gap-3 w-full">
+      <Toaster richColors closeButton />
       <h2 className="text-2xl font-semibold tracking-tight">
         {t('headingRequest')}
       </h2>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(() => {
-            const formValues: Client = form.getValues();
-            handleRequest(formValues);
-          })}
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="flex flex-col gap-1"
         >
           <section className="flex w-full gap-2">
