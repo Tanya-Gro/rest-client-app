@@ -26,12 +26,15 @@ export async function dateToString(date: Date): Promise<string> {
 export async function getFullUrl(form: Form): Promise<string> {
   const method = `${form.method}`;
   const url = encodeRequestData(form.url);
-  const body = form.body ? encodeRequestData(form.body) : '';
-  const headers =
-    form.headers.length > 0
-      ? encodeRequestData(JSON.stringify(filterHeaders(form.headers)))
-      : '';
-  return `${method}/${url}${body}${headers ? headers : ''}`;
+  const body = form.body ? encodeRequestData(form.body) : null;
+  const params = new URLSearchParams();
+  if (form.headers && form.headers.length > 0) {
+    for (const { header, value } of form.headers) {
+      params.append(header, value);
+    }
+  }
+  const headers = params.toString();
+  return `${method}/${url}${body ? `/${body}` : ''}${headers ? `?${headers}` : ''}`;
 }
 
 function filterHeaders(

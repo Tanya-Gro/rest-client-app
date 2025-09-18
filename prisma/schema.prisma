@@ -30,7 +30,7 @@ model History {
   responseCode Int
   responseStatus String
   requestDuration Int
-  method String
+  method Method
   requestSize Int
   responseSize Int
   errorDetails String?
@@ -38,4 +38,13 @@ model History {
   createdAt DateTime @default(now())
   date String
   fullUrl String
+}
+enum Method {
+    GET
+    POST
+      PUT
+      PATCH
+      DELETE
+      HEAD
+      OPTIONS
 }

@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@components';
 import { Link } from '@i18n';
-import { getMethodColor, getStatusColor } from '@helpers';
+import { getMethodColor, getStatusColor, sizeGenerator } from '@helpers';
 import { HistoryPostType } from '@/types';
 import { getHistoryPosts } from '../../../actions/history';
 
@@ -100,9 +100,4 @@ export default async function History() {
       </Table>
     </div>
   );
-}
-function sizeGenerator(size: number): string {
-  return size > 1000
-    ? (size / 1000).toFixed(2) + ' kB'
-    : size.toFixed(2) + ' B';
 }

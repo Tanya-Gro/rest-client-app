@@ -46,25 +46,25 @@ export async function handleRequest(form: Form) {
       statusText: result.statusText,
       data,
     };
-  } catch (e) {
+  } catch (e: unknown) {
+    const err = e as Error;
     const timestamp = Number((performance.now() - start).toFixed(2));
-    const responseSize = new TextEncoder().encode(e).length;
     const historyPost = {
-      responseCode: e.status ? e.status : 500,
-      responseStatus: e.code ? e.code : 'Fetch error',
+      responseCode: 504,
+      responseStatus: err.name ?? 'Fetch error',
       requestDuration: timestamp,
-      responseSize: responseSize,
+      responseSize: 0,
       requestSize: requestSize,
       date: dateString,
       endpoint: form.url,
       method: form.method,
       fullUrl: fullUrl,
-      errorDetails: e.message ? e.message : 'Something went wrong',
+      errorDetails: err.message ?? 'Something went wrong',
     };
     createHistoryPost(historyPost);
     return {
-      status: 500,
-      statusText: e.code ? e.code : 'Fetch error',
+      status: 504,
+      statusText: err.message ?? 'Fetch error',
     };
   }
 }

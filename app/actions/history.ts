@@ -16,7 +16,11 @@ export async function createHistoryPost(postData: HistoryPostType) {
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
   });
-  if (!user) throw new Error('User not found');
+  if (!user)
+    return {
+      status: 404,
+      statusText: 'User not found',
+    };
 
   return prisma.history.create({
     data: {
