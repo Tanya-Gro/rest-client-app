@@ -12,9 +12,9 @@ import { Link } from '@i18n';
 import { getMethodColor, getStatusColor } from '@helpers';
 import { HistoryPostType } from '@/types';
 import { getHistoryPosts } from '../../../actions/history';
-import { createTranslator } from 'use-intl';
+
 import enMessages from '@/messages/en.json';
-import ruMessages from '@/messages/ru.json';
+import { getTranslations } from 'next-intl/server';
 
 const HEADERS: (keyof typeof enMessages.history)[] = [
   'method',
@@ -28,16 +28,14 @@ const HEADERS: (keyof typeof enMessages.history)[] = [
   'error',
 ];
 
-export default async function History({ params }: HistoryProps) {
-  const locale = params.locale;
-  const messages = messagesMap[locale as Locale] || enMessages;
-  const t = createTranslator({ locale, messages });
+export default async function History() {
+  const t = await getTranslations('history');
   const historyDB: HistoryPostType[] = await getHistoryPosts();
   if (!historyDB.length) {
     return (
       <div className="flex flex-col justify-center mx-auto">
         <p className="text-xl font-semibold tracking-tight pb-10">
-          {t('titleNotFound')}:
+          {(await t)('titleNotFound')}:
         </p>
         <Button className="mx-auto">
           <Link href="/rest-client">{t('buttonREST')}</Link>
@@ -92,16 +90,8 @@ export default async function History({ params }: HistoryProps) {
                 </TableCell>
                 <TableCell>{requestDuration}</TableCell>
                 <TableCell>{date}</TableCell>
-                <TableCell>
-                  {requestSize > 1000
-                    ? (requestSize / 1000).toFixed(2) + ' kB'
-                    : requestSize.toFixed(2) + ' B'}
-                </TableCell>
-                <TableCell>
-                  {responseSize > 1000
-                    ? (responseSize / 1000).toFixed(2) + ' kB'
-                    : responseSize.toFixed(2) + ' B'}
-                </TableCell>
+                <TableCell>{sizeGenerator(requestSize)}</TableCell>
+                <TableCell>{sizeGenerator(responseSize)}</TableCell>
                 <TableCell>{errorDetails ?? '-'}</TableCell>
               </TableRow>
             )
@@ -111,11 +101,8 @@ export default async function History({ params }: HistoryProps) {
     </div>
   );
 }
-type HistoryProps = {
-  params: { locale: string };
-};
-type Locale = 'en' | 'ru';
-const messagesMap: Record<Locale, typeof enMessages.history> = {
-  en: enMessages.history,
-  ru: ruMessages.history,
-};
+function sizeGenerator(size: number): string {
+  return size > 1000
+    ? (size / 1000).toFixed(2) + ' kB'
+    : size.toFixed(2) + ' B';
+}

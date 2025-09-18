@@ -5,18 +5,7 @@ import { authOptions } from '../api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/prisma/prisma';
 import { HistoryPostType } from '@/types';
 
-export async function createHistoryPost({
-  responseCode,
-  responseStatus,
-  requestDuration,
-  method,
-  requestSize,
-  responseSize,
-  endpoint,
-  fullUrl,
-  date,
-  errorDetails,
-}: HistoryPostType) {
+export async function createHistoryPost(postData: HistoryPostType) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.email)
     return {
@@ -31,16 +20,7 @@ export async function createHistoryPost({
 
   return prisma.history.create({
     data: {
-      responseCode,
-      responseStatus,
-      requestDuration,
-      method,
-      requestSize,
-      responseSize,
-      endpoint,
-      fullUrl,
-      date,
-      errorDetails,
+      ...postData,
       userId: user.id,
     },
   });

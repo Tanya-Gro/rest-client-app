@@ -14,7 +14,7 @@ export type HistoryPostType = {
   responseCode: number;
   responseStatus: string;
   requestDuration: number;
-  method: string;
+  method: Method;
   requestSize: number;
   responseSize: number;
   endpoint: string;

@@ -16,7 +16,7 @@ export async function bodyBuilder(form: Form) {
 
 export async function dateToString(date: Date): Promise<string> {
   const year = String(date.getFullYear()).padStart(2, '0');
-  const month = String(date.getMonth()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   const hour = String(date.getHours()).padStart(2, '0');
   const minute = String(date.getMinutes()).padStart(2, '0');
@@ -27,8 +27,10 @@ export async function getFullUrl(form: Form): Promise<string> {
   const method = `${form.method}`;
   const url = encodeRequestData(form.url);
   const body = form.body ? encodeRequestData(form.body) : '';
-  const headers = filterHeaders(form.headers);
-
+  const headers =
+    form.headers.length > 0
+      ? encodeRequestData(JSON.stringify(filterHeaders(form.headers)))
+      : '';
   return `${method}/${url}${body}${headers ? headers : ''}`;
 }
 
