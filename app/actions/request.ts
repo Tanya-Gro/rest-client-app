@@ -10,15 +10,16 @@ export async function handleRequest(form: Form) {
   const dateString = await dateToString(date);
   const requestObject = await bodyBuilder(form);
   const fullUrl = await getFullUrl(form);
-  const requestSize = new TextEncoder().encode(
-    JSON.stringify(requestObject)
-  ).length;
+  const requestSize = form.body
+    ? new TextEncoder().encode(JSON.stringify(form.body)).length
+    : 0;
 
   const start = performance.now();
   try {
     const result = await fetch(form.url, requestObject);
     const timestamp = Number((performance.now() - start).toFixed(2));
     const responseText = await result.text();
+
     const responseSize = new TextEncoder().encode(responseText).length;
 
     const historyPost = {
