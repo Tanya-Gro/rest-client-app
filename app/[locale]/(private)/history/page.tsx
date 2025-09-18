@@ -35,7 +35,7 @@ export default async function History() {
     return (
       <div className="flex flex-col justify-center mx-auto">
         <p className="text-xl font-semibold tracking-tight pb-10">
-          {(await t)('titleNotFound')}:
+          {t('titleNotFound')}:
         </p>
         <Button className="mx-auto">
           <Link href="/rest-client">{t('buttonREST')}</Link>
