@@ -10,4 +10,18 @@ export type Method =
   | 'HEAD'
   | 'OPTIONS';
 
+export type HistoryPostType = {
+  responseCode: number;
+  responseStatus: string;
+  requestDuration: number;
+  method: Method;
+  requestSize: number;
+  responseSize: number;
+  endpoint: string;
+  fullUrl: string;
+  date: string;
+  id?: string;
+  errorDetails?: string | null;
+};
+
 export type Variables = z.infer<ReturnType<typeof VariablesSchema>>;

@@ -3,21 +3,28 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/prisma/prisma';
-import { Method } from '@types';
+import { HistoryPostType } from '@/types';
 
-export async function createHistoryPost(endpoint: string, method: Method) {
+export async function createHistoryPost(postData: HistoryPostType) {
   const session = await getServerSession(authOptions);
-  if (!session || !session.user?.email) throw new Error('Not authorized');
+  if (!session || !session.user?.email)
+    return {
+      status: 403,
+      statusText: 'Not Authorized',
+    };
 
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
   });
-  if (!user) throw new Error('User not found');
+  if (!user)
+    return {
+      status: 404,
+      statusText: 'User not found',
+    };
 
   return prisma.history.create({
     data: {
-      endpoint,
-      method,
+      ...postData,
       userId: user.id,
     },
   });
