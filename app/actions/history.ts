@@ -2,8 +2,8 @@
 
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
-import { prisma } from '@/lib/prisma/prisma';
 import { Method } from '@types';
+import prisma from '@/lib/prisma/prisma';
 
 export async function createHistoryPost(endpoint: string, method: Method) {
   const session = await getServerSession(authOptions);
