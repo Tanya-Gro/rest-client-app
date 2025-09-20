@@ -15,7 +15,6 @@ export const constructUrl = (formData: Client) => {
 
   const method = requestObject.method;
   const url = encodeBase64(formData.url);
-  const body = requestObject.body ? encodeBase64(requestObject.body) : '';
 
   if (requestObject.headers) {
     Object.entries(requestObject.headers).forEach(([key, value]) => {
@@ -25,7 +24,7 @@ export const constructUrl = (formData: Client) => {
 
   const searchParamsString = searchParams.toString();
 
-  return `/rest-client/${method}/${url}/${body}${searchParamsString ? `?${searchParamsString}` : ''}`;
+  return `/rest-client/${method}/${url}${requestObject.body ? `/${encodeBase64(requestObject.body)}` : ''}${searchParamsString ? `?${searchParamsString}` : ''}`;
 };
 
 export const dateToString = (date: Date) => {
