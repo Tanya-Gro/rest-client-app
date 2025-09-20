@@ -13,12 +13,6 @@ export const buildRequest = (form: Client) => {
 
   const haveBody = methodsWithBody.includes(form.method);
 
-  console.log({
-    method: form.method,
-    ...(headers && { headers }),
-    ...(haveBody && form.body && { body: form.body }),
-  });
-
   return {
     method: form.method,
     ...(headers && { headers }),
