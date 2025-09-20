@@ -2,19 +2,44 @@
 
 import { Client } from '@entities';
 import { buildRequest } from '@helpers';
+import { createHistoryPost } from './history';
+import z from 'zod';
+import { constructUrl, dateToString } from '@/helpers/urlHelpers';
 
-export async function handleRequest(form: Client) {
+type Form = z.infer<ReturnType<typeof Client>>;
+
+export async function handleRequest(form: Form) {
+  const date = new Date();
+  const dateString = dateToString(date);
+
+  const requestObject = buildRequest(form);
+  const fullUrl = constructUrl(form);
+
+  const requestSize = requestObject.body
+    ? new TextEncoder().encode(requestObject.body).length
+    : 0;
+
+  const start = performance.now();
+
   try {
-    const date = new Date();
-    const requestObject = buildRequest(form);
-
-    const requestSize = requestObject.body
-      ? new TextEncoder().encode(requestObject.body).length
-      : 0;
-
-    const start = performance.now();
     const result = await fetch(form.url, requestObject);
-    const timestamp = Number(performance.now() - start).toFixed(2);
+    const timestamp = Number((performance.now() - start).toFixed(2));
+    const responseText = await result.text();
+    const responseSize = new TextEncoder().encode(responseText).length;
+
+    const historyPost = {
+      responseCode: result.status,
+      responseStatus: result.statusText,
+      requestDuration: timestamp,
+      responseSize,
+      requestSize,
+      date: dateString,
+      endpoint: form.url,
+      method: form.method,
+      fullUrl,
+    };
+
+    createHistoryPost(historyPost);
 
     if (!result.ok) {
       return {
@@ -23,26 +48,32 @@ export async function handleRequest(form: Client) {
       };
     }
 
-    const body = await result.text();
-
-    const responseSize = new TextEncoder().encode(body).length;
-
-    console.log({ date, requestSize, timestamp, responseSize });
-
     return {
       status: result.status,
       statusText: result.statusText,
-      body,
+      data: responseText,
     };
-  } catch (error) {
-    if (error instanceof Error) {
-      return {
-        statusText: error.message,
-      };
-    }
+  } catch (e: unknown) {
+    const err = e as Error;
+    const timestamp = Number((performance.now() - start).toFixed(2));
+
+    const historyPost = {
+      responseCode: 504,
+      responseStatus: err.name ?? 'Fetch error',
+      requestDuration: timestamp,
+      responseSize: 0,
+      requestSize,
+      date: dateString,
+      endpoint: form.url,
+      method: form.method,
+      fullUrl,
+      errorDetails: err.message ?? 'Something went wrong',
+    };
+
+    createHistoryPost(historyPost);
 
     return {
-      statusText: 'Unknown Error',
+      statusText: err.message ?? 'Fetch error',
     };
   }
 }

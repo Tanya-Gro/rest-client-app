@@ -1,1 +1,1 @@
-export type { Method, Variables, ResponseData } from './types';
+export type { Method, Variables, ResponseData, HistoryPostType } from './types';
