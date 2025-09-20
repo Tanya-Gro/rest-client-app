@@ -39,7 +39,19 @@ export function VariableRow({ index, form, remove }: Props) {
         render={({ field }) => (
           <FormItem className="gap-y-0">
             <FormControl>
-              <Input placeholder={`{{${t('key')}}}`} {...field} />
+              <Input
+                placeholder={`{{${t('key')}}}`}
+                {...field}
+                value={
+                  field.value
+                    ? `{{${field.value.replace(/\{\{|\}\}*/g, '')}}}`
+                    : ''
+                }
+                onChange={(e) => {
+                  const unwrapped = e.target.value.replace(/\{|\}*/g, '');
+                  field.onChange(unwrapped);
+                }}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
