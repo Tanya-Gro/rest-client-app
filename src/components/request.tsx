@@ -26,39 +26,29 @@ import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { handleRequest } from '../../app/actions/request';
-import { ResponseData } from '@/types/types';
-import { toast, Toaster } from 'sonner';
+import { Toaster } from 'sonner';
+import { getMethodColor } from '@helpers';
 
-const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
+const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
 type Props = {
-  onResponse: (data: ResponseData) => void;
+  onSubmit: (data: Client) => void;
+  onLoadData: Partial<Client> | null;
 };
 
-export const Request = ({ onResponse }: Props) => {
+export const Request = ({ onSubmit, onLoadData }: Props) => {
   const t = useTranslations('client');
 
   const form = useForm<Client>({
     resolver: zodResolver(Client(t)),
     defaultValues: {
-      method: 'get',
-      url: '',
-      bodyType: 'json',
-      body: '',
-      headers: [{ header: '', value: '' }],
+      method: onLoadData?.method ?? 'GET',
+      url: onLoadData?.url ?? '',
+      bodyType: onLoadData?.bodyType ?? 'json',
+      body: onLoadData?.body ?? '',
+      headers: onLoadData?.headers ?? [{ header: '', value: '' }],
     },
   });
-
-  const handleSubmit = async (form: Client) => {
-    const result = await handleRequest(form);
-
-    if (!result.status) {
-      toast.error(result.statusText);
-    }
-
-    onResponse(result);
-  };
 
   return (
     <div className="flex flex-col gap-3 w-full">
@@ -68,7 +58,7 @@ export const Request = ({ onResponse }: Props) => {
       </h2>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(handleSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-1"
         >
           <section className="flex w-full gap-2">
@@ -78,7 +68,9 @@ export const Request = ({ onResponse }: Props) => {
                 <FormItem>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-[130px] cursor-pointer">
+                      <SelectTrigger
+                        className={`w-[130px] cursor-pointer font-semibold ${getMethodColor(field.value)}`}
+                      >
                         <SelectValue placeholder={t('methodPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
@@ -87,9 +79,9 @@ export const Request = ({ onResponse }: Props) => {
                             <SelectItem
                               key={method}
                               value={method}
-                              className="cursor-pointer"
+                              className={`cursor-pointer font-semibold ${getMethodColor(method)}`}
                             >
-                              {method.toUpperCase()}
+                              {method}
                             </SelectItem>
                           ))}
                         </SelectGroup>

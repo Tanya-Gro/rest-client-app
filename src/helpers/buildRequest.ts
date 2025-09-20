@@ -1,5 +1,7 @@
 import { Client } from '@entities';
 
+const methodsWithBody = ['POST', 'PUT', 'PATCH'];
+
 export const buildRequest = (form: Client) => {
   const headers = form.headers?.length
     ? Object.fromEntries(
@@ -9,7 +11,6 @@ export const buildRequest = (form: Client) => {
       )
     : undefined;
 
-  const methodsWithBody = ['post', 'put', 'patch'];
   const haveBody = methodsWithBody.includes(form.method);
 
   console.log({
