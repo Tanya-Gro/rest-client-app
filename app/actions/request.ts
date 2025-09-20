@@ -1,14 +1,10 @@
 'use server';
 
 import { Client } from '@entities';
-import { buildRequest } from '@helpers';
+import { buildRequest, constructUrl, dateToString } from '@helpers';
 import { createHistoryPost } from './history';
-import z from 'zod';
-import { constructUrl, dateToString } from '@/helpers/urlHelpers';
 
-type Form = z.infer<ReturnType<typeof Client>>;
-
-export async function handleRequest(form: Form) {
+export async function handleRequest(form: Client) {
   const date = new Date();
   const dateString = dateToString(date);
 
@@ -51,7 +47,7 @@ export async function handleRequest(form: Form) {
     return {
       status: result.status,
       statusText: result.statusText,
-      data: responseText,
+      body: responseText,
     };
   } catch (e: unknown) {
     const err = e as Error;
