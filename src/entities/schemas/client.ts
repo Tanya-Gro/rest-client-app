@@ -4,13 +4,13 @@ export const Client = (t: (arg: string) => string) =>
   z
     .object({
       method: z.enum([
-        'get',
-        'post',
-        'put',
-        'patch',
-        'delete',
-        'head',
-        'options',
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'HEAD',
+        'OPTIONS',
       ]),
       url: z.url(t('urlError')),
       bodyType: z.enum(['json', 'text']),
@@ -45,3 +45,5 @@ export const Client = (t: (arg: string) => string) =>
         path: ['body'],
       }
     );
+
+export type Client = z.infer<ReturnType<typeof Client>>;

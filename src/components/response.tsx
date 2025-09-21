@@ -1,13 +1,13 @@
 import { useTranslations } from 'next-intl';
 import { Body } from '@components';
 import { getStatusColor } from '@helpers';
+import { ResponseData } from '@/types/types';
 
 type Props = {
-  status?: number;
-  statusText?: string;
+  responseData: ResponseData | null;
 };
 
-export const Response = ({ status = 200, statusText = 'OK' }: Props) => {
+export const Response = ({ responseData }: Props) => {
   const t = useTranslations('client');
 
   return (
@@ -15,10 +15,18 @@ export const Response = ({ status = 200, statusText = 'OK' }: Props) => {
       <h2 className="text-2xl font-semibold tracking-tight">
         {t('headingResponse')}
       </h2>
-      <span className={`text-lg font-semibold ${getStatusColor(status)}`}>
-        {status} {statusText}
-      </span>
-      <Body />
+
+      {responseData ? (
+        <span
+          className={`text-lg font-semibold ${getStatusColor(responseData.status)}`}
+        >
+          {responseData.status} {responseData.statusText}
+        </span>
+      ) : (
+        <span className="text-gray-500">{t('noResponse')}</span>
+      )}
+
+      <Body body={responseData?.body} />
     </section>
   );
 };

@@ -42,6 +42,7 @@ export {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
+  TooltipProvider,
 } from './ui';
 
 export { Header } from './header';
