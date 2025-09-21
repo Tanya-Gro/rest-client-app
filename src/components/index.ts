@@ -39,6 +39,7 @@ export {
   TableCell,
   TableCaption,
   Skeleton,
+  Toaster,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
