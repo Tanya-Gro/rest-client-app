@@ -9,14 +9,12 @@ import { toast } from 'sonner';
 import { Client } from '@entities';
 import { constructUrl, decodeBase64 } from '@helpers';
 import { useParams, useSearchParams } from 'next/navigation';
-import { useLocale } from 'next-intl';
 
 export default function RestClient() {
   const [responseData, setResponseData] = useState<ResponseData | null>(null);
 
   const { params } = useParams();
   const searchParams = useSearchParams();
-  const locale = useLocale();
 
   const parseOnLoadData = (): Partial<Client> | null => {
     const method = params?.[0] ?? '';
@@ -44,6 +42,9 @@ export default function RestClient() {
 
   const handleSubmit = async (formData: Client) => {
     try {
+      const url = constructUrl(formData);
+      window.history.replaceState({}, '', url);
+
       const result = await handleRequest(formData);
 
       if (!result.status) {
@@ -51,11 +52,6 @@ export default function RestClient() {
       }
 
       setResponseData(result);
-
-      const url = constructUrl(formData);
-      const pathname = `/${locale}${url}`;
-
-      window.history.replaceState({}, '', pathname);
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
