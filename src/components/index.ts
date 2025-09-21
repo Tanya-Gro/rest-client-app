@@ -1,6 +1,13 @@
 export {
   Input,
   Button,
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  CardFooter,
   Select,
   SelectTrigger,
   SelectValue,
@@ -15,6 +22,7 @@ export {
   HoverCardContent,
   HoverCardTrigger,
   Badge,
+  Label,
   Tabs,
   TabsContent,
   TabsList,
@@ -33,12 +41,15 @@ export {
   TableCell,
   TableCaption,
   Skeleton,
+  Toaster,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
+  TooltipProvider,
 } from './ui';
 
 export { Header } from './header';
+export { Headers } from './headers';
 export { Footer } from './footer';
 export { Request } from './request';
 export { Response } from './response';
@@ -46,3 +57,4 @@ export { VariablesContent } from './variablesContent';
 export { ButtonWithTooltip } from './buttonWithTooltip';
 export { VariableRow } from './variableRow';
 export { RequestSkeleton, ResponseSkeleton } from './loaders';
+export { Body } from './body';
