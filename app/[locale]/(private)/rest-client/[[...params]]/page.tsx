@@ -8,8 +8,7 @@ import { Client } from '@entities';
 import { constructUrl, decodeBase64 } from '@helpers';
 import { useParams, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { RequestSkeleton } from '@/components/loaders/requestSkeleton';
-import { ResponseSkeleton } from '@/components/loaders/responseSkeleton';
+import { RequestSkeleton, ResponseSkeleton } from '@components';
 
 const Request = dynamic(
   () => import('@components').then((onFullfilled) => onFullfilled.Request),
