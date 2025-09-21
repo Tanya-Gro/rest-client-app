@@ -1,6 +1,5 @@
 import { Header } from '@components';
 import { render, screen } from '@testing-library/react';
-import { vi, describe, it, expect } from 'vitest';
 import { ReactNode } from 'react';
 
 vi.mock('next-intl', () => ({

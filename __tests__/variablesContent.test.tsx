@@ -1,6 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { VariablesContent } from '@components';
-import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 beforeEach(() => {
   vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => '');

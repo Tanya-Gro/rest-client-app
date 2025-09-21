@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { vi, describe, it, expect } from 'vitest';
 import Welcome from '../app/[locale]/(public)/welcome/page';
 import { ReactNode } from 'react';
 

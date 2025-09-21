@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, Mock } from 'vitest';
+import { Mock } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import * as auth from 'next-auth';
 import Variables from '../app/[locale]/(private)/variables/page';

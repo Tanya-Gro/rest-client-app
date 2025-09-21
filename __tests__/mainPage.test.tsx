@@ -1,4 +1,3 @@
-import { vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Main from '../app/[locale]/(private)/main/page';
 import { ReactNode } from 'react';

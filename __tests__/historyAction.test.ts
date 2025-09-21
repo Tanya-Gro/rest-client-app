@@ -1,4 +1,4 @@
-import { vi, describe, it, expect, beforeEach, type Mock } from 'vitest';
+import { type Mock } from 'vitest';
 import * as auth from 'next-auth';
 import { prisma } from '@/lib/prisma/prisma';
 import { createHistoryPost, getHistoryPosts } from '../app/actions/history';
