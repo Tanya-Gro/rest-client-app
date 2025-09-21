@@ -38,6 +38,10 @@ export const Headers = () => {
                       placeholder={t('headersHeader')}
                       {...field}
                       value={field.value || ''}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[а-яА-ЯёЁ]/g, '');
+                        field.onChange(value);
+                      }}
                     />
                   </FormControl>
                 </FormItem>
@@ -53,6 +57,10 @@ export const Headers = () => {
                       placeholder={t('value')}
                       {...field}
                       value={field.value || ''}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/[а-яА-ЯёЁ]/g, '');
+                        field.onChange(value);
+                      }}
                     />
                   </FormControl>
                 </FormItem>

@@ -39,14 +39,28 @@ export function VariableRow({ index, form, remove }: Props) {
         render={({ field }) => (
           <FormItem className="gap-y-0">
             <FormControl>
-              <Input placeholder={`{{${t('key')}}}`} {...field} />
+              <Input
+                placeholder={`{{${t('key')}}}`}
+                {...field}
+                value={
+                  field.value
+                    ? `{{${field.value.replace(/\{\{|\}\}*/g, '')}}}`
+                    : ''
+                }
+                onChange={(e) => {
+                  const unwrapped = e.target.value.replace(/\{|\}*/g, '');
+                  field.onChange(unwrapped);
+                }}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
 
-      {ButtonWithTooltip(copyHandler, <Copy size={20} />, t('copyTooltip'))}
+      <ButtonWithTooltip handleClick={copyHandler} tooltip={t('copyTooltip')}>
+        <Copy size={20} />
+      </ButtonWithTooltip>
 
       <FormField
         control={form.control}
@@ -60,11 +74,12 @@ export function VariableRow({ index, form, remove }: Props) {
         )}
       />
 
-      {ButtonWithTooltip(
-        () => remove(index),
-        <X size={20} />,
-        t('removeTooltip')
-      )}
+      <ButtonWithTooltip
+        handleClick={() => remove(index)}
+        tooltip={t('removeTooltip')}
+      >
+        <X size={20} />
+      </ButtonWithTooltip>
     </div>
   );
 }

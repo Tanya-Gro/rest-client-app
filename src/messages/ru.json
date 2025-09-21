@@ -5,6 +5,7 @@
     "methodPlaceholder": "Метод",
     "urlPlaceholder": "Введите URL",
     "bodyPlaceholder": "Содержимое JSON",
+    "textPlaceholder": "Введите текст",
     "btn": "Отправить",
     "tabHeaders": "Заголовки",
     "tabBody": "Тело",
@@ -15,7 +16,8 @@
     "headersHeader": "Заголовок",
     "value": "Значение",
     "jsonError": "Неверный формат JSON",
-    "urlError": "Неверный формат URL"
+    "urlError": "Неверный формат URL",
+    "noResponse": "Отправьте запрос, чтобы увидеть ответ"
   },
   "main": {
     "textNotAuthorized": "Добро пожаловать!",
@@ -52,6 +54,9 @@
     "lowercase": "Пароль должен содержать не менее одной строчной буквы",
     "number": "Пароль должен содержать не менее одной цифры",
     "special-symbol": "Пароль должен содержать не менее одного специального символа"
+  },
+  "request": {
+    "russian-header": "Заголовок не должен содержать кириллических символов"
   },
   "header": {
     "buttonSignOut": "Выйти",

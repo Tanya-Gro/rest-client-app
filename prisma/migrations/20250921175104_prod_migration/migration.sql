@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "public"."Method" AS ENUM ('GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS');
+
 -- CreateTable
 CREATE TABLE "public"."User" (
     "id" TEXT NOT NULL,
@@ -21,10 +24,17 @@ CREATE TABLE "public"."Session" (
 CREATE TABLE "public"."History" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "responseCode" INTEGER NOT NULL,
+    "responseStatus" TEXT NOT NULL,
+    "requestDuration" INTEGER NOT NULL,
+    "method" "public"."Method" NOT NULL,
+    "requestSize" INTEGER NOT NULL,
+    "responseSize" INTEGER NOT NULL,
+    "errorDetails" TEXT,
     "endpoint" TEXT NOT NULL,
-    "method" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "date" TEXT NOT NULL,
+    "fullUrl" TEXT NOT NULL,
 
     CONSTRAINT "History_pkey" PRIMARY KEY ("id")
 );
