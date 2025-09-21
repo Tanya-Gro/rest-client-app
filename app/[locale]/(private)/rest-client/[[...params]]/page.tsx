@@ -13,13 +13,13 @@ import { useParams, useSearchParams } from 'next/navigation';
 export default function RestClient() {
   const [responseData, setResponseData] = useState<ResponseData | null>(null);
 
-  const params = useParams();
+  const { params } = useParams();
   const searchParams = useSearchParams();
 
   const parseOnLoadData = (): Partial<Client> | null => {
-    const method = params.params?.[0] ?? '';
-    const url = decodeBase64(params.params?.[1] ?? '');
-    const body = decodeBase64(params.params?.[2] ?? '');
+    const method = params?.[0] ?? '';
+    const url = decodeBase64(params?.[1] ?? '');
+    const body = decodeBase64(params?.[2] ?? '');
 
     const headers: Client['headers'] = [];
     searchParams?.forEach((value, header) => {
