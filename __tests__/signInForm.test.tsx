@@ -5,7 +5,7 @@ import { SignInForm } from '@auth';
 const ROLE_OPTIONS = { name: /login.button/i };
 
 describe('SignInForm', () => {
-  it('renders form fields and button', () => {
+  it('renders inputs and button', () => {
     render(<SignInForm />);
 
     expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
