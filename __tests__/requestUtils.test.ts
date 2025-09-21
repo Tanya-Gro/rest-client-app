@@ -1,4 +1,9 @@
-import { bodyBuilder, dateToString, getFullUrl } from '@helpers';
+import {
+  dateToString,
+  constructUrl,
+  encodeBase64,
+  decodeBase64,
+} from '@helpers';
 import { Method } from '@types';
 
 type Form = {
@@ -9,39 +14,35 @@ type Form = {
   headers?: { header: string; value: string }[];
 };
 
-describe('bodyBuilder', () => {
-  it('should return method + body + headers for POST', async () => {
+describe('encodeBase64 / decodeBase64', () => {
+  it('should encode and decode correctly', () => {
+    const input = 'https://api.com/test?x=1&y=2';
+    const encoded = encodeBase64(input);
+    const decoded = decodeBase64(encoded);
+
+    expect(encoded).not.toContain('+');
+    expect(encoded).not.toContain('/');
+    expect(encoded).not.toContain('=');
+    expect(decoded).toEqual(input);
+  });
+});
+
+describe('constructUrl', () => {
+  it('must assemble the correct URL with method, body and headers', () => {
     const form: Form = {
       method: 'POST',
-      url: '',
+      url: 'https://api.com',
       bodyType: 'json',
       body: '{"name":"Ivan"}',
-      headers: [
-        { header: 'Content-Type', value: 'application/json' },
-        { header: 'Accept', value: 'application/json' },
-      ],
+      headers: [{ header: 'Auth', value: 'token123' }],
     };
 
-    const result = await bodyBuilder(form);
+    const result = constructUrl(form);
 
-    expect(result.method).toEqual('POST');
-    expect(result.headers).toEqual({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
-    expect(result.body).toEqual('{"name":"Ivan"}');
-  });
-
-  it('should only return the method if there is no body and headers', async () => {
-    const form: Form = {
-      method: 'GET',
-      url: '',
-      bodyType: 'json',
-    };
-
-    const result = await bodyBuilder(form);
-
-    expect(result).toEqual({ method: 'GET' });
+    expect(result).toMatch(/^\/rest-client\/POST\//);
+    expect(result).toContain(encodeBase64(form.url));
+    expect(result).toContain(encodeBase64(form.body!));
+    expect(result).toContain('?Auth=token123');
   });
 });
 
@@ -51,38 +52,5 @@ describe('dateToString', () => {
     const result = await dateToString(date);
 
     expect(result).toMatch(/2025-09-20 \d{2}:05/);
-  });
-});
-
-describe('getFullUrl', () => {
-  it('must assemble the correct URL with method, body and headers', async () => {
-    const form: Form = {
-      method: 'POST',
-      url: 'https://api.com',
-      bodyType: 'json',
-      body: '{"name":"Ivan"}',
-      headers: [{ header: 'Auth', value: 'token123' }],
-    };
-
-    const result = await getFullUrl(form);
-
-    expect(result.startsWith('POST/')).toBe(true);
-
-    expect(result).toContain('mh');
-
-    expect(result).toContain('?Auth=token123');
-  });
-
-  it('must build a URL without body and headers', async () => {
-    const form: Form = {
-      method: 'GET',
-      url: 'https://swapi.dev/api/people/1',
-      bodyType: 'json',
-    };
-
-    const result = await getFullUrl(form);
-
-    expect(result.startsWith('GET/')).toBe(true);
-    expect(result.includes('?')).toBe(false);
   });
 });
