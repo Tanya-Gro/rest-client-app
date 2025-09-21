@@ -49,6 +49,7 @@ export {
 } from './ui';
 
 export { Header } from './header';
+export { Headers } from './headers';
 export { Footer } from './footer';
 export { Request } from './request';
 export { Response } from './response';
