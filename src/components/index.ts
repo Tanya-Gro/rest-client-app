@@ -2,10 +2,12 @@ export {
   Input,
   Button,
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
   Select,
   SelectTrigger,
   SelectValue,
@@ -39,6 +41,7 @@ export {
   TableCell,
   TableCaption,
   Skeleton,
+  Toaster,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
@@ -46,6 +49,7 @@ export {
 } from './ui';
 
 export { Header } from './header';
+export { Headers } from './headers';
 export { Footer } from './footer';
 export { Request } from './request';
 export { Response } from './response';
