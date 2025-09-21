@@ -10,7 +10,6 @@ import { Client } from '@entities';
 import { constructUrl, decodeBase64 } from '@helpers';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { useRouter } from '@i18n';
 
 export default function RestClient() {
   const [responseData, setResponseData] = useState<ResponseData | null>(null);
@@ -18,7 +17,6 @@ export default function RestClient() {
   const { params } = useParams();
   const searchParams = useSearchParams();
   const locale = useLocale();
-  const router = useRouter();
 
   const parseOnLoadData = (): Partial<Client> | null => {
     const method = params?.[0] ?? '';
