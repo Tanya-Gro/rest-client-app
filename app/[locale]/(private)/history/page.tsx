@@ -1,6 +1,7 @@
 import {
   Badge,
   Button,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -15,6 +16,7 @@ import { getHistoryPosts } from '../../../actions/history';
 
 import enMessages from '@/messages/en.json';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
 const HEADERS: (keyof typeof enMessages.history)[] = [
   'method',
@@ -31,6 +33,7 @@ const HEADERS: (keyof typeof enMessages.history)[] = [
 export default async function History() {
   const t = await getTranslations('history');
   const historyDB: HistoryPostType[] = await getHistoryPosts();
+
   if (!historyDB.length) {
     return (
       <div className="flex flex-col justify-center mx-auto">
@@ -49,55 +52,57 @@ export default async function History() {
       <h2 className="text-2xl font-semibold tracking-tight first:mt-0 pb-8">
         {t('title')}
       </h2>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {HEADERS.map((key, index) => (
-              <TableHead className="w-[100px]" key={index}>
-                {t(key)}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {historyDB.map(
-            ({
-              id,
-              method,
-              fullUrl,
-              endpoint,
-              requestDuration,
-              responseCode,
-              requestSize,
-              responseSize,
-              date,
-              errorDetails,
-            }) => (
-              <TableRow className="hover:bg-gray-100" key={id}>
-                <TableCell>
-                  <Badge
-                    className={`bg-transparent text-sm ${getMethodColor(method)}`}
-                  >
-                    {method}
-                  </Badge>
-                </TableCell>
-                <TableCell>{endpoint}</TableCell>
-                <TableCell>
-                  <Link href={fullUrl}>{fullUrl}</Link>
-                </TableCell>
-                <TableCell className={getStatusColor(responseCode)}>
-                  {responseCode}
-                </TableCell>
-                <TableCell>{requestDuration}</TableCell>
-                <TableCell>{date}</TableCell>
-                <TableCell>{sizeGenerator(requestSize)}</TableCell>
-                <TableCell>{sizeGenerator(responseSize)}</TableCell>
-                <TableCell>{errorDetails ?? '-'}</TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
-      </Table>
+      <Suspense fallback={<Skeleton className="w-[95vw] h-[60vh]" />}>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {HEADERS.map((key, index) => (
+                <TableHead className="w-[100px]" key={index}>
+                  {t(key)}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {historyDB.map(
+              ({
+                id,
+                method,
+                fullUrl,
+                endpoint,
+                requestDuration,
+                responseCode,
+                requestSize,
+                responseSize,
+                date,
+                errorDetails,
+              }) => (
+                <TableRow className="hover:bg-gray-100" key={id}>
+                  <TableCell>
+                    <Badge
+                      className={`bg-transparent text-sm ${getMethodColor(method)}`}
+                    >
+                      {method}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>{endpoint}</TableCell>
+                  <TableCell>
+                    <Link href={fullUrl}>{fullUrl}</Link>
+                  </TableCell>
+                  <TableCell className={getStatusColor(responseCode)}>
+                    {responseCode}
+                  </TableCell>
+                  <TableCell>{requestDuration}</TableCell>
+                  <TableCell>{date}</TableCell>
+                  <TableCell>{sizeGenerator(requestSize)}</TableCell>
+                  <TableCell>{sizeGenerator(responseSize)}</TableCell>
+                  <TableCell>{errorDetails ?? '-'}</TableCell>
+                </TableRow>
+              )
+            )}
+          </TableBody>
+        </Table>
+      </Suspense>
     </div>
   );
 }
