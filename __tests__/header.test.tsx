@@ -1,22 +1,26 @@
 import { Header } from '@components';
 import { render, screen } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
+import { ReactNode } from 'react';
 
 vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
   useLocale: () => 'en',
-  Link: ({ href, children }: any) => <a href={href}>{children}</a>,
-}))
+}));
 
 vi.mock('@i18n', () => ({
   useRouter: () => ({ push: vi.fn() }),
   usePathname: () => '/',
-  Link: ({ href, children }: any) => <a href={href}>{children}</a>,
-}))
+  Link: ({ href, children }: { href: string; children: ReactNode }) => (
+    <a href={href}>{children}</a>
+  ),
+}));
 describe('Header render test', () => {
   it('render header', async () => {
-    render(<Header status='public'/>)
+    render(<Header status="public" />);
 
-    expect(screen.getByRole('heading',{ level: 1  })).toHaveTextContent('REST API Client')
-  })
-})
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'REST API Client'
+    );
+  });
+});

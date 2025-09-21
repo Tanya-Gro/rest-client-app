@@ -14,11 +14,13 @@ afterEach(() => {
 
 describe('VariablesContent render test', () => {
   it('render VariablesContent', async () => {
-    render(<VariablesContent userEmail={'12345@gmail.com'} />)
+    render(<VariablesContent userEmail={'12345@gmail.com'} />);
 
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('title')
-  })
-})
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+      'title'
+    );
+  });
+});
 describe('VariablesContent form.watch effect', () => {
   it('writes to localStorage ', async () => {
     render(<VariablesContent userEmail="test@example.com" />);

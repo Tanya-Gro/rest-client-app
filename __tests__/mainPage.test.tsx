@@ -1,13 +1,18 @@
 import { vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import Main from "../app/[locale]/(private)/main/page";
+import Main from '../app/[locale]/(private)/main/page';
+import { ReactNode } from 'react';
 
 vi.mock('@components', () => ({
-  Button: ({ children }: any) => <button>{children}</button>,
+  Button: ({ children }: { children: ReactNode }) => (
+    <button>{children}</button>
+  ),
 }));
 
 vi.mock('@i18n', () => ({
-  Link: ({ href, children }: any) => <a href={href}>{children}</a>,
+  Link: ({ href, children }: { href: string; children: ReactNode }) => (
+    <a href={href}>{children}</a>
+  ),
 }));
 
 vi.mock('next-intl/server', () => ({
