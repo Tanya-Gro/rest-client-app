@@ -1,6 +1,6 @@
 import { type Mock } from 'vitest';
 import * as auth from 'next-auth';
-import { prisma } from '@/lib/prisma/prisma';
+import prisma from '@/lib/prisma/prisma';
 import { createHistoryPost, getHistoryPosts } from '../app/actions/history';
 import { HistoryPostType } from '@types';
 
@@ -24,13 +24,6 @@ vi.mock('next-auth', async (importOriginal) => {
   const actual = await importOriginal<typeof auth>();
   return { ...actual, getServerSession: vi.fn() as Mock };
 });
-
-vi.mock('@/lib/prisma/prisma', () => ({
-  prisma: {
-    user: { findUnique: vi.fn() as Mock },
-    history: { create: vi.fn() as Mock, findMany: vi.fn() as Mock },
-  },
-}));
 
 const mockSession = (email?: string) => (email ? { user: { email } } : null);
 
