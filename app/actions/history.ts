@@ -2,7 +2,7 @@
 
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
-import { prisma } from '@/lib/prisma/prisma';
+import prisma from '@/lib/prisma/prisma';
 import { HistoryPostType } from '@/types';
 
 export async function createHistoryPost(postData: HistoryPostType) {
