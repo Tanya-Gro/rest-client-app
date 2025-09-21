@@ -1,14 +1,28 @@
 'use client';
 
 import { ResponseData } from '@types';
-import { Request } from '@components';
-import { Response } from '@components';
 import { useState } from 'react';
 import { handleRequest } from '../../../../actions/request';
 import { toast } from 'sonner';
 import { Client } from '@entities';
 import { constructUrl, decodeBase64 } from '@helpers';
 import { useParams, useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
+import { RequestSkeleton, ResponseSkeleton } from '@components';
+
+const Request = dynamic(
+  () => import('@components').then((onFullfilled) => onFullfilled.Request),
+  {
+    loading: () => <RequestSkeleton />,
+  }
+);
+
+const Response = dynamic(
+  () => import('@components').then((onFullfilled) => onFullfilled.Response),
+  {
+    loading: () => <ResponseSkeleton />,
+  }
+);
 
 export default function RestClient() {
   const [responseData, setResponseData] = useState<ResponseData | null>(null);

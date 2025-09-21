@@ -1,13 +1,32 @@
 'use client';
 
 import type { Variables } from '@types';
-import { ButtonWithTooltip, Form, VariableRow } from '@components';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { SquarePlus } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { VariablesSchema } from '@entities';
+import dynamic from 'next/dynamic';
+import { Form } from './ui';
+import { VariableRowSkeleton, ButtonWithTooltipSkeleton } from './loaders';
+
+const VariableRow = dynamic(
+  () => import('@components').then((onFullfilled) => onFullfilled.VariableRow),
+  {
+    loading: () => <VariableRowSkeleton />,
+  }
+);
+
+const ButtonWithTooltip = dynamic(
+  () =>
+    import('@components').then(
+      (onFullfilled) => onFullfilled.ButtonWithTooltip
+    ),
+  {
+    loading: () => <ButtonWithTooltipSkeleton />,
+  }
+);
 
 type Props = {
   userEmail: string;
@@ -86,11 +105,12 @@ export function VariablesContent({ userEmail }: Props) {
           onSubmit={form.handleSubmit(() => {})}
           className="flex flex-col gap-1 grow-1"
         >
-          {ButtonWithTooltip(
-            () => append({ key: '', value: '' }),
-            <SquarePlus size={20} />,
-            t('append')
-          )}
+          <ButtonWithTooltip
+            handleClick={() => append({ key: '', value: '' })}
+            tooltip={t('append')}
+          >
+            <SquarePlus size={20} />
+          </ButtonWithTooltip>
 
           {fields.map((field, i) => (
             <VariableRow key={field.id} index={i} form={form} remove={remove} />

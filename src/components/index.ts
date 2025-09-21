@@ -45,3 +45,4 @@ export { Response } from './response';
 export { VariablesContent } from './variablesContent';
 export { ButtonWithTooltip } from './buttonWithTooltip';
 export { VariableRow } from './variableRow';
+export { RequestSkeleton, ResponseSkeleton } from './loaders';

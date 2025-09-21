@@ -58,7 +58,9 @@ export function VariableRow({ index, form, remove }: Props) {
         )}
       />
 
-      {ButtonWithTooltip(copyHandler, <Copy size={20} />, t('copyTooltip'))}
+      <ButtonWithTooltip handleClick={copyHandler} tooltip={t('copyTooltip')}>
+        <Copy size={20} />
+      </ButtonWithTooltip>
 
       <FormField
         control={form.control}
@@ -72,11 +74,12 @@ export function VariableRow({ index, form, remove }: Props) {
         )}
       />
 
-      {ButtonWithTooltip(
-        () => remove(index),
-        <X size={20} />,
-        t('removeTooltip')
-      )}
+      <ButtonWithTooltip
+        handleClick={() => remove(index)}
+        tooltip={t('removeTooltip')}
+      >
+        <X size={20} />
+      </ButtonWithTooltip>
     </div>
   );
 }
