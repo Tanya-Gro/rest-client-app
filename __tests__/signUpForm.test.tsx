@@ -4,8 +4,9 @@ import { SignUpForm } from '@auth';
 
 const mockRegisterUser = vi.fn();
 vi.mock('../../../app/actions/register', () => ({
-  registerUser: (...args: any[]) => mockRegisterUser(...args),
+  registerUser: (...args: string[]) => mockRegisterUser(...args),
 }));
+
 const mockSignIn = vi.fn();
 const ROLE_OPTIONS = { name: /registration.button/i };
 
@@ -37,7 +38,10 @@ describe('SignUpForm', () => {
 
     render(<SignUpForm />);
     await user.type(screen.getByLabelText(/Email/i), 'test@test.com');
-    await user.type(screen.getByLabelText(/registration.password/i), 'ValidPass123!');
+    await user.type(
+      screen.getByLabelText(/registration.password/i),
+      'ValidPass123!'
+    );
 
     const submitButton = screen.getByRole('button', ROLE_OPTIONS);
     await user.click(submitButton);
