@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Body,
   Button,
   Form,
   FormControl,
@@ -20,42 +21,44 @@ import {
   TabsTrigger,
 } from '@components';
 import { Headers } from './headers';
-import { Body } from './body';
 import { GeneratedCode } from './generatedCode';
 import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import z from 'zod';
+import { Toaster } from 'sonner';
+import { getMethodColor } from '@helpers';
 
-const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'];
+const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
-export const Request = () => {
+type Props = {
+  onSubmit: (data: Client) => void;
+  onLoadData: Partial<Client> | null;
+};
+
+export const Request = ({ onSubmit, onLoadData }: Props) => {
   const t = useTranslations('client');
-
-  type Client = z.infer<ReturnType<typeof Client>>;
 
   const form = useForm<Client>({
     resolver: zodResolver(Client(t)),
     defaultValues: {
-      method: 'get',
-      url: '',
-      bodyType: 'json',
-      body: '',
-      headers: [{ header: '', value: '' }],
+      method: onLoadData?.method ?? 'GET',
+      url: onLoadData?.url ?? '',
+      bodyType: onLoadData?.bodyType ?? 'json',
+      body: onLoadData?.body ?? '',
+      headers: onLoadData?.headers ?? [{ header: '', value: '' }],
     },
   });
 
   return (
     <div className="flex flex-col gap-3 w-full">
+      <Toaster richColors closeButton />
       <h2 className="text-2xl font-semibold tracking-tight">
         {t('headingRequest')}
       </h2>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(() => {
-            console.log(form.getValues());
-          })}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-1"
         >
           <section className="flex w-full gap-2">
@@ -65,7 +68,9 @@ export const Request = () => {
                 <FormItem>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-[130px] cursor-pointer">
+                      <SelectTrigger
+                        className={`w-[130px] cursor-pointer font-semibold ${getMethodColor(field.value)}`}
+                      >
                         <SelectValue placeholder={t('methodPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
@@ -74,9 +79,9 @@ export const Request = () => {
                             <SelectItem
                               key={method}
                               value={method}
-                              className="cursor-pointer"
+                              className={`cursor-pointer font-semibold ${getMethodColor(method)}`}
                             >
-                              {method.toUpperCase()}
+                              {method}
                             </SelectItem>
                           ))}
                         </SelectGroup>

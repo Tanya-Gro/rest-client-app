@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "types": ["next-auth"],
+    "types": ["next-auth", "vitest/globals"],
     "incremental": true,
     "plugins": [
       {
@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@components": ["./src/components/index.ts"],
+      "@auth": ["./src/components/auth/index.ts"],
       "@lib": ["./src/lib/index.ts"],
       "@i18n": ["./src/i18n/index.ts"],
       "@entities": ["./src/entities/index.ts"],

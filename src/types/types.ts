@@ -1,3 +1,6 @@
+import { VariablesSchema } from '@entities';
+import z from 'zod';
+
 export type Method =
   | 'GET'
   | 'POST'
@@ -6,3 +9,25 @@ export type Method =
   | 'DELETE'
   | 'HEAD'
   | 'OPTIONS';
+
+export type HistoryPostType = {
+  responseCode: number;
+  responseStatus: string;
+  requestDuration: number;
+  method: Method;
+  requestSize: number;
+  responseSize: number;
+  endpoint: string;
+  fullUrl: string;
+  date: string;
+  id?: string;
+  errorDetails?: string | null;
+};
+
+export type Variables = z.infer<ReturnType<typeof VariablesSchema>>;
+
+export type ResponseData = {
+  status?: number;
+  statusText: string;
+  body?: string;
+};

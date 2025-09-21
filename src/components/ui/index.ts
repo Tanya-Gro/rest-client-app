@@ -1,13 +1,16 @@
+export { Skeleton } from './skeleton';
 export { Textarea } from './textarea';
 export { Button } from './button';
 export { Input } from './input';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 export {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from './card';
 export { Label } from '@/components/ui/label';
 export {
@@ -33,3 +36,12 @@ export {
   TableCell,
   TableCaption,
 } from './table';
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from './tooltip';
+
+export { Toaster } from './sonner';

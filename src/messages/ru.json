@@ -5,6 +5,7 @@
     "methodPlaceholder": "Метод",
     "urlPlaceholder": "Введите URL",
     "bodyPlaceholder": "Содержимое JSON",
+    "textPlaceholder": "Введите текст",
     "btn": "Отправить",
     "tabHeaders": "Заголовки",
     "tabBody": "Тело",
@@ -15,10 +16,15 @@
     "headersHeader": "Заголовок",
     "value": "Значение",
     "jsonError": "Неверный формат JSON",
-    "urlError": "Неверный формат URL"
+    "urlError": "Неверный формат URL",
+    "noResponse": "Отправьте запрос, чтобы увидеть ответ"
   },
   "main": {
-    "text": "Главная страница"
+    "textNotAuthorized": "Добро пожаловать!",
+    "textAuthorized": "С возвращением!",
+    "clientBtn": "REST Клиент",
+    "historyBtn": "История",
+    "variablesBtn": "Переменные"
   },
   "login": {
     "header": "Войти в аккаунт",
@@ -49,10 +55,12 @@
     "number": "Пароль должен содержать не менее одной цифры",
     "special-symbol": "Пароль должен содержать не менее одного специального символа"
   },
+  "request": {
+    "russian-header": "Заголовок не должен содержать кириллических символов"
+  },
   "header": {
-    "buttonSignIn": "Войти",
-    "buttonSignUp": "Регистрация",
-    "buttonSignOut": "Выйти"
+    "buttonSignOut": "Выйти",
+    "buttonMain": "Главная"
   },
   "footer": {
     "title": "Наша команда:",
@@ -73,5 +81,23 @@
     "requestSize": "Размер запроса",
     "responseSize": "Размер ответа",
     "error": "Детали ошибок"
-  }
+  },
+  "notFound": {
+    "page": "Страница не найдена",
+    "button": "На главную"
+  },
+  "variables": {
+    "title": "Переменные",
+    "key": "Ключ",
+    "value": "Значение",
+    "removeTooltip": "Удалить переменную и её значение",
+    "copyTooltip": "Скопировать ключ",
+    "errorSaving": "Ошибка сохранения переменных",
+    "errorRestore": "Сохраненные данные невалидны",
+    "uniqueKey": "Ключ не уникален",
+    "requiredKey": "Требуется ключ",
+    "append": "Добавить переменную"
+  },
+  "buttonSignIn": "Войти",
+  "buttonSignUp": "Регистрация"
 }

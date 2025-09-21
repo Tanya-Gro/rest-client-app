@@ -1,9 +1,9 @@
 'use client';
 
-import { Input, Button, Label } from '@/components/ui';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
+import { Input, Button, Label } from '@/components';
 import { getAuthSchema } from '@/entities/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -68,7 +68,7 @@ export function SignInForm() {
             disabled={isLoading}
           />
           {errors.email && (
-            <p className="text-sm text-red-500 absolute -bottom-7 left-1">
+            <p className="text-sm text-red-500 absolute -bottom-10 left-1">
               {errors.email.message}
             </p>
           )}
@@ -84,7 +84,7 @@ export function SignInForm() {
             disabled={isLoading}
           />
           {errors.password && (
-            <p className="text-sm text-red-500 absolute -bottom-7 left-1">
+            <p className="text-sm text-red-500 absolute -bottom-10 left-1">
               {errors.password.message}
             </p>
           )}

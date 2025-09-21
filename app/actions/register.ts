@@ -1,8 +1,8 @@
 'use server';
 
-import { prisma } from '@/lib/prisma/prisma';
 import bcrypt from 'bcryptjs';
 import { AUTH_API_ERROR } from '@constants';
+import prisma from '@/lib/prisma/prisma';
 
 export async function registerUser(formData: FormData) {
   const email = formData.get('email') as string;

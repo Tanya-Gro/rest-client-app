@@ -39,8 +39,9 @@ The goal is to create a full-featured, yet simplified Postman-like client, where
 - **Next.js** (framework & routing) 🛠️
 - **App Router** (routing) 🚁
 - **TypeScript** 🔤
-- **Redux**(state management) 🔄
-- **Supabase** (authentication) 🔑
+- **NextAuth.js** (authentication) 🔑
+- **PostgreSQL** (database) 🐘
+- **Prisma** (ORM) 🌐
 - **Tailwind CSS + shadcn/ui** 💅
 - **React Hook Form** (forms) 📝
 - **i18n** (internationalization) 🌍
@@ -62,6 +63,8 @@ Vitest is a unit testing framework
   `npm run test`
 - **Run tests with coverage report:**\
   `npm run test:coverage`
+- **Run tests with UI:**\
+  `npm run test:ui` 
 
 ### 🧹 ESLint
 
@@ -78,8 +81,8 @@ Prettier formats code for consistent style
 
 - **Format code:**\
   `npm run format`
-- **Check formatting without modifying files:**\
-  `npm run ci:format`
+- **Check and fix formatting without modifying files:**\
+  `npm run format:fix`
 
 ### 🦸‍♂️ Husky
 
@@ -94,5 +97,11 @@ Husky helps manage Git hooks, ensuring certain tasks are performed before commit
   `git clone https://github.com/Tanya-Gro/rest-client-app`
 - **Install dependencies:**\
   `npm install`
+- **Set up environment variables:**\
+  Copy `.env.example` to `.env` and fill in the required values.
+- **Generate Prisma client:**\
+  `npx prisma generate`
+- **Run database migrations:**\
+  `npx prisma migrate dev`
 - **Start the development server:**\
   `npm run dev`

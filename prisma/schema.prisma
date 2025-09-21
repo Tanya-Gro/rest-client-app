@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -24,9 +24,27 @@ model Session {
 }
 
 model History {
-  id     String   @id @default(cuid())
+  id     String @id @default(cuid())
   userId String
   user   User     @relation(fields: [userId], references: [id])
-  action String
-  date   DateTime @default(now())
+  responseCode Int
+  responseStatus String
+  requestDuration Int
+  method Method
+  requestSize Int
+  responseSize Int
+  errorDetails String?
+  endpoint String
+  createdAt DateTime @default(now())
+  date String
+  fullUrl String
+}
+enum Method {
+    GET
+    POST
+      PUT
+      PATCH
+      DELETE
+      HEAD
+      OPTIONS
 }

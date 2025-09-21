@@ -16,18 +16,29 @@ import {
 } from './ui';
 import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
-import z from 'zod';
 
-export const Body = () => {
+type Props = {
+  body?: string;
+};
+
+export const Body = ({ body }: Props) => {
   const t = useTranslations('client');
 
-  type Client = z.infer<ReturnType<typeof Client>>;
-
   const form = useFormContext<Client>();
+
+  const prettifyJSON = (json: string) => {
+    try {
+      const parsed = JSON.parse(json);
+      return JSON.stringify(parsed, null, 2);
+    } catch {
+      return json;
+    }
+  };
 
   if (!form) {
     return (
       <Textarea
+        value={body ? prettifyJSON(body) : ''}
         placeholder={t('bodyPlaceholder')}
         readOnly
         className="font-mono resize-none cursor-default"
@@ -70,12 +81,7 @@ export const Body = () => {
               e.preventDefault();
               const json = form.getValues('body');
               if (json) {
-                try {
-                  const parsed = JSON.parse(json);
-                  form.setValue('body', JSON.stringify(parsed, null, 2));
-                } catch {
-                  return;
-                }
+                form.setValue('body', prettifyJSON(json));
               }
             }}
           >
@@ -91,7 +97,9 @@ export const Body = () => {
             <FormControl>
               <Textarea
                 placeholder={
-                  bodyType === 'json' ? '{ "example": "value" }' : 'Enter text'
+                  bodyType === 'json'
+                    ? '{ "example": "value" }'
+                    : t('textPlaceholder')
                 }
                 className="font-mono"
                 {...field}
