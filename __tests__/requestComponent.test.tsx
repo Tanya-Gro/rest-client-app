@@ -1,8 +1,8 @@
 import {  Request } from '@components';
 import { render, screen } from '@testing-library/react';
 
-describe('Footer render test', () => {
-  it('render footer', async () => {
+describe('Request render test', () => {
+  it('render Request', async () => {
     render(<Request />)
 
     expect(screen.getByRole('button',{ name: /btn/i  }))
