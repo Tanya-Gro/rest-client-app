@@ -5,6 +5,7 @@
     "methodPlaceholder": "Method",
     "urlPlaceholder": "Enter URL",
     "bodyPlaceholder": "JSON Viewer",
+    "textPlaceholder": "Enter text",
     "btn": "Send",
     "tabHeaders": "Headers",
     "tabBody": "Body",
@@ -15,7 +16,8 @@
     "headersHeader": "Header",
     "value": "Value",
     "jsonError": "Incorrect JSON format",
-    "urlError": "Incorrect URL format"
+    "urlError": "Incorrect URL format",
+    "noResponse": "Make a request to see the response"
   },
   "main": {
     "textNotAuthorized": "Welcome!",

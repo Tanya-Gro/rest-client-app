@@ -1,63 +1,37 @@
-'use server';
-import z from 'zod';
 import { Client } from '@entities';
+import { buildRequest } from './buildRequest';
 
-export async function bodyBuilder(form: Form) {
-  const headers = filterHeaders(form.headers);
-  const methodsWithBody = ['POST', 'PUT', 'PATCH'];
-  const canHaveBody = methodsWithBody.includes(form.method);
+export const encodeBase64 = (data: string) => {
+  return btoa(data).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
 
-  return {
-    method: form.method,
-    ...(headers ? { headers } : {}),
-    ...(canHaveBody && { body: form.body }),
-  };
-}
+export const decodeBase64 = (data: string) => {
+  return atob(data.replace(/-/g, '+').replace(/_/g, '/'));
+};
 
-export async function dateToString(date: Date): Promise<string> {
+export const constructUrl = (formData: Client) => {
+  const requestObject = buildRequest(formData);
+  const searchParams = new URLSearchParams();
+
+  const method = requestObject.method;
+  const url = encodeBase64(formData.url);
+
+  if (requestObject.headers) {
+    Object.entries(requestObject.headers).forEach(([key, value]) => {
+      searchParams.append(key, value);
+    });
+  }
+
+  const searchParamsString = searchParams.toString();
+
+  return `/rest-client/${method}/${url}${requestObject.body ? `/${encodeBase64(requestObject.body)}` : ''}${searchParamsString ? `?${searchParamsString}` : ''}`;
+};
+
+export const dateToString = (date: Date) => {
   const year = String(date.getFullYear()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   const hour = String(date.getHours()).padStart(2, '0');
   const minute = String(date.getMinutes()).padStart(2, '0');
   return `${year}-${month}-${day} ${hour}:${minute}`;
-}
-
-export async function getFullUrl(form: Form): Promise<string> {
-  const method = `${form.method}`;
-  const url = encodeRequestData(form.url);
-  const body = form.body ? encodeRequestData(form.body) : null;
-  const params = new URLSearchParams();
-  if (form.headers && form.headers.length > 0) {
-    for (const { header, value } of form.headers) {
-      params.append(header, value);
-    }
-  }
-  const headers = params.toString();
-  return `${method}/${url}${body ? `/${body}` : ''}${headers ? `?${headers}` : ''}`;
-}
-
-function filterHeaders(
-  headers: { header: string; value: string }[] | undefined
-): HeadersInit | undefined {
-  const filteredHeaders =
-    headers?.length && headers[0].header
-      ? headers
-          .filter(({ header, value }) => {
-            return !/[а-яА-ЯёЁ]/.test(header) && !/[а-яА-ЯёЁ]/.test(value);
-          })
-          .map(({ header, value }) => [header, value])
-      : [];
-  return filteredHeaders?.length > 0
-    ? Object.fromEntries(filteredHeaders)
-    : undefined;
-}
-
-function encodeRequestData(data: string): string {
-  return btoa(JSON.stringify(data))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-}
-
-type Form = z.infer<ReturnType<typeof Client>>;
+};

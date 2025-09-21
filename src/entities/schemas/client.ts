@@ -45,3 +45,5 @@ export const Client = (t: (arg: string) => string) =>
         path: ['body'],
       }
     );
+
+export type Client = z.infer<ReturnType<typeof Client>>;
