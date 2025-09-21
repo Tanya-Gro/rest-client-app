@@ -1,6 +1,6 @@
-import { VariablesContent } from '@components';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../api/auth/[...nextauth]/route';
+import { VariablesContent } from '@components';
 
 export default async function Variables() {
   const session = await getServerSession(authOptions);

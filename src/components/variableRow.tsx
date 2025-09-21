@@ -61,6 +61,7 @@ export function VariableRow({ index, form, remove }: Props) {
       <ButtonWithTooltip handleClick={copyHandler} tooltip={t('copyTooltip')}>
         <Copy size={20} />
       </ButtonWithTooltip>
+
       <FormField
         control={form.control}
         name={valuePath}

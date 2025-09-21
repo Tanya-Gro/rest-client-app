@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@components';
 
-type ButtonWithTooltipProps = {
+type Props = {
   handleClick: () => void;
   children: ReactNode;
   tooltip: string;
@@ -11,7 +11,7 @@ export const ButtonWithTooltip = ({
   handleClick,
   children,
   tooltip,
-}: ButtonWithTooltipProps): ReactNode => {
+}: Props) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
