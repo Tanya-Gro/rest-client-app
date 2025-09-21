@@ -1,0 +1,103 @@
+{
+  "client": {
+    "headingRequest": "Запрос",
+    "headingResponse": "Ответ",
+    "methodPlaceholder": "Метод",
+    "urlPlaceholder": "Введите URL",
+    "bodyPlaceholder": "Содержимое JSON",
+    "textPlaceholder": "Введите текст",
+    "btn": "Отправить",
+    "tabHeaders": "Заголовки",
+    "tabBody": "Тело",
+    "tabCode": "Сгенерированный код",
+    "mode": "Формат",
+    "modeText": "Текст",
+    "prettify": "Форматировать",
+    "headersHeader": "Заголовок",
+    "value": "Значение",
+    "jsonError": "Неверный формат JSON",
+    "urlError": "Неверный формат URL",
+    "noResponse": "Отправьте запрос, чтобы увидеть ответ"
+  },
+  "main": {
+    "textNotAuthorized": "Добро пожаловать!",
+    "textAuthorized": "С возвращением!",
+    "clientBtn": "REST Клиент",
+    "historyBtn": "История",
+    "variablesBtn": "Переменные"
+  },
+  "login": {
+    "header": "Войти в аккаунт",
+    "header-description": "Введите Ваш email и пароль, чтобы войти в аккаунт",
+    "button": "Войти",
+    "password": "Пароль",
+    "loading": "Загрузка...",
+    "invalid": "Неправильный email или пароль",
+    "server-error": "Ошибка сервера",
+    "some-error": "Something went wrong"
+  },
+  "registration": {
+    "header": "Регистрация",
+    "header-description": "Введите Ваш email и пароль для регистрации",
+    "button": "Зарегистрироваться",
+    "password": "Пароль",
+    "loading": "Загрузка...",
+    "exists": "Пользователь уже существует",
+    "no-data": "Необходим пароль и email",
+    "server-error": "Ошибка сервера",
+    "some-error": "Что-то пошло не так"
+  },
+  "auth-schema": {
+    "email": "Email должен быть вида: m@example.com",
+    "length": "Пароль должен быть не менее 8 символов",
+    "uppercase": "Пароль должен содержать не менее одной заглавной буквы",
+    "lowercase": "Пароль должен содержать не менее одной строчной буквы",
+    "number": "Пароль должен содержать не менее одной цифры",
+    "special-symbol": "Пароль должен содержать не менее одного специального символа"
+  },
+  "request": {
+    "russian-header": "Заголовок не должен содержать кириллических символов"
+  },
+  "header": {
+    "buttonSignOut": "Выйти",
+    "buttonMain": "Главная"
+  },
+  "footer": {
+    "title": "Наша команда:",
+    "Tanya": "Тимлид",
+    "Mariya": "Архитектор",
+    "Victor": "Двигатель команды"
+  },
+  "history": {
+    "titleNotFound": "Вы ещё не выполнили ни одного запроса. Попробуйте отправить первый",
+    "title": "История и Аналитика",
+    "buttonREST": "REST Клиент",
+    "method": "Метод",
+    "url": "Эндпоинт / URL",
+    "link": "Ссылка",
+    "status": "Статус код",
+    "latency": "Задержка",
+    "timestamp": "Время",
+    "requestSize": "Размер запроса",
+    "responseSize": "Размер ответа",
+    "error": "Детали ошибок"
+  },
+  "notFound": {
+    "page": "Страница не найдена",
+    "button": "На главную"
+  },
+  "variables": {
+    "title": "Переменные",
+    "key": "Ключ",
+    "value": "Значение",
+    "removeTooltip": "Удалить переменную и её значение",
+    "copyTooltip": "Скопировать ключ",
+    "errorSaving": "Ошибка сохранения переменных",
+    "errorRestore": "Сохраненные данные невалидны",
+    "uniqueKey": "Ключ не уникален",
+    "requiredKey": "Требуется ключ",
+    "append": "Добавить переменную"
+  },
+  "buttonSignIn": "Войти",
+  "buttonSignUp": "Регистрация"
+}

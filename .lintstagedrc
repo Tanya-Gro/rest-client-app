@@ -1,0 +1,6 @@
+{
+  "./{src,app}/**/*.{ts,tsx}": [
+    "eslint --fix -c eslint-strict.config.mjs",
+    "prettier --write"
+  ]
+}
