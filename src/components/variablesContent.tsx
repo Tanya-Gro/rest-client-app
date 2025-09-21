@@ -86,12 +86,12 @@ export function VariablesContent({ userEmail }: Props) {
           onSubmit={form.handleSubmit(() => {})}
           className="flex flex-col gap-1 grow-1"
         >
-          {ButtonWithTooltip(
-            () => append({ key: '', value: '' }),
-            <SquarePlus size={20} />,
-            t('append')
-          )}
-
+          <ButtonWithTooltip
+            handleClick={() => append({ key: '', value: '' })}
+            tooltip={t('append')}
+          >
+            <SquarePlus size={20} />
+          </ButtonWithTooltip>
           {fields.map((field, i) => (
             <VariableRow key={field.id} index={i} form={form} remove={remove} />
           ))}
