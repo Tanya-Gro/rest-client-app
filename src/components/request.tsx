@@ -26,38 +26,39 @@ import { useTranslations } from 'next-intl';
 import { Client } from '@entities';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import z from 'zod';
-import { handleRequest } from '../../app/actions/request';
+import { Toaster } from 'sonner';
+import { getMethodColor } from '@helpers';
 
 const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
 
-export const Request = () => {
-  const t = useTranslations('client');
+type Props = {
+  onSubmit: (data: Client) => void;
+  onLoadData: Partial<Client> | null;
+};
 
-  type Client = z.infer<ReturnType<typeof Client>>;
+export const Request = ({ onSubmit, onLoadData }: Props) => {
+  const t = useTranslations('client');
 
   const form = useForm<Client>({
     resolver: zodResolver(Client(t)),
     defaultValues: {
-      method: 'GET',
-      url: '',
-      bodyType: 'json',
-      body: '',
-      headers: [{ header: '', value: '' }],
+      method: onLoadData?.method ?? 'GET',
+      url: onLoadData?.url ?? '',
+      bodyType: onLoadData?.bodyType ?? 'json',
+      body: onLoadData?.body ?? '',
+      headers: onLoadData?.headers ?? [{ header: '', value: '' }],
     },
   });
 
   return (
     <div className="flex flex-col gap-3 w-full">
+      <Toaster richColors closeButton />
       <h2 className="text-2xl font-semibold tracking-tight">
         {t('headingRequest')}
       </h2>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(() => {
-            const formValues: Client = form.getValues();
-            handleRequest(formValues);
-          })}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-1"
         >
           <section className="flex w-full gap-2">
@@ -67,7 +68,9 @@ export const Request = () => {
                 <FormItem>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-[130px] cursor-pointer">
+                      <SelectTrigger
+                        className={`w-[130px] cursor-pointer font-semibold ${getMethodColor(field.value)}`}
+                      >
                         <SelectValue placeholder={t('methodPlaceholder')} />
                       </SelectTrigger>
                       <SelectContent>
@@ -76,7 +79,7 @@ export const Request = () => {
                             <SelectItem
                               key={method}
                               value={method}
-                              className="cursor-pointer"
+                              className={`cursor-pointer font-semibold ${getMethodColor(method)}`}
                             >
                               {method}
                             </SelectItem>

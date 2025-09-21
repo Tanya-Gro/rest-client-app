@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { Avatar, AvatarFallback } from '@components';
 
 describe('Avatar component', () => {
-  it('renders Avatar', () => {
+  it('renders Avatar with default styles', () => {
     render(
       <NextIntlClientProvider locale="en" messages={{}}>
         <Avatar data-testid="avatar" />
@@ -13,7 +13,7 @@ describe('Avatar component', () => {
     expect(avatar).toBeInTheDocument();
   });
 
-  it('renders AvatarFallback', () => {
+  it('renders AvatarFallback with default styles', () => {
     render(
       <NextIntlClientProvider locale="en" messages={{}}>
         <Avatar>
