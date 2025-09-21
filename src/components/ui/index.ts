@@ -5,10 +5,12 @@ export { Input } from './input';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 export {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from './card';
 export { Label } from '@/components/ui/label';
 export {
